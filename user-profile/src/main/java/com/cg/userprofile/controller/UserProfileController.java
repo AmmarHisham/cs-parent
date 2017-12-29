@@ -18,7 +18,6 @@ public class UserProfileController {
 
 	@Autowired
 	private UserProfileRepo profileRepo;
-
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public User createUser(@RequestBody User user) {
 		return profileRepo.save(user);
@@ -27,13 +26,9 @@ public class UserProfileController {
 	@RequestMapping(value = "findbyid", method = RequestMethod.GET, params = { "userId" })
 	public User getUserById(@RequestParam(value = "userId", required = true) String userId) {
 		return profileRepo.findOne(Long.parseLong(userId));
-	}
+	} 
 
-	@RequestMapping(value = "all", method = RequestMethod.GET)
-	public List<User> getAllUser() {
-		return profileRepo.findAll();
-	}
-
+	
 	@RequestMapping(value = "credit", method = RequestMethod.POST, params = { "userId", "amount" })
 	public User credit(@RequestParam(value = "userId", required = true) String userId,
 			@RequestParam(value = "amount", required = true) String amount) {
@@ -50,8 +45,5 @@ public class UserProfileController {
 		return profileRepo.save(user);
 	}
 
-	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public User update(@RequestBody User user) {
-		return profileRepo.save(user);
-	}
+	
 }
