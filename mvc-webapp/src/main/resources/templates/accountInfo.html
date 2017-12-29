@@ -1,29 +1,83 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-   <head>
-      <meta charset="UTF-8">
-      <title>Account Info</title>
-      <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
-   </head>
-   <body>
-    
-      <th:block th:include="/_header"></th:block>
-      <th:block th:include="/_menu"></th:block>
-       
-      <div class="page-title">Account Info</div>
-      <div class="account-container">
-         <ul>
-            <li>User Name: <span th:utext="${#request.userPrincipal.name}"></span></li>
-            <li>
-               Role:
-               <ul>
-                  <li th:each="auth : ${userDetails.authorities}" th:utext="${auth.authority}"></li>
-               </ul>
-            </li>
-         </ul>
-      </div>
-       
-      <th:block th:include="/_footer"></th:block>
-       
-   </body>
+<head>
+<title>Login | E-Shopper</title>
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/font-awesome.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/main.css}" />
+</head>
+<body>
+	<th:block th:include="/_header1"></th:block>
+	<br/><br/><br/><br/><br/>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="left-sidebar">
+						<h2>Category</h2>
+						<div class="panel-group category-products" id="accordian">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a href="Mobiles.html">Mobiles</a>
+									</h4>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a href="Laptops.html">Laptops</a>
+									</h4>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a href="Clothing.html">Clothing</a>
+									</h4>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a href="Bags.html">Bags</a>
+									</h4>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a href="Shoes.html">Shoes</a>
+									</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<table height="210" width="500" align="center">
+				<tr></tr><tr></tr><tr></tr>
+					<tr>
+						<th>First Name</th><th>:</th>
+						<th th:utext="${userinfo.firstName}"></th>
+					</tr>
+					<tr>
+						<th>Last Name</th><th>:</th>
+						<th th:utext="${userinfo.lastName}"></th>
+					</tr>
+					<tr>
+						<th>Gender</th><th>:</th>
+						<th th:utext="${userinfo.gender}"></th>
+					</tr>
+					<tr>
+						<th>Email Id</th><th>:</th>
+						<th th:utext="${userinfo.emailId}"></th>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</section>
+   <br/><br/><br/><br/><br/><br/><br/>
+	<th:block th:include="/_footer"></th:block>
+</body>
 </html>

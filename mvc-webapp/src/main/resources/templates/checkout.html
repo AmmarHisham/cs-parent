@@ -1,0 +1,67 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cart | E-Shopper</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/font-awesome.min.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/main.css}"/>  
+    <link rel="stylesheet" type="text/css" th:href="@{//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css}" /> 
+</head>
+
+<body>
+	<!--/header-->
+<th:block th:include="/_header2"></th:block>
+	<section id="cart_items">
+		<div class="container">
+			
+
+			<div class="step-one">
+				<h2 class="heading">Shipping Information</h2>
+			</div>
+			<!--/checkout-options-->
+
+			<!--/register-req-->
+
+			<div class="shopper-informations">
+				<div class="row">
+					<div class="col-sm-3">
+						
+					</div>
+					<div class="col-sm-5 clearfix">
+						<div class="bill-to">
+							<p>Bill To</p>
+							<div class="form-one">
+								<form action="" method="get">
+									<input type="text" name="name" placeholder="Name" />
+									<input type="text" name="email" placeholder="Email" />
+									<input type="text" name="phone" placeholder="Phone" />
+									<input type="textarea" name="addressLine1" placeholder="Address line1" />
+									<input type="textarea" name="addressLine2" placeholder="Address Line2" />
+									<input type="text" name="pin" placeholder="pin code" />
+									<!-- <select>
+										<option> Country </option>
+										<option>United States</option>
+										<option>Bangladesh</option>
+										<option>UK</option>
+										<option>India</option>
+										<option>Pakistan</option>
+										<option>Ucrane</option>
+										<option>Canada</option>
+										<option>Dubai</option>
+									</select> -->
+									<br/><br/><br/><br/>
+									
+									    <input type="submit" value="Payment"  style="background-color:orange"/>
+								</form>
+							</div>
+							
+						</div>
+					</div>
+					<div class="col-sm-4">
+							
+					</div>					
+				</div>
+			</div>
+			
+		</div>
+	</section> 
+</body></html>

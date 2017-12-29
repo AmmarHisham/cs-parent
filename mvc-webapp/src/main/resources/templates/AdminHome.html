@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>E-Shopper</title>
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/font-awesome.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/main.css}" />
+</head>
+<body>
+	<th:block th:include="/_header2"></th:block>
+	<section>
+		<div class="container">
+			<div class="row">
+				
+				<div class="col-sm-9 padding-right">
+					<div class="features_items">
+						<h2 class="title text-center">Products List</h2>
+						<th:block th:each="cat : ${catalog}">
+							<div class="col-sm-4">
+								<div class="product-image-wrapper">
+										<div class="productinfo text-center">
+											<p th:utext="${cat.id}"></p>
+											<h2 th:utext="${cat.name}"></h2>
+											<p th:utext="${cat.price}"></p>
+											<a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>
+									</div>
+								</div>
+							</div>
+						</th:block>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<br/><br/><br/><br/>
+	<th:block th:include="/_footer"></th:block>
+</body>
+</html>
