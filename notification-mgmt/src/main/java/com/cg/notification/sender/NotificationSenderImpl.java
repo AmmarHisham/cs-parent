@@ -29,7 +29,6 @@ public class NotificationSenderImpl extends AbstractNotificationSender<Notificat
 		CompletableFuture<String> future = new CompletableFuture<>();
 		try {
 			Thread.sleep(3000);
-			future.complete("");
 			future.complete("sent sms from future");
 		} catch (InterruptedException e) {
 			e.printStackTrace();

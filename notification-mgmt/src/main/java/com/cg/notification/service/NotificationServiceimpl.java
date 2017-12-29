@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.cg.notification.Notification;
 import com.cg.notification.RecipientType;
 import com.cg.notification.repo.NotificationRepo;
+import com.cg.notification.sender.NotificationSender;
 
 @Service
 public class NotificationServiceimpl implements NotificationService {
@@ -15,10 +16,17 @@ public class NotificationServiceimpl implements NotificationService {
 	@Autowired
 	private NotificationRepo notificationRepo;
 
+	@Autowired
+	private NotificationSender<Notification> notificationSender;
+
 	@Override
 	public Notification saveNotification(Notification notification) {
 		// TODO all business logic goes here
-		return notificationRepo.saveNotification(notification);
+		notification = notificationRepo.saveNotification(notification);
+		System.err.println("before sending notification from service layer");
+		notificationSender.sendNotification(notification);
+		System.err.println("after sending notification from service layer");
+		return notification;
 	}
 
 	@Override
