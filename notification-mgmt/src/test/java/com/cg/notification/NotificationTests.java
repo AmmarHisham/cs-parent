@@ -16,7 +16,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.cg.notification.service.NotificationService;
@@ -91,7 +90,7 @@ public class NotificationTests {
 		Notification n1 = notificationService.updateNotification(n);
 		assertNotNull(n);
 		assertTrue(n1.getId().equals(n.getId()));
-		assertEquals("updated ok", ReadStatus.READ,n1.getReadStatus());
+		assertEquals("updated ok", ReadStatus.READ, n1.getReadStatus());
 		assertFalse(n1.getId() != (n.getId()));
 		assertNotEquals("not updated", n1.getReadStatus(), ReadStatus.UNREAD);
 		assertNotEquals("not updated", n1.getNotificationType(), NotificationType.SUCCESS);

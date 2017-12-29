@@ -38,7 +38,7 @@ public class NotificationRepoImpl implements NotificationRepo {
 	public List<Notification> getByRecipientId(String id) {
 		return mongoRepo.findByRecipientId(id);
 	}
-
+	
 	@Override
 	public List<Notification> getByRecipientType(RecipientType type) {
 		return mongoRepo.findByRecipientType(type);

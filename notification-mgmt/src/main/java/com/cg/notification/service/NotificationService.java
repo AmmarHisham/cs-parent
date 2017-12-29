@@ -16,7 +16,6 @@ public interface NotificationService {
 	public Notification getNotificationById(String id);
 
 	public List<Notification> getByRecipientId(String recipientId);
-
+	
 	public List<Notification> getByRecipientType(RecipientType recipientType);
-
 }
