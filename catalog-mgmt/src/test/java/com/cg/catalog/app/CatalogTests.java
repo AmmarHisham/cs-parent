@@ -1,4 +1,4 @@
-package com.cg.app.test;
+package com.cg.catalog.app;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.ActiveProfiles;
@@ -35,6 +34,8 @@ import com.cg.catalog.app.controller.CatalogController;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @ActiveProfiles("test")
 public class CatalogTests {
+	
+	private static boolean setUpIsDone = false;
 
 	@Value("classpath:giftCard.json")
 	private Resource giftCard;
@@ -51,14 +52,15 @@ public class CatalogTests {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	
-	@Autowired
-	ApplicationContext ac;
-	
 	@Before
 	public void setup() {
-		mongoTemplate.insert(productData(), "Catalog_Products");
-		mongoTemplate.insert(giftData(), "Catalog_Gift_Card");
-
+		if(setUpIsDone) {
+			return;
+		}else {
+			mongoTemplate.insert(productData(), "Catalog_Products");
+			mongoTemplate.insert(giftData(), "Catalog_Gift_Card");
+			setUpIsDone = true;
+		}
 	}
 
 	private List<ProductCatalog> productData() {
@@ -67,9 +69,9 @@ public class CatalogTests {
 		catalog.setProductIdParent("pd12");
 		catalog.setProductIdChild("pd12A");
 		catalog.setPrice("200");
-		//catalog.setCatagoryName("clothing");
-		//catalog.setProductName("shirt");
-		//catalog.setImageUrl("pqr");
+		catalog.setCatagoryName("clothing");
+		catalog.setProductName("shirt");
+		catalog.setImageUrl("pqr");
 		list.add(catalog);
 		return list;
 	}
@@ -89,9 +91,9 @@ public class CatalogTests {
 		catalog.setProductIdParent("pd13");
 		catalog.setProductIdChild("pd13A");
 		catalog.setPrice("800");
-		//catalog.setCatagoryName("electronics");
-		//catalog.setImageUrl("imageUrl");
-		//catalog.setProductName("mobile");
+		catalog.setCatagoryName("electronics");
+		catalog.setImageUrl("xyz");
+		catalog.setProductName("mobile");
 		catalogController.addProduct(catalog);
 		List<ProductCatalog> list = catalogController.getAll();
 		try {
