@@ -43,6 +43,15 @@ public class CatalogTests {
 	@Value("classpath:productAdd.json")
 	private Resource productAdd;
 	
+	@Value("classpath:productByName.json")
+	private Resource productByName;
+	
+	@Value("classpath:productByCat.json")
+	private Resource productByCat;
+		
+	@Value("classpath:partialProducts.json")
+	private Resource partialProducts;
+	
 	@Value("classpath:productDelete.json")
 	private Resource productDelete;
 
@@ -114,6 +123,51 @@ public class CatalogTests {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	@Test
+	public void getProdByNameTest() throws JSONException {
+		
+		try {
+			
+			List<ProductCatalog> list = catalogController.getProdByName("mobile");
+			String	a = new String(Files.readAllBytes(productByName.getFile().toPath()));
+			JSONAssert.assertEquals(new JSONArray(a), new JSONArray(list.toString()), true);
+			 
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void getProdByCatTest() throws JSONException {
+		
+		try {
+			List<ProductCatalog> list = catalogController.getProdByCat("electronics");
+			String	a = new String(Files.readAllBytes(productByCat.getFile().toPath()));
+			JSONAssert.assertEquals(new JSONArray(a), new JSONArray(list.toString()), true);
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void getPartialProductsTest() throws JSONException {
+		
+		try {
+			List<ProductCatalog> list = catalogController.getProdByPartialName("m");
+			String	a = new String(Files.readAllBytes(partialProducts.getFile().toPath()));
+			JSONAssert.assertEquals(new JSONArray(a), new JSONArray(list.toString()), true);
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 
 	@Test
 	public void deleteTest() {
