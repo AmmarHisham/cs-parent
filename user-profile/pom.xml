@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.7.RELEASE</version>
+		<version>1.5.9.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -30,18 +30,6 @@
 			<groupId>com.capgemini</groupId>
 			<artifactId>pojos</artifactId>
 			<version>${project.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.mongodb</groupId>
-					<artifactId>mongodb-driver</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>
-						spring-boot-starter-data-mongodb
-					</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -59,12 +47,18 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
-		 <!-- https://mvnrepository.com/artifact/io.springfox/springfox-spring-web 
+		 <!-- https://mvnrepository.com/artifact/io.springfox/springfox-spring-web -->
       <dependency>
-    <groupId>io.springfox</groupId>
-    <artifactId>springfox-spring-web</artifactId>
-    <version>2.0.1</version>
-      </dependency> -->
+          <groupId>io.springfox</groupId>
+          <artifactId>springfox-swagger-ui</artifactId>
+          <version>2.6.1</version>
+         </dependency> 
+		
+		<dependency>
+          <groupId>io.springfox</groupId>
+          <artifactId>springfox-swagger2</artifactId>
+          <version>2.6.1</version>
+         </dependency>
 		
 	</dependencies>
 
