@@ -7,8 +7,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/main.css}" />
 </head>
 <body>
-	<th:block th:include="/_header1"></th:block>
-	<br/><br/><br/><br/><br/>
+	<th:block th:include="/UserHeader"></th:block>
 	<section>
 		<div class="container">
 			<div class="row">
@@ -54,28 +53,31 @@
 						</div>
 					</div>
 				</div>
-				<br/><br/><br/>
-				<table width="600" height="200" align="center">
+				<br/><br/><br/><br/><br/>
+				<table width="800" height="200" align="center">
 					<tr>
-						<th>Name</th>
-						<th>ID</th>
+						<th>Order Number</th>
+						<th>Order Date</th>
+						<th>Product ID</th>
+						<th>Product Name</th>
+						<th>Quantity</th>
 						<th>Price</th>
-						<td><b>Quantity</b></td>
 					</tr>
 					<tr></tr>
-					<tr th:each="cartinfo : ${cartinf}">
-						<td align="left"><span th:utext="${cartinfo.productName}"></span></td>
-						<td align="left"><span th:utext="${cartinfo.productId}"></span></td>
-						<td align="left"><span th:utext="${cartinfo.productPrice}"></span></td>
-						<td align="left"><span th:utext="${cartinfo.quantity}"></span></td>
-						<td><a class="cart_quantity_delete" href="/checkout"><img th:src="@{images/tick.png}" width="10" height="10" alt="tick"></img></a></td>
-						<td><a class="cart_quantity_delete" href=""><img th:src="@{images/wrong.jpg}" width="10" height="10" alt="wrong"></img></a></td>
+					<tr th:each="ord : ${orderInfo}">
+						<td align="left"><span th:utext="${ord.orderNumber}"></span></td>
+						<td align="left"><span th:utext="${ord.orderDate}"></span></td>
+						<td align="left"><span th:utext="${ord.productId}"></span></td>
+						<td align="left"><span th:utext="${ord.productName}"></span></td>
+						<td align="left"><span th:utext="${ord.quantity}"></span></td>
+						<td align="left"><span th:utext="${ord.productPrice}"></span></td>
+
 					</tr>
 				</table>
 			</div>
 		</div>
 	</section>
-	<br/><br/><br/><br/><br/><br/><br/>
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 	<th:block th:include="/_footer"></th:block>
 </body>
 </html>

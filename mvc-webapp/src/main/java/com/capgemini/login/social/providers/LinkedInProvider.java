@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.capgemini.bean.Catalog;
-import com.capgemini.bean.UseDetails;
 import com.capgemini.login.model.UserBean;
 import com.capgemini.serviceimpl.CartServiceimpl;
 
@@ -29,6 +28,9 @@ public class LinkedInProvider {
 	BaseProvider socialLoginBean;
 	@Autowired
 	public CartServiceimpl cartServiceimpl;
+	
+	UserBean userBean=new UserBean();
+	
 
 	
 	public String getLinkedInUserData(Model model, UserBean userForm) {
@@ -44,7 +46,7 @@ public class LinkedInProvider {
 		return "index";
 	}
 
-	private void populateUserDetailsFromLinkedIn(UserBean userForm) {
+	public UserBean populateUserDetailsFromLinkedIn(UserBean userForm) {
 		LinkedIn linkedIn = socialLoginBean.getLinkedIn();
 		LinkedInProfileFull linkedInUser = linkedIn.profileOperations().getUserProfileFull();
 		userForm.setEmail(linkedInUser.getEmailAddress());
@@ -52,6 +54,9 @@ public class LinkedInProvider {
 		userForm.setLastName(linkedInUser.getLastName());
 		userForm.setImage(linkedInUser.getProfilePictureUrl());
 		userForm.setProvider(LINKED_IN);
-	}
+		return userForm;
+	} 
+
+		
 
 }

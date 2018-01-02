@@ -10,7 +10,6 @@ import com.capgemini.bean.Catalog;
 import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.Order;
 import com.capgemini.bean.ProductList;
-import com.capgemini.bean.UseDetails;
 import com.capgemini.service.CartService;
 
 /**
@@ -71,18 +70,6 @@ public class CartServiceimpl implements CartService {
 		col.add(cat4);
 		col.add(cat5);
 		return col;
-	}
-
-	@Override
-	public UseDetails getAllDetails() {
-		UseDetails UseDetails = new UseDetails();
-		UseDetails.setfirstName("xyz");
-		UseDetails.setlastName("modiSSS");
-		UseDetails.setgender("male");
-		UseDetails.setemailId("xyz@gmail.com");
-		UseDetails.setId("asassdfedf");
-		return UseDetails;
-
 	}
 
 	public ArrayList<ProductList> getAllProduct() {

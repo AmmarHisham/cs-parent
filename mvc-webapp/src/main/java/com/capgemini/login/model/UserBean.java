@@ -3,67 +3,29 @@ package com.capgemini.login.model;
 
 import java.io.Serializable;
 
-public class UserBean implements Serializable{
-	
+public class UserBean implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String title;
-	private String country;
-	private String password;
-	private String passwordConfirm;	
 	private String provider;
 	private String image;
-	
-	
+
 	public String getEmail() {
 		return email;
 	}
 
 	public String getImage() {
-	    return image;
+		return image;
 	}
 
 	public void setImage(String image) {
-	    this.image = image;
+		this.image = image;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	
-	public String getPasswordConfirm() {
-		return passwordConfirm;
-	}
-
-	public void setPasswordConfirm(String passwordConfirm) {
-		this.passwordConfirm = passwordConfirm;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
 	}
 
 	public String getFirstName() {
@@ -82,7 +44,6 @@ public class UserBean implements Serializable{
 		this.lastName = lastName;
 	}
 
-
 	public String getProvider() {
 		return provider;
 	}
@@ -93,11 +54,8 @@ public class UserBean implements Serializable{
 
 	@Override
 	public String toString() {
-		return "UserBean [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", title=" + title
-				+ ", country=" + country + ", password=" + password + ", passwordConfirm=" + passwordConfirm
-				+ ", provider=" + provider + ", image=" + image + "]";
+		return "UserBean [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", provider="
+				+ provider + ", image=" + image + "]";
 	}
-
-	 
 
 }

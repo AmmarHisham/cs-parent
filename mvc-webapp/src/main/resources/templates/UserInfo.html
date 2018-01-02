@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/main.css}" />
 </head>
 <body>
-	<th:block th:include="/_header1"></th:block>
+	<th:block th:include="/UserHeader"></th:block>
 	<br/><br/><br/><br/><br/>
 	<section>
 		<div class="container">
@@ -66,12 +66,12 @@
 						<th th:utext="${userinfo.lastName}"></th>
 					</tr>
 					<tr>
-						<th>Gender</th><th>:</th>
-						<th th:utext="${userinfo.gender}"></th>
+						<th>Email Id</th><th>:</th>
+						<th th:utext="${userinfo.email}"></th>
 					</tr>
 					<tr>
 						<th>Email Id</th><th>:</th>
-						<th th:utext="${userinfo.emailId}"></th>
+						<th th:utext="${userinfo.provider}"></th>
 					</tr>
 				</table>
 			</div>

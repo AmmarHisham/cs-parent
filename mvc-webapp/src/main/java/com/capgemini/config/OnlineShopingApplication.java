@@ -6,9 +6,6 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 
-import com.cg.catalog.GiftCardCatalog;
-import com.cg.notification.Notification;
-
 /**
  * @author dimehta
  *

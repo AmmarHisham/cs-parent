@@ -17,7 +17,6 @@ import com.capgemini.bean.Catalog;
 import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.Order;
 import com.capgemini.bean.ProductList;
-import com.capgemini.bean.UseDetails;
 import com.capgemini.login.model.UserBean;
 import com.capgemini.login.social.providers.LinkedInProvider;
 import com.capgemini.serviceimpl.CartServiceimpl;
@@ -26,6 +25,7 @@ import com.capgemini.serviceimpl.CartServiceimpl;
  * @author dimehta
  *
  */
+
 @Controller
 public class WebRequestController {
 	@Autowired
@@ -34,7 +34,9 @@ public class WebRequestController {
 	@Autowired
 	LinkedInProvider linkedInProvider;
 
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	UserBean userBean = new UserBean();
+
+	@RequestMapping({"/","/home"})
 	public String homeBeforeLogin(ModelMap model) {
 		Collection<Catalog> cat = cartServiceimpl.getDetails();
 		model.addAttribute("catalog", cat);
@@ -45,48 +47,32 @@ public class WebRequestController {
 	public String homeAfterLogin(ModelMap model) {
 		Collection<Catalog> cat = cartServiceimpl.getDetails();
 		model.addAttribute("catalog", cat);
-		UseDetails userDetails = cartServiceimpl.getAllDetails();
-		model.addAttribute("name", userDetails.getfirstName());
+		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "index";
 	}
 
-	/*
-	 * @RequestMapping(value = "/loginauth", method = RequestMethod.GET) public
-	 * String loginUserAuth() { return "login-auth"; }
-	 */
-
 	@RequestMapping(value = "/userinfo", method = RequestMethod.GET)
 	public String showOrderInfo(ModelMap model) {
-		UseDetails userDetails = cartServiceimpl.getAllDetails();
-		model.addAttribute("userinfo", userDetails);
-		model.addAttribute("name", userDetails.getfirstName());
-		return "accountInfo";
-
+		UserBean bean=linkedInProvider.populateUserDetailsFromLinkedIn(userBean);
+		model.addAttribute("userinfo", bean);
+		model.addAttribute("name", bean.getFirstName());
+		return "UserInfo";
 	}
 
 	@RequestMapping(value = "/error", method = RequestMethod.GET)
 	public String error(ModelMap model) {
-		UseDetails userDetails = cartServiceimpl.getAllDetails();
-		model.addAttribute("name", userDetails.getfirstName());
+		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "error";
 	}
 
-	@RequestMapping(value = "/product", method = RequestMethod.GET)
-	public String getAllProduct(ModelMap model) {
-		ArrayList<ProductList> productlist = cartServiceimpl.getAllProduct();
-		model.addAttribute("prodInfo", productlist);
-		System.out.println(productlist);
-		return "productList";
-	}
-
-	@RequestMapping(value = "/order", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/order", method = RequestMethod.GET)
 	public String showOrderPage(ModelMap model) {
 		ArrayList<ProductList> productlist = cartServiceimpl.getAllProduct();
 		model.addAttribute("prodInfo", productlist);
 		UseDetails userDetails = cartServiceimpl.getAllDetails();
 		model.addAttribute("details", userDetails);
 		return "orderList";
-	}
+	}*/
 
 	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
 	public String cancelUpdateUser(HttpServletRequest request) {
@@ -97,40 +83,36 @@ public class WebRequestController {
 	public String userOrder(ModelMap model) {
 		ArrayList<Order> orderlist = cartServiceimpl.getAllOrder();
 		model.addAttribute("orderInfo", orderlist);
-		UseDetails userDetails = cartServiceimpl.getAllDetails();
-		model.addAttribute("name", userDetails.getfirstName());
-		return "Order1";
+		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
+		return "UserOrder";
 	}
 
 	@RequestMapping(value = "/giftCard", method = RequestMethod.GET)
 	public String showgiftCardInfo(ModelMap model) {
 		GiftCard giftcard = cartServiceimpl.getAllgiftCard();
 		model.addAttribute("giftcard", giftcard);
-		UseDetails userDetails = cartServiceimpl.getAllDetails();
-		model.addAttribute("name", userDetails.getfirstName());
+		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "GiftCard";
 	}
 
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	public String showCartPage(ModelMap model) {
+		
 		ArrayList<Cart1> cart = cartServiceimpl.getAllCart1();
 		model.addAttribute("cartinf", cart);
-		UseDetails userDetails = cartServiceimpl.getAllDetails();
-		model.addAttribute("name", userDetails.getfirstName());
-		return "cart";
+		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
+		return "UserCart";
 	}
 
 	@RequestMapping(value = "/addGiftCard", method = RequestMethod.GET)
 	public String addGiftCard(ModelMap model) {
-		UseDetails userDetails = cartServiceimpl.getAllDetails();
-		model.addAttribute("name", userDetails.getfirstName());
+		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "AddGiftCart";
 	}
 
 	@RequestMapping(value = "/addProduct", method = RequestMethod.GET)
 	public String showAddPage(ModelMap model) {
-		UseDetails userDetails = cartServiceimpl.getAllDetails();
-		model.addAttribute("name", userDetails.getfirstName());
+		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "addProduct";
 	}
 
@@ -138,9 +120,8 @@ public class WebRequestController {
 	public String showAdminOrderPage(ModelMap model) {
 		ArrayList<ProductList> productlist = cartServiceimpl.getAllProduct();
 		model.addAttribute("prodInf", productlist);
-		UseDetails userDetails = cartServiceimpl.getAllDetails();
-		model.addAttribute("name", userDetails.getfirstName());
-		return "orderList";
+		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
+		return "AdminOrderList";
 	}
 
 	@RequestMapping(value = "/adminlogin", method = RequestMethod.GET)
@@ -152,21 +133,13 @@ public class WebRequestController {
 	public String AdminHome(ModelMap model) {
 		Collection<Catalog> cat = cartServiceimpl.getDetails();
 		model.addAttribute("catalog", cat);
-		UseDetails userDetails = cartServiceimpl.getAllDetails();
-		model.addAttribute("name", userDetails.getfirstName());
+		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "AdminHome";
 	}
 
-	/*
-	 * @RequestMapping(value = "/adminlog", method = RequestMethod.GET) public void
-	 * saveAdminData(@ModelAttribute AdminLoginPOJO adm) {
-	 * System.out.println(adm.getUsername()); System.out.println(adm.getPassword());
-	 * }
-	 */
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
 	public String showCheckoutPage(ModelMap model) {
-		UseDetails userDetails = cartServiceimpl.getAllDetails();
-		model.addAttribute("name", userDetails.getfirstName());
+		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "checkout";
 	}
 
