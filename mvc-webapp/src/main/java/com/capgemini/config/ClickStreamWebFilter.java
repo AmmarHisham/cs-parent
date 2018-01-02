@@ -14,6 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author dimehta
+ *
+ */
 @WebFilter(urlPatterns = "/*")
 public class ClickStreamWebFilter implements Filter {
 

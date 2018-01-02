@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.notification.Notification;
+import com.cg.notification.RecipientType;
 import com.cg.notification.repo.NotificationRepo;
+import com.cg.notification.sender.NotificationSender;
 
 @Service
 public class NotificationServiceimpl implements NotificationService {
@@ -14,25 +16,17 @@ public class NotificationServiceimpl implements NotificationService {
 	@Autowired
 	private NotificationRepo notificationRepo;
 
-	// @Autowired
-	// private EventBus eventBus;
-
-	// public String startNotification( String param) {
-	// Notification notification = new Notification();
-	// notification.setId(param);
-	//
-	// eventBus.notify("notificationConsumer", Event.wrap(notification));
-	//
-	// System.out.println("Notification " + param + ": notification task submitted
-	// successfully");
-	//
-	// return "OK";
-	// }
+	@Autowired
+	private NotificationSender<Notification> notificationSender;
 
 	@Override
 	public Notification saveNotification(Notification notification) {
 		// TODO all business logic goes here
-		return notificationRepo.saveNotification(notification);
+		notification = notificationRepo.saveNotification(notification);
+		System.err.println("before sending notification from service layer");
+		notificationSender.sendNotification(notification);
+		System.err.println("after sending notification from service layer");
+		return notification;
 	}
 
 	@Override
@@ -56,5 +50,11 @@ public class NotificationServiceimpl implements NotificationService {
 	@Override
 	public List<Notification> getByRecipientId(String recipientId) {
 		return notificationRepo.getByRecipientId(recipientId);
+	}
+
+	@Override
+	public List<Notification> getByRecipientType(RecipientType type) {
+		// TODO Auto-generated method stub
+		return notificationRepo.getByRecipientType(type);
 	}
 }

@@ -1,23 +1,28 @@
-<div class="menu-container"
-   xmlns:th="http://www.thymeleaf.org"
-   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" >
-   <a th:href="@{/}">Home</a>
-   |
-   <a th:href="@{/productList}">
-   Product List
-   </a>
-   |
-   <a th:href="@{/shoppingCart}">
-   My Cart
-   </a>
-   |
-   <th:block sec:authorize="hasAnyRole('ROLE_MANAGER','ROLE_EMPLOYEE')">
-      <a th:href="@{/admin/orderList}">
-      Order List
-      </a>
-      |
-   </th:block>
-      <a th:href="@{/product}">
-      Create Product
-      </a>
-</div>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+<meta charset="UTF-8" />
+<title>Login | E-Shopper</title>
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/font-awesome.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/main.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css}" />
+</head>
+<body>
+	
+	<header id="header">
+		<div class="header-bottom">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-sm-3">
+						<div class="search_box pull-right">
+							<input placeholder="Search" type="text" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+</body>
+</html>

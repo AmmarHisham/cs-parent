@@ -1,20 +1,37 @@
-<div class="header-container"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
- 
-   <div class="site-name">Online Shop</div>
-   
- <!--   <div class="header-bar">
-      <th:block sec:authorize="isAuthenticated()">
-         Hello
-         <a th:href="@{/admin/accountInfo}" th:utext="${#request.userPrincipal.name}">..</a>
-         &nbsp;|&nbsp;
-         <a th:href="@{/admin/logout}">Logout</a>
-      </th:block>
-       
-      <th:block sec:authorize="!isAuthenticated()">
-         <a th:href="@{/admin/login}">Login</a>
-      </th:block>
-   </div> -->
-   
-</div>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+<meta charset="UTF-8" />
+<title>Login | E-Shopper</title>
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/font-awesome.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/main.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css}" />
+</head>
+<body>
+	<header id="header">
+
+		<div class="header-middle">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="logo pull-left">
+							<a href="/home1"><img th:src="@{/images/logo.jpg}" /></a>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="#"><i class="fa fa-shopping-cart"></i>
+										Cart</a></li>
+								<li><a href="/adminlogin"><i class="fa fa-lock"></i>Admin Login</a></li>
+								<li><a href="/loginauth"><i class="fa fa-lock"></i> Login</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+</body>
+</html>

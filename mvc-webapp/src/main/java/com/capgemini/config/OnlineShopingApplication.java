@@ -6,11 +6,19 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 
+import com.cg.catalog.GiftCardCatalog;
+import com.cg.notification.Notification;
+
+/**
+ * @author dimehta
+ *
+ */
 @ServletComponentScan
-@ComponentScan({"com.capgemini.serviceimpl","com.capgemini.config"})
+@ComponentScan({"com.capgemini.serviceimpl","com.capgemini.config","com.capgemini.login.social.providers"})
 @SpringBootApplication
 public class OnlineShopingApplication extends SpringBootServletInitializer {
 	public static void main(String[] args) {
 		SpringApplication.run(OnlineShopingApplication.class, args);
+		
 	}
 }
