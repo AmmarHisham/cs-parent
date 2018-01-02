@@ -1,4 +1,4 @@
-package com.capgemini.service;
+package com.capgemini.bean;
 
 public class GiftCard {
 	private String giftCardValue;

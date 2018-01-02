@@ -1,6 +1,6 @@
-package com.capgemini.service;
+package com.capgemini.bean;
 
-public class AdminLoginPOJO {
+public class AdminLogin {
 
 	private String username;
 	private String password;

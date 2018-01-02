@@ -1,23 +1,22 @@
 package com.capgemini.serviceimpl;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import com.capgemini.constant.URLConstants;
-import com.capgemini.service.Cart;
-import com.capgemini.service.Cart1;
+import com.capgemini.bean.Cart;
+import com.capgemini.bean.Cart1;
+import com.capgemini.bean.Catalog;
+import com.capgemini.bean.GiftCard;
+import com.capgemini.bean.Order;
+import com.capgemini.bean.ProductList;
+import com.capgemini.bean.UseDetails;
 import com.capgemini.service.CartService;
-import com.capgemini.service.Catalog;
-import com.capgemini.service.GiftCard;
-import com.capgemini.service.Order;
-import com.capgemini.service.ProductList;
-import com.capgemini.service.UseDetails;
 
+/**
+ * @author dimehta
+ *
+ */
 @Service
 public class CartServiceimpl implements CartService {
 	@Override

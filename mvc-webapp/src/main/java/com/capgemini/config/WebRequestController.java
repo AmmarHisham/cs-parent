@@ -7,27 +7,32 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.capgemini.service.AdminLoginPOJO;
-import com.capgemini.service.Cart;
-import com.capgemini.service.Cart1;
-import com.capgemini.service.Catalog;
-import com.capgemini.service.Checkout;
-import com.capgemini.service.GiftCard;
-import com.capgemini.service.Order;
-import com.capgemini.service.ProductList;
-import com.capgemini.service.UseDetails;
+import com.capgemini.bean.Cart1;
+import com.capgemini.bean.Catalog;
+import com.capgemini.bean.GiftCard;
+import com.capgemini.bean.Order;
+import com.capgemini.bean.ProductList;
+import com.capgemini.bean.UseDetails;
+import com.capgemini.login.model.UserBean;
+import com.capgemini.login.social.providers.LinkedInProvider;
 import com.capgemini.serviceimpl.CartServiceimpl;
 
+/**
+ * @author dimehta
+ *
+ */
 @Controller
 public class WebRequestController {
 	@Autowired
 	public CartServiceimpl cartServiceimpl;
+
+	@Autowired
+	LinkedInProvider linkedInProvider;
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String homeBeforeLogin(ModelMap model) {
@@ -44,6 +49,11 @@ public class WebRequestController {
 		model.addAttribute("name", userDetails.getfirstName());
 		return "index";
 	}
+
+	/*
+	 * @RequestMapping(value = "/loginauth", method = RequestMethod.GET) public
+	 * String loginUserAuth() { return "login-auth"; }
+	 */
 
 	@RequestMapping(value = "/userinfo", method = RequestMethod.GET)
 	public String showOrderInfo(ModelMap model) {
@@ -147,12 +157,12 @@ public class WebRequestController {
 		return "AdminHome";
 	}
 
-	/*@RequestMapping(value = "/adminlog", method = RequestMethod.GET)
-	public void saveAdminData(@ModelAttribute AdminLoginPOJO adm) {
-		System.out.println(adm.getUsername());
-		System.out.println(adm.getPassword());
-	}
-*/
+	/*
+	 * @RequestMapping(value = "/adminlog", method = RequestMethod.GET) public void
+	 * saveAdminData(@ModelAttribute AdminLoginPOJO adm) {
+	 * System.out.println(adm.getUsername()); System.out.println(adm.getPassword());
+	 * }
+	 */
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
 	public String showCheckoutPage(ModelMap model) {
 		UseDetails userDetails = cartServiceimpl.getAllDetails();
@@ -160,10 +170,20 @@ public class WebRequestController {
 		return "checkout";
 	}
 
-	/*@RequestMapping(value = "/checkout/complete", method = RequestMethod.GET)
-	public String showCheckoutPage(@RequestBody Checkout checkout) {
+	/*
+	 * @RequestMapping(value = "/checkout/complete", method = RequestMethod.GET)
+	 * public String showCheckoutPage(@RequestBody Checkout checkout) {
+	 * 
+	 * System.out.println(checkout.getName()); return "Hi"; }
+	 */
 
-		System.out.println(checkout.getName());
-		return "Hi";
-	}*/
+	@RequestMapping(value = "/linkedin", method = RequestMethod.GET)
+	public String linkedInUserInfo(Model model) {
+		return linkedInProvider.getLinkedInUserData(model, new UserBean());
+	}
+
+	@RequestMapping(value = "/loginauth", method = RequestMethod.GET)
+	public String login() {
+		return "login-auth";
+	}
 }
