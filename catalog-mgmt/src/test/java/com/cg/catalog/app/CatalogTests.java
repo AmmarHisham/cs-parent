@@ -69,9 +69,9 @@ public class CatalogTests {
 		catalog.setProductIdParent("pd12");
 		catalog.setProductIdChild("pd12A");
 		catalog.setPrice("200");
-		//catalog.setCatagoryName("clothing");
-		//catalog.setProductName("shirt");
-		//catalog.setImageUrl("pqr");
+		catalog.setCatagoryName("clothing");
+		catalog.setProductName("shirt");
+		catalog.setImageUrl("pqr");
 		list.add(catalog);
 		return list;
 	}
@@ -91,9 +91,9 @@ public class CatalogTests {
 		catalog.setProductIdParent("pd13");
 		catalog.setProductIdChild("pd13A");
 		catalog.setPrice("800");
-		//catalog.setCatagoryName("electronics");
-		//catalog.setImageUrl("imageUrl");
-		//catalog.setProductName("mobile");
+		catalog.setCatagoryName("electronics");
+		catalog.setImageUrl("xyz");
+		catalog.setProductName("mobile");
 		catalogController.addProduct(catalog);
 		List<ProductCatalog> list = catalogController.getAll();
 		try {
