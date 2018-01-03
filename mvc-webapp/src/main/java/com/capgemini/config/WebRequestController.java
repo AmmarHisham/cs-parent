@@ -48,9 +48,9 @@ public class WebRequestController {
 
 	@Autowired
 	AdminService adminService;
-	
-	AdminLogin admin1=new AdminLogin();
-	
+
+	AdminLogin admin1 = new AdminLogin();
+
 	UserBean userBean = new UserBean();
 
 	@RequestMapping({ "/", "/home" })
@@ -152,15 +152,15 @@ public class WebRequestController {
 		return "checkout";
 	}
 
-	 @RequestMapping(value = "/checkoutcomplete", method = RequestMethod.GET)
-	  public String showCheckoutPage(@ModelAttribute Checkout checkout, ModelMap model) {
-	  
-	  System.out.println(checkout.getName()); 
-	  Collection<Catalog> cat = cartServiceimpl.getDetails();
+	@RequestMapping(value = "/checkoutcomplete", method = RequestMethod.GET)
+	public String showCheckoutPage(@ModelAttribute Checkout checkout, ModelMap model) {
+
+		System.out.println(checkout.getName());
+		Collection<Catalog> cat = cartServiceimpl.getDetails();
 		model.addAttribute("catalog", cat);
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "index";
-	  }
+	}
 
 	@RequestMapping(value = "/linkedin", method = RequestMethod.GET)
 	public String linkedInUserInfo(Model model) {
@@ -173,12 +173,15 @@ public class WebRequestController {
 	}
 
 	@RequestMapping(value = "/addtocart", method = RequestMethod.GET)
-	public String addToCart(@RequestParam("id") String id, Model model) {
+	public String addToCart(@RequestParam("id") String productId, Model model) {
 		String email = linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getEmail();
-		System.out.println("User ID : " + email);
-		System.out.println("Product ID : " + id);
-		return "User ID : " + email + "  Product ID : " + id;
-
+		logger.info("productId"+productId+"email"+email);
+		cartServiceimpl.addToCart(productId,email);
+		Collection<Catalog> cat = cartServiceimpl.getDetails();
+		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
+		model.addAttribute("catalog", cat);
+		
+		return "index";
 	}
 
 	@RequestMapping(value = "/getcart", method = RequestMethod.GET)
@@ -190,7 +193,7 @@ public class WebRequestController {
 		logger.info("getCardDetails method completed return " + UserCartModel.toString());
 		return "UserCart";
 	}
-	
+
 	@RequestMapping(value = "/addtoproduct", method = RequestMethod.GET)
 	public String addToProduct(@ModelAttribute("prod") ProductList prod, ModelMap model) {
 		System.out.println("Product Code : " + prod.getProductId());
@@ -207,8 +210,8 @@ public class WebRequestController {
 		admin1.setUsername(admin.getUsername());
 		Collection<Catalog> cat = cartServiceimpl.getDetails();
 		model.addAttribute("catalog", cat);
-		model.addAttribute("name",admin.getUsername());
+		model.addAttribute("name", admin.getUsername());
 		return validate;
-		
+
 	}
 }

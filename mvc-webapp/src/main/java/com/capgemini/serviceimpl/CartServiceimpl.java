@@ -1,7 +1,8 @@
 package com.capgemini.serviceimpl;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,6 @@ import com.capgemini.bean.Catalog;
 import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.Order;
 import com.capgemini.bean.ProductList;
-import com.capgemini.config.WebRequestController;
 import com.capgemini.constant.URLConstants;
 import com.capgemini.service.CartService;
 
@@ -27,8 +27,9 @@ import com.capgemini.service.CartService;
 public class CartServiceimpl implements CartService {
 
 	private static final Logger logger = LoggerFactory.getLogger(CartServiceimpl.class);
-	
+
 	RestTemplate restTemplate = new RestTemplate();
+
 	@Override
 	public Cart getAllCart() {
 
@@ -248,9 +249,13 @@ public class CartServiceimpl implements CartService {
 	}
 
 	@Override
-	public void addToCart() {
-		// http://10.246.16.166:1003/cart/add?userId=40&productId=1234&quantity=4
-	
+	public void addToCart(String productId, String userId) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("productId", productId);
+		params.put("userId", userId);
+		logger.info("productId  =" + productId + "userId =" + userId);
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.postForObject(URLConstants.ADD_TO_CART, String.class, String.class, params);
 	}
 
 	@Override
@@ -269,12 +274,17 @@ public class CartServiceimpl implements CartService {
 	@SuppressWarnings("null")
 	public UserCartModel getCardDetails(String userId) {
 		logger.info("getCardDetails service invoke with userID" + userId);
-		ResponseEntity<UserCartModel> cartLists = restTemplate.getForEntity(URLConstants.GET_CART, UserCartModel.class, userId);
+		ResponseEntity<UserCartModel> cartLists = restTemplate.getForEntity(URLConstants.GET_CART, UserCartModel.class,
+				userId);
 		if (cartLists != null) {
 			return cartLists.getBody();
 		}
 		logger.info("getCardDetails service Responce body " + cartLists.getBody());
 		return null;
+	}
+
+	public static void main(String[] args) {
+		new CartServiceimpl().addToCart("30", "30");
 	}
 
 }
