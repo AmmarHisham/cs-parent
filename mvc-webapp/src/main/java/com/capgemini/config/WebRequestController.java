@@ -23,6 +23,7 @@ import com.capgemini.login.model.UserBean;
 import com.capgemini.login.social.providers.LinkedInProvider;
 import com.capgemini.serviceimpl.AdminServiceimpl;
 import com.capgemini.serviceimpl.CartServiceimpl;
+import com.capgemini.serviceimpl.UserCartModel;
 
 /**
  * @author dimehta
@@ -161,5 +162,22 @@ public class WebRequestController {
 		System.out.println("User ID : " + email);
 		System.out.println("Product ID : " + id);
 		return "User ID : " + email+ "  Product ID : " + id;
+		
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/addtocart", method = RequestMethod.GET)
+	public String getCardDetails(@RequestParam("userId") String userId, Model model) {
+		String email = linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getEmail();
+		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getEmail());
+		UserCartModel UserCartModel=	cartServiceimpl.getCardDetails(userId);
+		model.addAttribute("UserCartModel",UserCartModel);
+		return "UserCart";
+		
+		
+	}
+	
+	
+	
 }

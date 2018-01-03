@@ -1,8 +1,11 @@
 package com.capgemini.serviceimpl;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.capgemini.bean.Cart;
 import com.capgemini.bean.Cart1;
@@ -10,6 +13,7 @@ import com.capgemini.bean.Catalog;
 import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.Order;
 import com.capgemini.bean.ProductList;
+import com.capgemini.constant.URLConstants;
 import com.capgemini.service.CartService;
 
 /**
@@ -72,36 +76,31 @@ public class CartServiceimpl implements CartService {
 		return col;
 	}
 
-	/*public ArrayList<ProductList> getAllProduct() {
-
-		ProductList productlist = new ProductList();
-		productlist.setProductId("1234");
-		productlist.setProductName("abc");
-		productlist.setProductPrice("100");
-
-		ProductList productlist1 = new ProductList();
-		productlist1.setProductId("1234");
-		productlist1.setProductName("abc");
-		productlist1.setProductPrice("100");
-
-		ProductList productlist2 = new ProductList();
-		productlist2.setProductId("1234");
-		productlist2.setProductName("abc");
-		productlist2.setProductPrice("100");
-
-		ProductList productlist3 = new ProductList();
-		productlist3.setProductId("1234");
-		productlist3.setProductName("abc");
-		productlist3.setProductPrice("100");
-
-		ArrayList<ProductList> pro = new ArrayList<ProductList>();
-		pro.add(productlist);
-		pro.add(productlist1);
-		pro.add(productlist2);
-		pro.add(productlist3);
-
-		return pro;
-	}*/
+	/*
+	 * public ArrayList<ProductList> getAllProduct() {
+	 * 
+	 * ProductList productlist = new ProductList();
+	 * productlist.setProductId("1234"); productlist.setProductName("abc");
+	 * productlist.setProductPrice("100");
+	 * 
+	 * ProductList productlist1 = new ProductList();
+	 * productlist1.setProductId("1234"); productlist1.setProductName("abc");
+	 * productlist1.setProductPrice("100");
+	 * 
+	 * ProductList productlist2 = new ProductList();
+	 * productlist2.setProductId("1234"); productlist2.setProductName("abc");
+	 * productlist2.setProductPrice("100");
+	 * 
+	 * ProductList productlist3 = new ProductList();
+	 * productlist3.setProductId("1234"); productlist3.setProductName("abc");
+	 * productlist3.setProductPrice("100");
+	 * 
+	 * ArrayList<ProductList> pro = new ArrayList<ProductList>();
+	 * pro.add(productlist); pro.add(productlist1); pro.add(productlist2);
+	 * pro.add(productlist3);
+	 * 
+	 * return pro; }
+	 */
 
 	@Override
 	public ArrayList<Order> getAllOrder() {
@@ -240,6 +239,35 @@ public class CartServiceimpl implements CartService {
 
 		return pro;
 	}
-	
-	
+
+	@Override
+	public void addToCart() {
+		// http://10.246.16.166:1003/cart/add?userId=40&productId=1234&quantity=4
+	}
+
+	@Override
+	public void deleteFromCart() {
+		// TODO Auto-generated method stub
+		// http://10.246.16.166:1003/cart/deleteProduct?userId=ss&productId=ss
+	}
+
+	@Override
+	public void emptyCart() {
+		// TODO Auto-generated method stub
+		// http://10.246.16.166:1003/cart/empty?userId=aa
+
+	}
+
+	public UserCartModel getCardDetails(String userId) {
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<UserCartModel> cartLists = restTemplate.getForEntity(URLConstants.GET_CART, UserCartModel.class,
+				userId);
+		System.out.println(cartLists.getBody());
+		return cartLists.getBody();
+	}
+
+	public static void main(String[] args) {
+		new CartServiceimpl().getCardDetails("40");
+	}
+
 }
