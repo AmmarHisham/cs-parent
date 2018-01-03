@@ -268,8 +268,7 @@ public class CartServiceimpl implements CartService {
 	public UserCartModel getCardDetails(String userId) {
 		logger.info("getCardDetails service invoke with userID" + userId);
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<UserCartModel> cartLists = restTemplate.getForEntity(URLConstants.GET_CART, UserCartModel.class,
-				userId);
+		ResponseEntity<UserCartModel> cartLists = restTemplate.getForEntity(URLConstants.GET_CART, UserCartModel.class, userId);
 		if (cartLists != null) {
 			return cartLists.getBody();
 		}

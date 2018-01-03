@@ -56,6 +56,8 @@ public class WebRequestController {
 		Collection<Catalog> cat = cartServiceimpl.getDetails();
 		model.addAttribute("catalog", cat);
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
+		model.addAttribute("name1", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getEmail());
+		System.out.println(linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getEmail());
 		return "index";
 	}
 
