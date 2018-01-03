@@ -72,7 +72,7 @@ public class CartServiceimpl implements CartService {
 		return col;
 	}
 
-	public ArrayList<ProductList> getAllProduct() {
+	/*public ArrayList<ProductList> getAllProduct() {
 
 		ProductList productlist = new ProductList();
 		productlist.setProductId("1234");
@@ -101,7 +101,7 @@ public class CartServiceimpl implements CartService {
 		pro.add(productlist3);
 
 		return pro;
-	}
+	}*/
 
 	@Override
 	public ArrayList<Order> getAllOrder() {
@@ -240,4 +240,6 @@ public class CartServiceimpl implements CartService {
 
 		return pro;
 	}
+	
+	public ArrayList<>
 }

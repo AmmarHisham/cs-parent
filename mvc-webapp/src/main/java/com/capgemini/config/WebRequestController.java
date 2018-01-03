@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.capgemini.bean.Cart1;
 import com.capgemini.bean.Catalog;
@@ -19,6 +21,7 @@ import com.capgemini.bean.Order;
 import com.capgemini.bean.ProductList;
 import com.capgemini.login.model.UserBean;
 import com.capgemini.login.social.providers.LinkedInProvider;
+import com.capgemini.serviceimpl.AdminServiceimpl;
 import com.capgemini.serviceimpl.CartServiceimpl;
 
 /**
@@ -36,7 +39,7 @@ public class WebRequestController {
 
 	UserBean userBean = new UserBean();
 
-	@RequestMapping({"/","/home"})
+	@RequestMapping({ "/", "/home" })
 	public String homeBeforeLogin(ModelMap model) {
 		Collection<Catalog> cat = cartServiceimpl.getDetails();
 		model.addAttribute("catalog", cat);
@@ -53,7 +56,7 @@ public class WebRequestController {
 
 	@RequestMapping(value = "/userinfo", method = RequestMethod.GET)
 	public String showOrderInfo(ModelMap model) {
-		UserBean bean=linkedInProvider.populateUserDetailsFromLinkedIn(userBean);
+		UserBean bean = linkedInProvider.populateUserDetailsFromLinkedIn(userBean);
 		model.addAttribute("userinfo", bean);
 		model.addAttribute("name", bean.getFirstName());
 		return "UserInfo";
@@ -64,15 +67,6 @@ public class WebRequestController {
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "error";
 	}
-
-/*	@RequestMapping(value = "/order", method = RequestMethod.GET)
-	public String showOrderPage(ModelMap model) {
-		ArrayList<ProductList> productlist = cartServiceimpl.getAllProduct();
-		model.addAttribute("prodInfo", productlist);
-		UseDetails userDetails = cartServiceimpl.getAllDetails();
-		model.addAttribute("details", userDetails);
-		return "orderList";
-	}*/
 
 	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
 	public String cancelUpdateUser(HttpServletRequest request) {
@@ -97,7 +91,7 @@ public class WebRequestController {
 
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	public String showCartPage(ModelMap model) {
-		
+
 		ArrayList<Cart1> cart = cartServiceimpl.getAllCart1();
 		model.addAttribute("cartinf", cart);
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
@@ -118,7 +112,7 @@ public class WebRequestController {
 
 	@RequestMapping(value = "/orderList", method = RequestMethod.GET)
 	public String showAdminOrderPage(ModelMap model) {
-		ArrayList<ProductList> productlist = cartServiceimpl.getAllProduct();
+		ArrayList<ProductList> productlist = AdminServiceimpl.getAllProduct();
 		model.addAttribute("prodInf", productlist);
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "AdminOrderList";
@@ -158,5 +152,14 @@ public class WebRequestController {
 	@RequestMapping(value = "/loginauth", method = RequestMethod.GET)
 	public String login() {
 		return "login-auth";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/addtocart", method = RequestMethod.GET)
+	public String addToCart(@RequestParam("id") String id, Model model) {
+		String email = linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getEmail();
+		System.out.println("User ID : " + email);
+		System.out.println("Product ID : " + id);
+		return "User ID : " + email+ "  Product ID : " + id;
 	}
 }
