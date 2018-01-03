@@ -159,7 +159,6 @@ public class WebRequestController {
 		return "login-auth";
 	}
 
-	@ResponseBody
 	@RequestMapping(value = "/addtocart", method = RequestMethod.GET)
 	public String addToCart(@RequestParam("id") String id, Model model) {
 		String email = linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getEmail();
@@ -169,12 +168,11 @@ public class WebRequestController {
 
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/addtocart", method = RequestMethod.GET)
-	public String getCardDetails(@RequestParam("userId") String userId, Model model) {
+	@RequestMapping(value = "/getcart", method = RequestMethod.GET)
+	public String getCardDetails(@RequestParam("id") String userId, Model model) {
 		logger.info("getCardDetails method invoke with userId " + userId);
 
-		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getEmail());
+		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		UserCartModel UserCartModel = cartServiceimpl.getCardDetails(userId);
 		model.addAttribute("UserCartModel", UserCartModel);
 

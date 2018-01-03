@@ -10,18 +10,9 @@ public class UserBean implements Serializable {
 	private String lastName;
 	private String email;
 	private String provider;
-	private String image;
 
 	public String getEmail() {
 		return email;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
 	}
 
 	public void setEmail(String email) {
@@ -55,7 +46,7 @@ public class UserBean implements Serializable {
 	@Override
 	public String toString() {
 		return "UserBean [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", provider="
-				+ provider + ", image=" + image + "]";
+				+ provider + "]";
 	}
 
 }

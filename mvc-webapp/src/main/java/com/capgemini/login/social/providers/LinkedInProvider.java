@@ -52,7 +52,6 @@ public class LinkedInProvider {
 		userForm.setEmail(linkedInUser.getEmailAddress());
 		userForm.setFirstName(linkedInUser.getFirstName());
 		userForm.setLastName(linkedInUser.getLastName());
-		userForm.setImage(linkedInUser.getProfilePictureUrl());
 		userForm.setProvider(LINKED_IN);
 		return userForm;
 	} 

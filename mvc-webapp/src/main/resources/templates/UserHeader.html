@@ -28,7 +28,7 @@
 										GiftCard</a></li>
 								<li><a href="/userOrder"><i class="fa fa-crosshairs"></i>
 										Order History</a></li>
-								<li><a href="/cart"><i class="fa fa-shopping-cart"></i>
+								<li><a th:href="@{/getcart} + '?id='+ ${name}"><i class="fa fa-shopping-cart"></i>
 										Cart</a></li>
 								<li><i class="fa fa-user"></i>
 										<div class="dropdown">

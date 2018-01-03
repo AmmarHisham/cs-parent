@@ -264,6 +264,7 @@ public class CartServiceimpl implements CartService {
 
 	}
 
+	@SuppressWarnings("null")
 	public UserCartModel getCardDetails(String userId) {
 		logger.info("getCardDetails service invoke with userID" + userId);
 		RestTemplate restTemplate = new RestTemplate();

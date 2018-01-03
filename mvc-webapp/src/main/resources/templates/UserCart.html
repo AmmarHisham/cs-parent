@@ -54,20 +54,18 @@
 						</div>
 					</div>
 				</div>
-				<br/><br/><br/>
 				<table width="600" height="200" align="center">
 					<tr>
 						<th>Name</th>
 						<th>ID</th>
-						<th>Price</th>
 						<td><b>Quantity</b></td>
 					</tr>
-					<tr></tr>
-					<tr th:each="cartinfo : ${cartinf}">
-						<td align="left"><span th:utext="${cartinfo.productName}"></span></td>
+	
+					<tr th:each="cartinfo : ${UserCartModel.cartItemList}">
+						<td align="left"><span th:utext="${UserCartModel.userId}"></span></td>
 						<td align="left"><span th:utext="${cartinfo.productId}"></span></td>
-						<td align="left"><span th:utext="${cartinfo.productPrice}"></span></td>
 						<td align="left"><span th:utext="${cartinfo.quantity}"></span></td>
+						<!-- <td align="left"><span th:utext="${cartinfo.quantity}"></span></td> -->
 						<td><a class="cart_quantity_delete" href="/checkout"><img th:src="@{images/tick.png}" width="10" height="10" alt="tick"></img></a></td>
 						<td><a class="cart_quantity_delete" href=""><img th:src="@{images/wrong.jpg}" width="10" height="10" alt="wrong"></img></a></td>
 					</tr>
