@@ -5,6 +5,8 @@ import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +34,8 @@ import com.capgemini.serviceimpl.UserCartModel;
 
 @Controller
 public class WebRequestController {
+
+	private static final Logger logger = LoggerFactory.getLogger(WebRequestController.class);
 	@Autowired
 	public CartServiceimpl cartServiceimpl;
 
@@ -161,23 +165,22 @@ public class WebRequestController {
 		String email = linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getEmail();
 		System.out.println("User ID : " + email);
 		System.out.println("Product ID : " + id);
-		return "User ID : " + email+ "  Product ID : " + id;
-		
+		return "User ID : " + email + "  Product ID : " + id;
+
 	}
-	
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/addtocart", method = RequestMethod.GET)
 	public String getCardDetails(@RequestParam("userId") String userId, Model model) {
-		String email = linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getEmail();
+		logger.info("getCardDetails method invoke with userId " + userId);
+
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getEmail());
-		UserCartModel UserCartModel=	cartServiceimpl.getCardDetails(userId);
-		model.addAttribute("UserCartModel",UserCartModel);
+		UserCartModel UserCartModel = cartServiceimpl.getCardDetails(userId);
+		model.addAttribute("UserCartModel", UserCartModel);
+
+		logger.info("getCardDetails method completed return " + UserCartModel.toString());
 		return "UserCart";
-		
-		
+
 	}
-	
-	
-	
+
 }

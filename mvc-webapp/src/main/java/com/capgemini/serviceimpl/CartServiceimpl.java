@@ -3,6 +3,8 @@ package com.capgemini.serviceimpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -13,6 +15,7 @@ import com.capgemini.bean.Catalog;
 import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.Order;
 import com.capgemini.bean.ProductList;
+import com.capgemini.config.WebRequestController;
 import com.capgemini.constant.URLConstants;
 import com.capgemini.service.CartService;
 
@@ -22,6 +25,9 @@ import com.capgemini.service.CartService;
  */
 @Service
 public class CartServiceimpl implements CartService {
+
+	private static final Logger logger = LoggerFactory.getLogger(CartServiceimpl.class);
+
 	@Override
 	public Cart getAllCart() {
 
@@ -259,11 +265,15 @@ public class CartServiceimpl implements CartService {
 	}
 
 	public UserCartModel getCardDetails(String userId) {
+		logger.info("getCardDetails service invoke with userID" + userId);
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<UserCartModel> cartLists = restTemplate.getForEntity(URLConstants.GET_CART, UserCartModel.class,
 				userId);
-		System.out.println(cartLists.getBody());
-		return cartLists.getBody();
+		if (cartLists != null) {
+			return cartLists.getBody();
+		}
+		logger.info("getCardDetails service Responce body " + cartLists.getBody());
+		return null;
 	}
 
 	public static void main(String[] args) {
