@@ -27,7 +27,8 @@ import com.capgemini.service.CartService;
 public class CartServiceimpl implements CartService {
 
 	private static final Logger logger = LoggerFactory.getLogger(CartServiceimpl.class);
-
+	
+	RestTemplate restTemplate = new RestTemplate();
 	@Override
 	public Cart getAllCart() {
 
@@ -249,6 +250,7 @@ public class CartServiceimpl implements CartService {
 	@Override
 	public void addToCart() {
 		// http://10.246.16.166:1003/cart/add?userId=40&productId=1234&quantity=4
+	
 	}
 
 	@Override
@@ -267,17 +269,12 @@ public class CartServiceimpl implements CartService {
 	@SuppressWarnings("null")
 	public UserCartModel getCardDetails(String userId) {
 		logger.info("getCardDetails service invoke with userID" + userId);
-		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<UserCartModel> cartLists = restTemplate.getForEntity(URLConstants.GET_CART, UserCartModel.class, userId);
 		if (cartLists != null) {
 			return cartLists.getBody();
 		}
 		logger.info("getCardDetails service Responce body " + cartLists.getBody());
 		return null;
-	}
-
-	public static void main(String[] args) {
-		new CartServiceimpl().getCardDetails("40");
 	}
 
 }

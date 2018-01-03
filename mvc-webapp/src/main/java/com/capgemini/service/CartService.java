@@ -17,7 +17,7 @@ import com.capgemini.serviceimpl.UserCartModel;
 public interface CartService {
 
 	
-	public void addToCart();
+	//public void addToCart(String id, String email, String i);
 	public void deleteFromCart();
 	public UserCartModel getCardDetails(String userId);
 	public void emptyCart();
@@ -30,6 +30,8 @@ public interface CartService {
 	public ArrayList<Order> getAllOrder();
 	public GiftCard getAllgiftCard();
 	public ArrayList<Cart1> getAllCart1();
+	void addToCart();
+	
 	
 	
 }

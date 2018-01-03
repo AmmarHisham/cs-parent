@@ -2,11 +2,15 @@ package com.capgemini.serviceimpl;
 
 import java.util.ArrayList;
 
-import com.capgemini.bean.ProductList;
+import org.springframework.stereotype.Service;
 
-public class AdminServiceimpl {
+import com.capgemini.bean.AdminLogin;
+import com.capgemini.bean.ProductList;
+import com.capgemini.service.AdminService;
+@Service
+public class AdminServiceimpl implements AdminService{
 	
-	public static ArrayList<ProductList> getAllProduct() {
+	public ArrayList<ProductList> getAllProduct() {
 
 		ProductList productlist = new ProductList();
 		productlist.setProductId("1234");
@@ -36,5 +40,21 @@ public class AdminServiceimpl {
 
 		return pro;
 	}
+
+	@Override
+	public String adminLogin(AdminLogin adminValidate) {
+
+		if (adminValidate.getUsername().equalsIgnoreCase("capgemini") && adminValidate.getPassword().equalsIgnoreCase("capgemini"))
+		{
+			return "adminHome";
+		}
+		else 
+		{
+			return "error";
+		}
+		
+	}
+	
+	
 
 }
