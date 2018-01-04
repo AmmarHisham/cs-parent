@@ -183,7 +183,7 @@ public class CartServiceimpl implements CartService {
 	
 	@Override
 	public void emptyCart(String userId) {
-		restTemplate.delete(URLConstants.CLEAR_CART, userId);
+		restTemplate.postForObject(URLConstants.CLEAR_CART,String.class,String.class, userId);
 		logger.info("userId =" + userId);
 	}
 
@@ -198,7 +198,7 @@ public class CartServiceimpl implements CartService {
 		return null;
 	}
 public static void main(String[] args) {
-	new CartServiceimpl().deleteFromCart("3333", "DILIP");
+	new CartServiceimpl().emptyCart("DILIP");
 }
 	
 	/*@SuppressWarnings("null")

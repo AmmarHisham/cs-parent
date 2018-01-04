@@ -64,13 +64,14 @@ public class AdminServiceimpl implements AdminService{
 		
 	}
 	public void addToProduct(String productId, String productName, String productPrice) {
-		Map<String, String> params = new HashMap<String, String>();
+		/*Map<String, String> params = new HashMap<String, String>();
 		params.put("productId", productId);
 		params.put("productName", productName);
-		params.put("productPrice", productPrice);
+		params.put("productPrice", productPrice);*/
 		ProductCatalog productCatalog=new ProductCatalog();
-		logger.info("productId  =" + productId + "productName =" + productName + "productPrice =" + productPrice);
-		restTemplate.postForObject(URLConstants.ADD_TO_PRODUCT, String.class, String.class, params);
+		productCatalog.setProductName(productName);
+		//logger.info("productId  =" + productId + "productName =" + productName + "productPrice =" + productPrice);
+		//restTemplate.postForObject(URLConstants.ADD_TO_PRODUCT, String.class, String.class, params);
 	}
 	
 
