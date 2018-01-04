@@ -34,14 +34,7 @@ public class CartServiceimpl implements CartService {
 	@Override
 	public Cart getAllCart() {
 
-		/*
-		 * String uri = URLConstants.URL + "/{id}"; System.out.println(uri); Map<String,
-		 * String> params = new HashMap<String, String>(); params.put("userId", "1");
-		 * RestTemplate restTemplate = new RestTemplate(); Cart result =
-		 * restTemplate.getForObject(uri, Cart.class, params);
-		 * System.out.println(result); System.out.println(result);
-		 */
-
+	
 		Cart cart = new Cart();
 		cart.setEducation("sdfsafas");
 		cart.setUserId("1234");
@@ -184,7 +177,7 @@ public class CartServiceimpl implements CartService {
 		params.put("productId", productId);
 		params.put("userId", userId);
 		logger.info("productId  =" + productId + "  userId =" + userId);
-		restTemplate.delete(URLConstants.DELETE_FROM_CART, params);
+		restTemplate.postForObject(URLConstants.DELETE_FROM_CART,String.class, String.class, params);
 		
 	}
 	
@@ -204,7 +197,10 @@ public class CartServiceimpl implements CartService {
 		logger.info("getCardDetails service Responce body " + cartLists.getBody());
 		return null;
 	}
-
+public static void main(String[] args) {
+	new CartServiceimpl().deleteFromCart("3333", "DILIP");
+}
+	
 	/*@SuppressWarnings("null")
 	public ProductList searchProduct(String key) {
 		logger.info("getCardDetails service invoke with userID" + key);
