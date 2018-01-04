@@ -54,6 +54,9 @@
 						</div>
 					</div>
 				</div>
+				<div class="logo pull-right">
+					<a th:href="@{/clearcart}+'?name='+ ${name}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Clear the Cart</a>
+				</div>
 				<table width="600" align="center" border="4">
 					<tr>
 						<th>Customer Name</th>
@@ -69,9 +72,10 @@
 						<td align="left"><span th:utext="${cartinfo.quantity}"></span></td>
 						<!-- <td align="left"><span th:utext="${cartinfo.quantity}"></span></td> -->
 						<td align="center"><a class="cart_quantity_delete" href="/checkout"><img th:src="@{images/tick.png}" width="10" height="10" alt="tick"></img></a></td>
-						<td align="center"><a class="cart_quantity_delete" href=""><img th:src="@{images/wrong.jpg}" width="10" height="10" alt="wrong"></img></a></td>
+						<td align="center"><a class="cart_quantity_delete" th:href="@{/deletefromcart} + '?id='+ ${cartinfo.productId}"><img th:src="@{images/wrong.jpg}" width="10" height="10" alt="wrong"></img></a></td>
 					</tr>
 				</table>
+				
 			</div>
 		</div>
 	</section>

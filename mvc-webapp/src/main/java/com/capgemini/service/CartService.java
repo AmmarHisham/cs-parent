@@ -8,6 +8,7 @@ import com.capgemini.bean.Cart1;
 import com.capgemini.bean.Catalog;
 import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.Order;
+import com.capgemini.bean.ProductList;
 import com.capgemini.serviceimpl.UserCartModel;
 
 /**
@@ -18,19 +19,18 @@ public interface CartService {
 
 	
 	public void addToCart(String productId, String userId);
-	public void deleteFromCart();
+	public void deleteFromCart(String productId, String userId);
 	public UserCartModel getCardDetails(String userId);
-	public void emptyCart();
+	public void emptyCart(String userId);
 	
 	
 	
 	public Cart getAllCart();
 	public ArrayList<Catalog> getDetails();
-	/* public ArrayList<ProductList> getAllProduct(); */
+
 	public ArrayList<Order> getAllOrder();
 	public GiftCard getAllgiftCard();
-	public ArrayList<Cart1> getAllCart1();
-	//void addToCart();
+	/*public ProductList searchProduct(String key);*/
 	
 	
 	

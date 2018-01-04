@@ -49,8 +49,8 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency> <groupId>com.capgemini</groupId> <artifactId>pojos</artifactId> 
-			<version>${project.version}</version> </dependency>
+		<!-- <dependency> <groupId>com.capgemini</groupId> <artifactId>pojos</artifactId> 
+			<version>${project.version}</version> </dependency> -->
 		<!-- Auth dependency -->
 		<dependency>
 			<groupId>org.springframework.social</groupId>

@@ -2,9 +2,7 @@ package com.capgemini.config;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.capgemini.bean.AdminLogin;
 import com.capgemini.bean.Cart1;
 import com.capgemini.bean.Catalog;
@@ -103,16 +99,7 @@ public class WebRequestController {
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "GiftCard";
 	}
-
-	@RequestMapping(value = "/cart", method = RequestMethod.GET)
-	public String showCartPage(ModelMap model) {
-
-		ArrayList<Cart1> cart = cartServiceimpl.getAllCart1();
-		model.addAttribute("cartinf", cart);
-		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
-		return "UserCart";
-	}
-
+	
 	@RequestMapping(value = "/addGiftCard", method = RequestMethod.GET)
 	public String addGiftCard(ModelMap model) {
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
@@ -174,13 +161,12 @@ public class WebRequestController {
 
 	@RequestMapping(value = "/addtocart", method = RequestMethod.GET)
 	public String addToCart(@RequestParam("id") String productId, Model model) {
-		String email = linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getEmail();
-		logger.info("productId"+productId+"email"+email);
-		cartServiceimpl.addToCart(productId,email);
+		String userId = linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName();
+		logger.info("productId"+productId+"email"+userId);
+		cartServiceimpl.addToCart(productId,userId);
 		Collection<Catalog> cat = cartServiceimpl.getDetails();
-		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
+		model.addAttribute("name", userId);
 		model.addAttribute("catalog", cat);
-		
 		return "index";
 	}
 
@@ -191,6 +177,26 @@ public class WebRequestController {
 		UserCartModel UserCartModel = cartServiceimpl.getCardDetails(userId);
 		model.addAttribute("UserCartModel", UserCartModel);
 		logger.info("getCardDetails method completed return " + UserCartModel.toString());
+		return "UserCart";
+	}
+	
+	@RequestMapping(value = "/deletefromcart", method = RequestMethod.GET)
+	public String deleteFromCart(@RequestParam("id") String productId, Model model) {
+		String userId = linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName();
+		cartServiceimpl.deleteFromCart(productId, userId);
+		model.addAttribute("name", userId);
+		UserCartModel UserCartModel = cartServiceimpl.getCardDetails(userId);
+		model.addAttribute("UserCartModel", UserCartModel);
+		
+		return "UserCart";
+	}
+	
+	@RequestMapping(value = "/clearcart", method = RequestMethod.GET)
+	public String clearCart(@RequestParam("name") String userId, Model model) {
+		cartServiceimpl.emptyCart(userId);
+		model.addAttribute("name", userId);
+		UserCartModel UserCartModel = cartServiceimpl.getCardDetails(userId);
+		model.addAttribute("UserCartModel", UserCartModel);
 		return "UserCart";
 	}
 
@@ -212,6 +218,13 @@ public class WebRequestController {
 		model.addAttribute("catalog", cat);
 		model.addAttribute("name", admin.getUsername());
 		return validate;
-
 	}
+	
+	/*@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String search(@RequestParam("key") String key, ModelMap model) {
+		ProductList pro=cartServiceimpl.searchProduct(key);
+		model.addAttribute("catalog",pro);
+		return "Product";
+	}
+	*/
 }

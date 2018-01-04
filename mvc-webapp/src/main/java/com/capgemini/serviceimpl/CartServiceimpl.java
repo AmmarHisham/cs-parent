@@ -2,6 +2,7 @@ package com.capgemini.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import com.capgemini.bean.Catalog;
 import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.Order;
 import com.capgemini.bean.ProductList;
+import com.capgemini.config.WebRequestController;
 import com.capgemini.constant.URLConstants;
 import com.capgemini.service.CartService;
 
@@ -27,9 +29,8 @@ import com.capgemini.service.CartService;
 public class CartServiceimpl implements CartService {
 
 	private static final Logger logger = LoggerFactory.getLogger(CartServiceimpl.class);
-
+	
 	RestTemplate restTemplate = new RestTemplate();
-
 	@Override
 	public Cart getAllCart() {
 
@@ -84,32 +85,6 @@ public class CartServiceimpl implements CartService {
 		return col;
 	}
 
-	/*
-	 * public ArrayList<ProductList> getAllProduct() {
-	 * 
-	 * ProductList productlist = new ProductList();
-	 * productlist.setProductId("1234"); productlist.setProductName("abc");
-	 * productlist.setProductPrice("100");
-	 * 
-	 * ProductList productlist1 = new ProductList();
-	 * productlist1.setProductId("1234"); productlist1.setProductName("abc");
-	 * productlist1.setProductPrice("100");
-	 * 
-	 * ProductList productlist2 = new ProductList();
-	 * productlist2.setProductId("1234"); productlist2.setProductName("abc");
-	 * productlist2.setProductPrice("100");
-	 * 
-	 * ProductList productlist3 = new ProductList();
-	 * productlist3.setProductId("1234"); productlist3.setProductName("abc");
-	 * productlist3.setProductPrice("100");
-	 * 
-	 * ArrayList<ProductList> pro = new ArrayList<ProductList>();
-	 * pro.add(productlist); pro.add(productlist1); pro.add(productlist2);
-	 * pro.add(productlist3);
-	 * 
-	 * return pro; }
-	 */
-
 	@Override
 	public ArrayList<Order> getAllOrder() {
 		Order ord = new Order();
@@ -153,29 +128,6 @@ public class CartServiceimpl implements CartService {
 
 	}
 
-	/*
-	 * public ArrayList<Order> getAllOrder() { Order order = new Order();
-	 * order.setName("qwert"); order.setEmail("siaohi"); order.setPhone("1234");
-	 * order.setAddress("bangalore");
-	 * 
-	 * Order order1 = new Order(); order1.setName("qwert");
-	 * order1.setEmail("siaohi"); order1.setPhone("1234");
-	 * order1.setAddress("bangalore");
-	 * 
-	 * Order order2 = new Order(); order2.setName("qwert");
-	 * order2.setEmail("siaohi"); order2.setPhone("1234");
-	 * order2.setAddress("bangalore");
-	 * 
-	 * Order order3 = new Order(); order3.setName("qwert");
-	 * order3.setEmail("siaohi"); order3.setPhone("1234");
-	 * order3.setAddress("bangalore");
-	 * 
-	 * ArrayList<Order> ord=new ArrayList<Order>(); ord.add(order); ord.add(order1);
-	 * ord.add(order2); ord.add(order3); return ord;
-	 * 
-	 * }
-	 */
-
 	@Override
 	public GiftCard getAllgiftCard() {
 		GiftCard giftcard = new GiftCard();
@@ -184,37 +136,6 @@ public class CartServiceimpl implements CartService {
 		System.out.println(giftcard.getGiftCardId());
 		System.out.println(giftcard.getGiftCardValue());
 		return giftcard;
-	}
-
-	@Override
-	public ArrayList<Cart1> getAllCart1() {
-
-		ArrayList<Cart1> cart = new ArrayList<Cart1>();
-
-		Cart1 cart1 = new Cart1();
-		cart1.setQuantity(2);
-		cart1.setProductPrice(10);
-		cart1.setProductId("abc");
-		cart1.setProductName("a");
-
-		Cart1 cart2 = new Cart1();
-
-		cart2.setQuantity(2);
-		cart2.setProductPrice(10);
-		cart2.setProductId("abc");
-		cart2.setProductName("a");
-
-		Cart1 cart3 = new Cart1();
-		cart3.setQuantity(2);
-		cart3.setProductPrice(10);
-		cart3.setProductId("abc");
-		cart3.setProductName("a");
-
-		cart.add(cart1);
-		cart.add(cart2);
-		cart.add(cart3);
-
-		return cart;
 	}
 
 	public ArrayList<ProductList> getAllAdminProduct() {
@@ -253,29 +174,30 @@ public class CartServiceimpl implements CartService {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("productId", productId);
 		params.put("userId", userId);
-		logger.info("productId  =" + productId + "userId =" + userId);
-		RestTemplate restTemplate = new RestTemplate();
+		logger.info("productId  =" + productId + "  userId =" + userId);
 		restTemplate.postForObject(URLConstants.ADD_TO_CART, String.class, String.class, params);
 	}
 
 	@Override
-	public void deleteFromCart() {
-		// TODO Auto-generated method stub
-		// http://10.246.16.166:1003/cart/deleteProduct?userId=ss&productId=ss
+	public void deleteFromCart(String productId, String userId) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("productId", productId);
+		params.put("userId", userId);
+		logger.info("productId  =" + productId + "  userId =" + userId);
+		restTemplate.delete(URLConstants.DELETE_FROM_CART, params);
+		
 	}
-
+	
 	@Override
-	public void emptyCart() {
-		// TODO Auto-generated method stub
-		// http://10.246.16.166:1003/cart/empty?userId=aa
-
+	public void emptyCart(String userId) {
+		restTemplate.delete(URLConstants.CLEAR_CART, userId);
+		logger.info("userId =" + userId);
 	}
 
 	@SuppressWarnings("null")
 	public UserCartModel getCardDetails(String userId) {
 		logger.info("getCardDetails service invoke with userID" + userId);
-		ResponseEntity<UserCartModel> cartLists = restTemplate.getForEntity(URLConstants.GET_CART, UserCartModel.class,
-				userId);
+		ResponseEntity<UserCartModel> cartLists = restTemplate.getForEntity(URLConstants.GET_CART, UserCartModel.class, userId);
 		if (cartLists != null) {
 			return cartLists.getBody();
 		}
@@ -283,8 +205,16 @@ public class CartServiceimpl implements CartService {
 		return null;
 	}
 
-	public static void main(String[] args) {
-		new CartServiceimpl().addToCart("30", "30");
-	}
+	/*@SuppressWarnings("null")
+	public ProductList searchProduct(String key) {
+		logger.info("getCardDetails service invoke with userID" + key);
+		ResponseEntity<ProductList> proList = restTemplate.getForEntity(URLConstants.SEARCH_PRODUCT, ProductList.class, key);
+		if (proList != null) {
+			return proList.getBody();
+		}
+		logger.info("getCardDetails service Responce body " + proList.getBody());
+		return null;
+
+	}*/
 
 }
