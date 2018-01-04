@@ -1,15 +1,24 @@
 package com.capgemini.serviceimpl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.capgemini.bean.AdminLogin;
+import com.capgemini.bean.ProductCatalog;
 import com.capgemini.bean.ProductList;
+import com.capgemini.constant.URLConstants;
 import com.capgemini.service.AdminService;
 @Service
 public class AdminServiceimpl implements AdminService{
 	
+	private static final Logger logger = LoggerFactory.getLogger(AdminServiceimpl.class);
+	RestTemplate restTemplate = new RestTemplate();
 	public ArrayList<ProductList> getAllProduct() {
 
 		ProductList productlist = new ProductList();
@@ -54,7 +63,15 @@ public class AdminServiceimpl implements AdminService{
 		}
 		
 	}
-	
+	public void addToProduct(String productId, String productName, String productPrice) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("productId", productId);
+		params.put("productName", productName);
+		params.put("productPrice", productPrice);
+		ProductCatalog productCatalog=new ProductCatalog();
+		logger.info("productId  =" + productId + "productName =" + productName + "productPrice =" + productPrice);
+		restTemplate.postForObject(URLConstants.ADD_TO_PRODUCT, String.class, String.class, params);
+	}
 	
 
 }

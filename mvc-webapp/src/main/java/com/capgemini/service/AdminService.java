@@ -10,5 +10,5 @@ public interface AdminService {
 	public ArrayList<ProductList> getAllProduct();
 	
 	public String adminLogin(AdminLogin adminValidate);
-
+	public void addToProduct(String productId, String productName, String productPrice);
 }

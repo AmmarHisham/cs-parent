@@ -2,7 +2,9 @@ package com.capgemini.config;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.capgemini.bean.AdminLogin;
-import com.capgemini.bean.Cart1;
 import com.capgemini.bean.Catalog;
 import com.capgemini.bean.Checkout;
 import com.capgemini.bean.GiftCard;
@@ -23,7 +25,6 @@ import com.capgemini.bean.ProductList;
 import com.capgemini.login.model.UserBean;
 import com.capgemini.login.social.providers.LinkedInProvider;
 import com.capgemini.service.AdminService;
-import com.capgemini.serviceimpl.AdminServiceimpl;
 import com.capgemini.serviceimpl.CartServiceimpl;
 import com.capgemini.serviceimpl.UserCartModel;
 
@@ -205,8 +206,17 @@ public class WebRequestController {
 		System.out.println("Product Code : " + prod.getProductId());
 		System.out.println("Product Name : " + prod.getProductName());
 		System.out.println("Product Price :" + prod.getProductPrice());
+		
+		
+		logger.info("productId"+prod.getProductId(),"ProductName"+prod.getProductName(),"productPrice"+prod.getProductPrice());
+		adminService.addToProduct(prod.getProductId(),  prod.getProductName(), prod.getProductPrice());
 		Collection<Catalog> cat = cartServiceimpl.getDetails();
+		
+		/*model.addAttribute("Product Id", prod.getProductId());
+		model.addAttribute("Product Name", prod.getProductName());
+		model.addAttribute("Product Price", prod.getProductPrice());*/
 		model.addAttribute("catalog", cat);
+		model.addAttribute("name", admin1.getUsername());
 		return "adminHome";
 	}
 
