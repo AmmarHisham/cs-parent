@@ -1,29 +1,46 @@
 package com.capgemini.bean;
 
-public class Checkout {
+public class ShippingBean {
+	public String uid;
+	public String pid;
+	private int qua;
+	private int price;
+	public String email;
+	public String phone;
+	public String addressLine1;
+	public String addressLine2;
+	public String pin;
 
-	private String name;
-	private String email;
-	public String qua;
-	private String phone;
-	private String addressLine1;
-	private String addressLine2;
-	private String pin;
+	public int getPrice() {
+		return price;
+	}
 
-	public String getQua() {
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public int getQua() {
 		return qua;
 	}
 
-	public void setQua(String qua) {
+	public void setQua(int qua) {
 		this.qua = qua;
 	}
 
-	public String getName() {
-		return name;
+	public String getUid() {
+		return uid;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+
+	public String getPid() {
+		return pid;
+	}
+
+	public void setPid(String pid) {
+		this.pid = pid;
 	}
 
 	public String getEmail() {
@@ -66,10 +83,7 @@ public class Checkout {
 		this.pin = pin;
 	}
 
-	@Override
-	public String toString() {
-		return "Checkout [name=" + name + ", email=" + email + ", phone=" + phone + ", address=" + addressLine1
-				+ addressLine2 + "pin=" + pin + "]";
+	public String getAddress() {
+		return addressLine1 + " " + addressLine2;
 	}
-
 }

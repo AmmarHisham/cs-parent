@@ -24,13 +24,15 @@ public interface CartService {
 	public void emptyCart(String userId);
 	
 	
-	
 	public Cart getAllCart();
 	public ArrayList<Catalog> getDetails();
 
 	public ArrayList<Order> getAllOrder();
 	public GiftCard getAllgiftCard();
 	/*public ProductList searchProduct(String key);*/
+	String getProductPrice(String productId);
+	UserCartModel setProductPrice(UserCartModel user);
+	public void debitGiftCard(String uid, int price);
 	
 	
 	

@@ -22,6 +22,7 @@ import com.capgemini.bean.Checkout;
 import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.Order;
 import com.capgemini.bean.ProductList;
+import com.capgemini.bean.ShippingBean;
 import com.capgemini.login.model.UserBean;
 import com.capgemini.login.social.providers.LinkedInProvider;
 import com.capgemini.service.AdminService;
@@ -135,19 +136,27 @@ public class WebRequestController {
 	}
 
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
-	public String showCheckoutPage(ModelMap model) {
+	public String showCheckoutPage(@RequestParam("uid") String userId,@RequestParam("pid") String productid, @RequestParam("qua") String quantity, @RequestParam("price") String price, ModelMap model) {
+		model.addAttribute("uid", userId);
+		model.addAttribute("pid", productid);
+		model.addAttribute("qua",quantity);
+		model.addAttribute("price",price);
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "checkout";
 	}
 
 	@RequestMapping(value = "/checkoutcomplete", method = RequestMethod.GET)
-	public String showCheckoutPage(@ModelAttribute Checkout checkout, ModelMap model) {
-
-		System.out.println(checkout.getName());
-		Collection<Catalog> cat = cartServiceimpl.getDetails();
-		model.addAttribute("catalog", cat);
+	public String showCheckoutCompletePage(@ModelAttribute ShippingBean address, ModelMap model) {
+		address.setPrice(address.getPrice()*address.getQua());
+		model.addAttribute("checkout", address);
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
-		return "index";
+		return "CheckoutConfirm";
+	}
+	
+	@RequestMapping(value = "/payment", method = RequestMethod.GET)
+	public String payment(@ModelAttribute ShippingBean proDetail, ModelMap model) {
+		cartServiceimpl.debitGiftCard(proDetail.getUid(), proDetail.getPrice());
+		return null;
 	}
 
 	@RequestMapping(value = "/linkedin", method = RequestMethod.GET)
@@ -175,7 +184,7 @@ public class WebRequestController {
 	public String getCardDetails(@RequestParam("id") String userId, Model model) {
 		logger.info("getCardDetails method invoke with userId " + userId);
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
-		UserCartModel UserCartModel = cartServiceimpl.getCardDetails(userId);
+		UserCartModel UserCartModel = cartServiceimpl.setProductPrice(cartServiceimpl.getCardDetails(userId));
 		model.addAttribute("UserCartModel", UserCartModel);
 		logger.info("getCardDetails method completed return " + UserCartModel.toString());
 		return "UserCart";
@@ -186,9 +195,8 @@ public class WebRequestController {
 		String userId = linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName();
 		cartServiceimpl.deleteFromCart(productId, userId);
 		model.addAttribute("name", userId);
-		UserCartModel UserCartModel = cartServiceimpl.getCardDetails(userId);
+		UserCartModel UserCartModel = cartServiceimpl.setProductPrice(cartServiceimpl.getCardDetails(userId));
 		model.addAttribute("UserCartModel", UserCartModel);
-		
 		return "UserCart";
 	}
 	

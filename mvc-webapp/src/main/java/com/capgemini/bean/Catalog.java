@@ -2,20 +2,20 @@ package com.capgemini.bean;
 
 public class Catalog {
 
-	private int price;
+	private String price;
 	private String name;
-	private int id;
+	private String id;
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 	public String getName() {

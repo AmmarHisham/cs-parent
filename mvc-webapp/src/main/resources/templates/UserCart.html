@@ -62,7 +62,8 @@
 						<th>Customer Name</th>
 						<th>Product ID</th>
 						<td><b>Quantity</b></td>
-						<th align="right">Proceed</th>
+						<td><b>Price</b></td>
+						<th align="right">Pay</th>
 						<th align="center">Cancel</th>
 					</tr>
 					<tr></tr>
@@ -70,8 +71,8 @@
 						<td align="left"><span th:utext="${UserCartModel.userId}"></span></td>
 						<td align="left"><span th:utext="${cartinfo.productId}"></span></td>
 						<td align="left"><span th:utext="${cartinfo.quantity}"></span></td>
-						<!-- <td align="left"><span th:utext="${cartinfo.quantity}"></span></td> -->
-						<td align="center"><a class="cart_quantity_delete" href="/checkout"><img th:src="@{images/tick.png}" width="10" height="10" alt="tick"></img></a></td>
+						<td align="left"><span th:utext="${cartinfo.price}"></span></td>
+						<td align="center"><a class="cart_quantity_delete" th:href="@{/checkout(uid=${UserCartModel.userId},pid=${cartinfo.productId},qua=${cartinfo.quantity},price=${cartinfo.price})}"><img th:src="@{images/tick.png}" width="10" height="10" alt="tick"></img></a></td>
 						<td align="center"><a class="cart_quantity_delete" th:href="@{/deletefromcart} + '?id='+ ${cartinfo.productId}"><img th:src="@{images/wrong.jpg}" width="10" height="10" alt="wrong"></img></a></td>
 					</tr>
 				</table>
