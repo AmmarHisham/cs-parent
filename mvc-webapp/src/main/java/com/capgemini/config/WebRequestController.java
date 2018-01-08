@@ -23,6 +23,7 @@ import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.Order;
 import com.capgemini.bean.ProductList;
 import com.capgemini.bean.ShippingBean;
+import com.capgemini.bean.User;
 import com.capgemini.login.model.UserBean;
 import com.capgemini.login.social.providers.LinkedInProvider;
 import com.capgemini.service.AdminService;
@@ -154,10 +155,22 @@ public class WebRequestController {
 	}
 	
 	@RequestMapping(value = "/payment", method = RequestMethod.GET)
-	public String payment(@ModelAttribute ShippingBean proDetail, ModelMap model) {
-		cartServiceimpl.debitGiftCard(proDetail.getUid(), proDetail.getPrice());
-		return null;
+	public String payment(@RequestParam("uid") String userId, @RequestParam("pid") String pId, Model model) {
+		//cartServiceimpl.debitGiftCard(user);
+		cartServiceimpl.deleteFromCart(pId, userId);
+		Collection<Catalog> cat = cartServiceimpl.getDetails();
+		model.addAttribute("catalog", cat);
+		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
+		return "index";
 	}
+	
+	/*@RequestMapping(value = "/creditGiftcard", method = RequestMethod.GET)
+	public String creditGiftcard(@ModelAttribute ShippingBean proDetail, Model model) {
+		cartServiceimpl.creditGiftCard(proDetail.getUid(), proDetail.getPrice());
+		deleteFromCart(proDetail.getPid(), model);
+		return null;
+	}*/
+	
 
 	@RequestMapping(value = "/linkedin", method = RequestMethod.GET)
 	public String linkedInUserInfo(Model model) {

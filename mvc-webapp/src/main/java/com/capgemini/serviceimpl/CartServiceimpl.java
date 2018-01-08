@@ -17,6 +17,7 @@ import com.capgemini.bean.Catalog;
 import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.Order;
 import com.capgemini.bean.ProductList;
+import com.capgemini.bean.User;
 import com.capgemini.config.WebRequestController;
 import com.capgemini.constant.URLConstants;
 import com.capgemini.service.CartService;
@@ -31,14 +32,6 @@ public class CartServiceimpl implements CartService {
 	private static final Logger logger = LoggerFactory.getLogger(CartServiceimpl.class);
 
 	RestTemplate restTemplate = new RestTemplate();
-
-	@Override
-	public Cart getAllCart() {
-		Cart cart = new Cart();
-		cart.setEducation("sdfsafas");
-		cart.setUserId("1234");
-		return cart;
-	}
 
 	@Override
 	public ArrayList<Catalog> getDetails() {
@@ -130,37 +123,7 @@ public class CartServiceimpl implements CartService {
 		return giftcard;
 	}
 
-	public ArrayList<ProductList> getAllAdminProduct() {
-
-		ProductList productlist = new ProductList();
-		productlist.setProductId("1234");
-		productlist.setProductName("abc");
-		productlist.setProductPrice("100");
-
-		ProductList productlist1 = new ProductList();
-		productlist1.setProductId("1234");
-		productlist1.setProductName("abc");
-		productlist1.setProductPrice("100");
-
-		ProductList productlist2 = new ProductList();
-		productlist2.setProductId("1234");
-		productlist2.setProductName("abc");
-		productlist2.setProductPrice("100");
-
-		ProductList productlist3 = new ProductList();
-		productlist3.setProductId("1234");
-		productlist3.setProductName("abc");
-		productlist3.setProductPrice("100");
-
-		ArrayList<ProductList> pro = new ArrayList<ProductList>();
-		pro.add(productlist);
-		pro.add(productlist1);
-		pro.add(productlist2);
-		pro.add(productlist3);
-
-		return pro;
-	}
-
+	
 	@Override
 	public void addToCart(String productId, String userId) {
 		Map<String, String> params = new HashMap<String, String>();
@@ -198,10 +161,6 @@ public class CartServiceimpl implements CartService {
 		return null;
 	}
 
-	public static void main(String[] args) {
-		new CartServiceimpl().emptyCart("DILIP");
-	}
-
 	/*
 	 * @SuppressWarnings("null") public ProductList searchProduct(String key) {
 	 * logger.info("getCardDetails service invoke with userID" + key);
@@ -235,13 +194,28 @@ public class CartServiceimpl implements CartService {
 		return user;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	public void debitGiftCard(String uid, int price) {
-		Map params = new HashMap();
-		params.put("userId", uid);
-		params.put("price", price);
-		restTemplate.postForEntity(URLConstants.DEBIT_GIFTCARD, request, responseType, params);
+	/*public void createUserGiftCard(User user)
+	{
+		
 	}
+	
+	public void debitGiftCard(User user) {
+		createUserGiftCard(user);
+		restTemplate.postForObject(URLConstants.DEBIT_GIFTCARD, User.class, User.class, user);
+	}*/
+	
+	/*@Override
+	public void creditGiftCard(String firstName, int balance) {
+		String str1 = Integer.toString(balance);
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("userId", firstName);
+		params.put("price", str1);
+		restTemplate.postForEntity(URLConstants.CREDIT_GIFTCARD, User.class, User.class, params);
+	}*/
+	
+	/*public static void main(String[] args) {
+		new CartServiceimpl().debitGiftCard("DILIP");
+	}*/
+	
 
 }

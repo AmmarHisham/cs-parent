@@ -19,6 +19,7 @@ public class AdminServiceimpl implements AdminService{
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminServiceimpl.class);
 	RestTemplate restTemplate = new RestTemplate();
+	
 	public ArrayList<ProductList> getAllProduct() {
 
 		ProductList productlist = new ProductList();

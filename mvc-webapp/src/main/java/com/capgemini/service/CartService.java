@@ -9,6 +9,7 @@ import com.capgemini.bean.Catalog;
 import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.Order;
 import com.capgemini.bean.ProductList;
+import com.capgemini.bean.User;
 import com.capgemini.serviceimpl.UserCartModel;
 
 /**
@@ -22,9 +23,6 @@ public interface CartService {
 	public void deleteFromCart(String productId, String userId);
 	public UserCartModel getCardDetails(String userId);
 	public void emptyCart(String userId);
-	
-	
-	public Cart getAllCart();
 	public ArrayList<Catalog> getDetails();
 
 	public ArrayList<Order> getAllOrder();
@@ -32,7 +30,8 @@ public interface CartService {
 	/*public ProductList searchProduct(String key);*/
 	String getProductPrice(String productId);
 	UserCartModel setProductPrice(UserCartModel user);
-	public void debitGiftCard(String uid, int price);
+	//public void debitGiftCard(User user);
+	//void creditGiftCard(String firstName, int balance);
 	
 	
 	
