@@ -1,15 +1,19 @@
 package com.cg.userprofile;
 
+import javax.annotation.Generated;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 
 
 @Entity
 @Table(name="user")
 public class User {
 	@Id
-	private long userId;
+	@GeneratedValue
+	private Long userId;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -17,11 +21,11 @@ public class User {
 	private long balance;
 	private String role;
 
-	public long getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
@@ -92,6 +96,11 @@ public class User {
 		builder.append(role);
 		builder.append("]");
 		return builder.toString();
+	}
+
+	public char[] toJSONString() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
