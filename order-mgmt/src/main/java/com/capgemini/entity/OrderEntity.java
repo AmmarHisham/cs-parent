@@ -1,84 +1,71 @@
 package com.capgemini.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import org.hibernate.annotations.NaturalId;
 
 @Entity
 public class OrderEntity implements Serializable {
-	 private static final long serialVersionUID = 2405172041950251807L;
+	private static final long serialVersionUID = 2405172041950251807L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int orderId;
+	@GeneratedValue
+	private Long orderId;
 
-	@NaturalId
-	private int userId;
+	private Long userId;
 
-	@NaturalId
-	private String status;
+	private OrderStatus status;
 
-	@OneToMany(fetch = FetchType.LAZY, targetEntity = OrderDetailsEntity.class)
-	@JoinColumn(name = "oId", referencedColumnName = "orderId")
-	private List<OrderDetailsEntity> orderDetails;
-	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "order_id")
+	private List<OrderDetailsEntity> orderDetails = new ArrayList<>();
+
 	public OrderEntity() {
-		super();
-	
 	}
 
-	public OrderEntity(int orderId, int userId, String status, List<OrderDetailsEntity> orderDetails) {
-		super();
+	public OrderEntity(Long orderId, Long userId, OrderStatus status, List<OrderDetailsEntity> orderDetails) {
 		this.orderId = orderId;
 		this.userId = userId;
 		this.status = status;
 		this.orderDetails = orderDetails;
 	}
 
-	public int getOrderId() {
+	public Long getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(int orderId) {
+	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
 	}
 
-	public int getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
-	public String getStatus() {
+	public OrderStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(OrderStatus status) {
 		this.status = status;
 	}
 
-	public List<?> getOrderDetails() {
+	public List<OrderDetailsEntity> getOrderDetails() {
 		return orderDetails;
 	}
 
 	public void setOrderDetails(List<OrderDetailsEntity> orderDetails) {
 		this.orderDetails = orderDetails;
 	}
-
-	@Override
-	public String toString() {
-		return "OrderEntity [orderId=" + orderId + ", userId=" + userId + ", status=" + status + ", orderDetails="
-				+ orderDetails + "]";
-	}
-
 
 }
