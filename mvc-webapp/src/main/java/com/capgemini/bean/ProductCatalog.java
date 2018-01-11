@@ -1,110 +1,64 @@
 package com.capgemini.bean;
 
+
 public class ProductCatalog {
 
+	
 	private String Id;
-	private String catagoryName;
-	private String productName;
-	private String productIdParent;
-	private String productIdChild;
+	
+	
+	private String product_id_parent;
+	private String product_id_child;
 	private String price;
-	private String imageUrl;
-
+	
+	
 	/**
-	 * @return the productName
+	 * @return the product_id_parent
 	 */
-	public String getProductName() {
-		return productName;
+	public String getProduct_id_parent() {
+		return product_id_parent;
 	}
-
 	/**
-	 * @param productName
-	 *            the productName to set
+	 * @param product_id_parent the product_id_parent to set
 	 */
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setProduct_id_parent(String product_id_parent) {
+		this.product_id_parent = product_id_parent;
 	}
-
 	/**
-	 * @return the productIdParent
+	 * @return the product_id_child
 	 */
-	public String getProductIdParent() {
-		return productIdParent;
+	public String getProduct_id_child() {
+		return product_id_child;
 	}
-
 	/**
-	 * @param productIdParent
-	 *            the productIdParent to set
+	 * @param product_id_child the product_id_child to set
 	 */
-	public void setProductIdParent(String productIdParent) {
-		this.productIdParent = productIdParent;
+	public void setProduct_id_child(String product_id_child) {
+		this.product_id_child = product_id_child;
 	}
-
-	/**
-	 * @return the productIdChild
-	 */
-	public String getProductIdChild() {
-		return productIdChild;
-	}
-
-	/**
-	 * @param productIdChild
-	 *            the productIdChild to set
-	 */
-	public void setProductIdChild(String productIdChild) {
-		this.productIdChild = productIdChild;
-	}
-
 	/**
 	 * @return the price
 	 */
 	public String getPrice() {
 		return price;
 	}
-
 	/**
-	 * @param price
-	 *            the price to set
+	 * @param price the price to set
 	 */
 	public void setPrice(String price) {
 		this.price = price;
 	}
-
 	/**
-	 * @return the imageUrl
+	 * @return the gift_card_id
 	 */
-	public String getImageUrl() {
-		return imageUrl;
+	/*public String getGift_card_id() {
+		return gift_card_id;
 	}
-
-	/**
-	 * @param imageUrl
-	 *            the imageUrl to set
-	 */
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-	/**
-	 * @return the catagoryName
-	 */
-	public String getCatagoryName() {
-		return catagoryName;
-	}
-
-	/**
-	 * @param catagoryName
-	 *            the catagoryName to set
-	 */
-	public void setCatagoryName(String catagoryName) {
-		this.catagoryName = catagoryName;
-	}
-
-	@Override
-	public String toString() {
-		return "{\"product_id_parent\":" + "\"" + productIdParent + "\"" + ", \"product_id_child\":" + "\""
-				+ productIdChild + "\"" + ", \"catagory_name\":" + "\"" + catagoryName + "\"" + ", \"product_name\":"
-				+ "\"" + productName + "\"" + ", \"image_url\":" + "\"" + imageUrl + "\"" + ", \"price\":" + "\""
-				+ price + "\"" + "}";
-	}
+	*//**
+	 * @param gift_card_id the gift_card_id to set
+	 *//*
+	public void setGift_card_id(String gift_card_id) {
+		this.gift_card_id = gift_card_id;
+	}*/
+	
 }
