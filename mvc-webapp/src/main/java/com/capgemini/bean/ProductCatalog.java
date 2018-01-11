@@ -1,64 +1,57 @@
 package com.capgemini.bean;
 
+import java.io.Serializable;
 
-public class ProductCatalog {
+public class ProductCatalog implements Serializable {
 
-	
 	private String Id;
-	
-	
-	private String product_id_parent;
-	private String product_id_child;
+	private String catagoryName;
+	public String productName;
+	private String productIdParent;
+	private String productIdChild;
 	private String price;
-	
-	
-	/**
-	 * @return the product_id_parent
-	 */
-	public String getProduct_id_parent() {
-		return product_id_parent;
+	private String imageUrl;
+	public String getCatagoryName() {
+		return catagoryName;
 	}
-	/**
-	 * @param product_id_parent the product_id_parent to set
-	 */
-	public void setProduct_id_parent(String product_id_parent) {
-		this.product_id_parent = product_id_parent;
+	public void setCatagoryName(String catagoryName) {
+		this.catagoryName = catagoryName;
 	}
-	/**
-	 * @return the product_id_child
-	 */
-	public String getProduct_id_child() {
-		return product_id_child;
+	public String getProductName() {
+		return productName;
 	}
-	/**
-	 * @param product_id_child the product_id_child to set
-	 */
-	public void setProduct_id_child(String product_id_child) {
-		this.product_id_child = product_id_child;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
-	/**
-	 * @return the price
-	 */
+	public String getProductIdParent() {
+		return productIdParent;
+	}
+	public void setProductIdParent(String productIdParent) {
+		this.productIdParent = productIdParent;
+	}
+	public String getProductIdChild() {
+		return productIdChild;
+	}
+	public void setProductIdChild(String productIdChild) {
+		this.productIdChild = productIdChild;
+	}
 	public String getPrice() {
 		return price;
 	}
-	/**
-	 * @param price the price to set
-	 */
 	public void setPrice(String price) {
 		this.price = price;
 	}
-	/**
-	 * @return the gift_card_id
-	 */
-	/*public String getGift_card_id() {
-		return gift_card_id;
+	public String getImageUrl() {
+		return imageUrl;
 	}
-	*//**
-	 * @param gift_card_id the gift_card_id to set
-	 *//*
-	public void setGift_card_id(String gift_card_id) {
-		this.gift_card_id = gift_card_id;
-	}*/
-	
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	public String getId() {
+		return Id;
+	}
+	public void setId(String id) {
+		Id = id;
+	}
+
 }

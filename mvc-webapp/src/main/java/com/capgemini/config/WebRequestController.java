@@ -2,6 +2,7 @@ package com.capgemini.config;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,13 +22,16 @@ import com.capgemini.bean.Catalog;
 import com.capgemini.bean.Checkout;
 import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.Order;
+import com.capgemini.bean.ProductCatalog;
 import com.capgemini.bean.ProductList;
 import com.capgemini.bean.ShippingBean;
 import com.capgemini.bean.User;
 import com.capgemini.login.model.UserBean;
 import com.capgemini.login.social.providers.LinkedInProvider;
 import com.capgemini.service.AdminService;
+import com.capgemini.service.CatalogService;
 import com.capgemini.serviceimpl.CartServiceimpl;
+import com.capgemini.serviceimpl.CatalogServiceImpl;
 import com.capgemini.serviceimpl.UserCartModel;
 
 /**
@@ -38,6 +42,9 @@ import com.capgemini.serviceimpl.UserCartModel;
 @Controller
 public class WebRequestController {
 
+	@Autowired
+	WebRequestController web;
+	
 	private static final Logger logger = LoggerFactory.getLogger(WebRequestController.class);
 	@Autowired
 	public CartServiceimpl cartServiceimpl;
@@ -47,24 +54,28 @@ public class WebRequestController {
 
 	@Autowired
 	AdminService adminService;
+	
+	@Autowired
+    public CatalogServiceImpl catalogService;
 
 	AdminLogin admin1 = new AdminLogin();
 
 	UserBean userBean = new UserBean();
 
 	@RequestMapping({ "/", "/home" })
-	public String homeBeforeLogin(ModelMap model) {
-		Collection<Catalog> cat = cartServiceimpl.getDetails();
-		model.addAttribute("catalog", cat);
+	public String homeBeforeLogin(ModelMap model) 
+	{
+		List<ProductCatalog> list=catalogService.getProduct();
+		
+		model.addAttribute("catalog", list);
 		return "Home";
 	}
 
 	@RequestMapping(value = "/home1", method = RequestMethod.GET)
 	public String homeAfterLogin(ModelMap model) {
-		Collection<Catalog> cat = cartServiceimpl.getDetails();
-		model.addAttribute("catalog", cat);
+		List<ProductCatalog> list=catalogService.getProduct();
+		model.addAttribute("catalog", list);
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
-		model.addAttribute("name1", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getEmail());
 		return "index";
 	}
 
@@ -183,13 +194,13 @@ public class WebRequestController {
 	}
 
 	@RequestMapping(value = "/addtocart", method = RequestMethod.GET)
-	public String addToCart(@RequestParam("id") String productId, Model model) {
+	public String addToCart(@RequestParam("name") String productName, Model model) {
 		String userId = linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName();
-		logger.info("productId"+productId+"email"+userId);
-		cartServiceimpl.addToCart(productId,userId);
-		Collection<Catalog> cat = cartServiceimpl.getDetails();
+		logger.info("productId"+productName+"email"+userId);
+		cartServiceimpl.addToCart(productName,userId);
 		model.addAttribute("name", userId);
-		model.addAttribute("catalog", cat);
+		List<ProductCatalog> list=catalogService.getProduct();
+		model.addAttribute("catalog", list);
 		return "index";
 	}
 
@@ -258,4 +269,9 @@ public class WebRequestController {
 		return "Product";
 	}
 	*/
+	
+	/*public static void main(String[] args) {
+		web.homeBeforeLogin(new ModelMap());
+
+	}*/
 }

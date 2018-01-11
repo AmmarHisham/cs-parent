@@ -1,6 +1,7 @@
 package com.capgemini.login.social.providers;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.ConnectionRepository;
@@ -10,8 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.capgemini.bean.Catalog;
+import com.capgemini.bean.ProductCatalog;
 import com.capgemini.login.model.UserBean;
 import com.capgemini.serviceimpl.CartServiceimpl;
+import com.capgemini.serviceimpl.CatalogServiceImpl;
 
 /**
  * @author dimehta
@@ -28,6 +31,8 @@ public class LinkedInProvider {
 	BaseProvider socialLoginBean;
 	@Autowired
 	public CartServiceimpl cartServiceimpl;
+	@Autowired
+    public CatalogServiceImpl catalogService;
 	
 	UserBean userBean=new UserBean();
 	
@@ -40,8 +45,8 @@ public class LinkedInProvider {
 			return REDIRECT_LOGIN;
 		}
 		populateUserDetailsFromLinkedIn(userForm);
-		Collection<Catalog> cat = cartServiceimpl.getDetails();
-		model.addAttribute("catalog", cat);
+		List<ProductCatalog> list=catalogService.getProduct();
+		model.addAttribute("catalog", list);
 		model.addAttribute("name", userForm.getFirstName());
 		return "index";
 	}
