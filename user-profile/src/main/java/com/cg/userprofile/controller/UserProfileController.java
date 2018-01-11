@@ -1,6 +1,6 @@
 package com.cg.userprofile.controller;
 
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,11 +13,13 @@ import com.cg.userprofile.User;
 import com.cg.userprofile.repo.UserProfileRepo;
 
 @RestController
+
 @RequestMapping("users")
 public class UserProfileController {
 
 	@Autowired
 	private UserProfileRepo profileRepo;
+	
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public User createUser(@RequestBody User user) {
 		return profileRepo.save(user);

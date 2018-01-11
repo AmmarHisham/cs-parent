@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.capgemini.model.ProductCartModel;
-import com.capgemini.repository.MongoRepositoryDataBaseOperations;
+import com.capgemini.usercart.model.ProductCartModel;
+import com.capgemini.usercart.repository.MongoRepositoryDataBaseOperations;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class CheckProductInList {
 	
 	@Autowired
@@ -30,7 +32,7 @@ public class CheckProductInList {
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			log.info("Error occured while CheckProductInList");
 			return index;
 		}
 		

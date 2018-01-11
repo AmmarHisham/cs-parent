@@ -1,4 +1,4 @@
-package com.capgemini.model;
+package com.capgemini.usercart.model;
 
 import java.io.Serializable;
 import java.util.List;

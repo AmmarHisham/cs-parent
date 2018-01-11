@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capgemini.model.UserCartModel;
+import com.capgemini.usercart.model.UserCartModel;
 import com.capgemini.usercart.services.AddProductCartService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ public class UserCartAddController {
 	public UserCartModel create(@RequestParam("userId") String userId,
 			@RequestParam("productId") String productId,
 			@RequestParam("quantity") String quantity) {
-		log.info(userId+" "+productId);
+			log.info(userId+" "+productId);
 		return addProductcartService.addProduct(userId, productId, quantity);
 	
 	}

@@ -1,12 +1,13 @@
 package com.capgemini.usercart.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capgemini.model.UserCartModel;
+import com.capgemini.usercart.model.UserCartModel;
 import com.capgemini.usercart.services.UserCartDetailService;
 
 @RestController
@@ -20,7 +21,9 @@ public class UserCartDetailController {
 
 	public UserCartModel getData(@RequestParam("userId") String userID) {
 
-		return userCartDetailService.getData(userID);
+	 UserCartModel userCartModel = userCartDetailService.getData(userID);
+	 
+	 return userCartModel;
 
 	}
 
