@@ -23,7 +23,6 @@ public interface CartService {
 	public void deleteFromCart(String productId, String userId);
 	public UserCartModel getCardDetails(String userId);
 	public void emptyCart(String userId);
-	public ArrayList<Catalog> getDetails();
 
 	public ArrayList<Order> getAllOrder();
 	public GiftCard getAllgiftCard();

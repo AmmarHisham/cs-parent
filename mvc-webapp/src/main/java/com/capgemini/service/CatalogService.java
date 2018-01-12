@@ -10,8 +10,10 @@ public interface CatalogService {
 
 	public List<ProductCatalog> getProduct();
 
-	public List<ProductCatalog> searchproduct(String ProductName);
-
 	public String updateCatalog(ProductCatalog product);
+
+	List<ProductCatalog> searchProduct(String prodName);
+
+	List<ProductCatalog> categorySearch(String key);
 
 }
