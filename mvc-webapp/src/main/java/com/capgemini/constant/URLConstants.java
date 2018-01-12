@@ -16,6 +16,7 @@ public class URLConstants {
 
 	public static final String ADD_TO_PRODUCT = "http://10.77.116.23:9090/add?productId= {productId}&productName={productName}&productPrice{productPrice}";
 	public static final String GET_ALLPRODUCT="http://10.77.116.23:9090/getAllProds";
+	public static final String SEARCH_PRODUCT="http://10.77.116.23:9090/getPartialProducts?prodName={prodName}";
 	
 	// public static final String GET_PRODUCT=
 	// "http://10.77.116.23:9090/addAll?productId={productId}&productName={productName}&productPrice{productPrice}";

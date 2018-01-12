@@ -125,11 +125,11 @@ public class CartServiceimpl implements CartService {
 
 	
 	@Override
-	public void addToCart(String productId, String userId) {
+	public void addToCart(String productName, String userId) {
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("productId", productId);
+		params.put("productId", productName);
 		params.put("userId", userId);
-		logger.info("productId  =" + productId + "  userId =" + userId);
+		logger.info("productId  =" + productName + "  userId =" + userId);
 		restTemplate.postForObject(URLConstants.ADD_TO_CART, String.class, String.class, params);
 	}
 
