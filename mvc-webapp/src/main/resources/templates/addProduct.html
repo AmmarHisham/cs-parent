@@ -9,14 +9,18 @@
 </head>
 <body>
 	<th:block th:include="/AdminHeader"></th:block>
-	<form action="/addtoproduct" method="get">
+	<form action="/addtoproduct" method="post">
 		<table align="center" width="600" height="150">
 			<tr>
 				<th height="60"><font size="6">Add a New Product</font></th>
 			</tr>
 			<tr>
 				<th height="60"><font size="4">Code of the Product :</font></th>
-				<th><input type="number" name="productId" /></th>
+				<th><input type="text" name="productIdParent" /></th>
+			</tr>
+			<tr>
+				<th height="60"><font size="4">Category Name:</font></th>
+				<th><input type="text" name="catagoryName" /></th>
 			</tr>
 			<tr>
 				<th height="60"><font size="4">Name of the Product :</font></th>
@@ -24,7 +28,15 @@
 			</tr>
 			<tr>
 				<th height="60"><font size="4">Price of the Product :</font></th>
-				<th><input type="number" name="productPrice" /></th>
+				<th><input type="text" name="price" /></th>
+			</tr>
+			<tr>
+				<th height="60"><font size="4">Secondary Product ID</font></th>
+				<th><input type="text" name="productIdChild" /></th>
+			</tr>
+			<tr>
+				<th height="60"><font size="4">Image URl</font></th>
+				<th><input type="text" name="imageUrl" /></th>
 			</tr>
 			<tr><th></th>
 				<th><input type="submit" value="Save" />
