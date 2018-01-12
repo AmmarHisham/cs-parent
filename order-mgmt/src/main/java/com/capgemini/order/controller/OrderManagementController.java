@@ -58,9 +58,6 @@ public class OrderManagementController {
 	public List<OrderEntity> getOrdersByProgStatus(@PathVariable Long userId) {
 		return orderService.getOrdersByStatus(userId, OrderStatus.inprogress);
 	}
-	@GetMapping(value = "getOpenANDPlacedOrdersByUserId/{userId}")
-	public List<OrderEntity> getOrdersByPlacedStatus(@PathVariable Long userId) {
-		return orderService.getOrdersByStatus(userId, OrderStatus.placedorder);
-	}
+	
 	
 }
