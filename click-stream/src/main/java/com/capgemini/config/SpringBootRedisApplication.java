@@ -16,12 +16,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @author dimehta
  *
  */
-
-@SpringBootApplication
 @EnableSwagger2
 @Configuration
+@SpringBootApplication
+@ComponentScan(value= {"com.capgemini.services","com.capgemini.config"})
 public class SpringBootRedisApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootRedisApplication.class, args);
 	}
