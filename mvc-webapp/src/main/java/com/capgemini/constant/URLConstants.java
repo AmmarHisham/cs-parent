@@ -14,8 +14,11 @@ public class URLConstants {
 	public static final String DEBIT_GIFTCARD = "http://10.77.79.80:8080/users/debit?userId={userId}Vamshi&amount={price}";
 	public static final String CREDIT_GIFTCARD = "http://10.77.116.23:9090/add?productId= {productId}&productName={productName}&productPrice{productPrice}";
 
-	public static final String ADD_TO_PRODUCT = "http://10.77.116.23:9090/add?productId= {productId}&productName={productName}&productPrice{productPrice}";
+	public static final String ADD_TO_PRODUCT = "http://10.77.116.23:9090/add";
+	
 	public static final String GET_ALLPRODUCT="http://10.77.116.23:9090/getAllProds";
+	public static final String SEARCH_PRODUCT="http://10.77.116.23:9090/getPartialProducts?prodName={prodName}";
+	public static final String CATEGORY_SEARCH="http://10.77.116.23:9090/catagory?categoryName={categoryName}";
 	
 	// public static final String GET_PRODUCT=
 	// "http://10.77.116.23:9090/addAll?productId={productId}&productName={productName}&productPrice{productPrice}";
