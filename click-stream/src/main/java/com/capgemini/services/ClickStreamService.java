@@ -10,7 +10,7 @@ import com.capgemini.config.UserUrl;
  */
 public interface ClickStreamService {
 	public void saveUrl(String userId,String UserUrl);
-	public List<UserUrl> getByUserId();
+	public List<UserUrl> getByUserId(String userId);
 	public List<UserUrl> getAllUser();
 	
 }

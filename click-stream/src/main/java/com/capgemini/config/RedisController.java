@@ -24,10 +24,11 @@ public class RedisController {
 		System.out.println(userUrl);
 
 	}
-	@RequestMapping(value = "/getById", method = RequestMethod.GET, produces = "application/json",consumes = "application/json")
-	public String getByUserId() {
-		System.out.println("hello");
-		return null;
+	@RequestMapping(value = "/getById", method = RequestMethod.GET, produces = "application/json",consumes = "application/*")
+	public void getByUserId(@RequestParam (value="userId") String userId) {
+		System.out.println(userId);
+		clickStreamServiceImpl.getByUserId(userId);
+		//return null;
 
 	}
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET, produces = "application/json",consumes = "application/json")
@@ -35,8 +36,6 @@ public class RedisController {
 		System.out.println("hello");
 		System.out.println("hello");
 		return null;
-
 	}
 		
-
 }
