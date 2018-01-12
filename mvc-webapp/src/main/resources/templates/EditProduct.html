@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>E-Shopper</title>
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/font-awesome.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/main.css}" />
+</head>
+<body>
+	<th:block th:include="/AdminHeader"></th:block>
+	<section>
+		<div class="container">
+			<div class="row">
+				
+				<div class="col-sm-9 padding-right">
+					<div class="features_items">
+						<h2 class="title text-center">Products List</h2>
+						<form action="/updateproduct">
+							<table>
+								<tr><th>Code of the Product :</th><th> <input type="text" name="productIdChild" th:value="${catalog.productIdChild}" /></th></tr>
+								<tr><th>Category Name:</th><th><input type="text" name="catagoryName" th:value="${catalog.catagoryName}" /></th></tr>
+								<tr><th>Name of the Product :</th><th><input type="text" name="productName" th:value="${catalog.productName}" /></th></tr>
+								<tr><th>Price of the Product :</th><th><input type="text" name="price" th:value="${catalog.price}"/></th></tr>
+								<tr><th></th>
+								<th><input type="submit" value="Save" />
+								&emsp;&emsp;&emsp;&emsp;
+								<input type="reset" value="Clear" /></th>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<br/><br/><br/><br/>
+	<th:block th:include="/_footer"></th:block>
+</body>
+</html>

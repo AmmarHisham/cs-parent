@@ -13,4 +13,6 @@ public interface AdminService {
 	public String adminLogin(AdminLogin adminValidate);
 
 	public void addToProduct(ProductCatalog prod);
+
+	public String updateProduct(ProductCatalog prod);
 }

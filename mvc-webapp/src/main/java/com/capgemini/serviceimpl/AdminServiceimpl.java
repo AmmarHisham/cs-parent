@@ -2,6 +2,7 @@ package com.capgemini.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -14,11 +15,13 @@ import com.capgemini.bean.ProductCatalog;
 import com.capgemini.bean.ProductList;
 import com.capgemini.constant.URLConstants;
 import com.capgemini.service.AdminService;
+import com.capgemini.service.CatalogService;
 @Service
 public class AdminServiceimpl implements AdminService{
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminServiceimpl.class);
-	RestTemplate restTemplate = new RestTemplate();
+	static RestTemplate restTemplate = new RestTemplate();
+	CatalogService catalogService = new CatalogServiceImpl();
 	
 	public ArrayList<ProductList> getAllProduct() {
 
@@ -62,15 +65,22 @@ public class AdminServiceimpl implements AdminService{
 		{
 			return "error";
 		}
-		
 	}
 
 	@Override
 	public void addToProduct(ProductCatalog prod) {
 	
 		System.out.println(prod);
-		restTemplate.postForObject(URLConstants.ADD_TO_PRODUCT, ProductCatalog.class, ProductCatalog.class, prod);
+		//ProductCatalog pc=new ProductCatalog("bags","GGG","kkk","hhh","lll","dgreg");
+		//restTemplate.postForObject(URLConstants.ADD_TO_PRODUCT, ProductCatalog.class, ProductCatalog.class, prod);
+		ProductCatalog pro=restTemplate.postForObject(URLConstants.ADD_TO_PRODUCT,prod,ProductCatalog.class);
 		
 	}
-	
+
+	@Override
+	public String updateProduct(ProductCatalog prod) {
+		restTemplate.postForObject(URLConstants.UPDATE_PRODUCT,prod,ProductCatalog.class);
+		System.out.println("hello");
+		return "sucessfully update";
+	}
 }

@@ -26,6 +26,7 @@ import com.capgemini.bean.ProductCatalog;
 import com.capgemini.bean.ProductList;
 import com.capgemini.bean.ShippingBean;
 import com.capgemini.bean.User;
+import com.capgemini.constant.URLConstants;
 import com.capgemini.login.model.UserBean;
 import com.capgemini.login.social.providers.LinkedInProvider;
 import com.capgemini.service.AdminService;
@@ -89,11 +90,6 @@ public class WebRequestController {
 	public String error(ModelMap model) {
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "error";
-	}
-
-	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
-	public String cancelUpdateUser(HttpServletRequest request) {
-		return "redirect:/order";
 	}
 
 	@RequestMapping(value = "/userOrder", method = RequestMethod.GET)
@@ -230,12 +226,40 @@ public class WebRequestController {
 
 	@RequestMapping(value = "/addtoproduct", method = RequestMethod.POST)
 	public String addToProduct(@ModelAttribute("prod") ProductCatalog prod, ModelMap model) {
-		
 		adminService.addToProduct(prod);
 		List<ProductCatalog> list = catalogService.getProduct();
 		model.addAttribute("catalog", list);
 		model.addAttribute("name", admin1.getUsername());
 		return "adminHome";
+	}
+
+	@RequestMapping(value = "/updateproduct1", method = RequestMethod.GET)
+	public String updateProduct1(@RequestParam("id") String proId, ModelMap model) {
+		List<ProductCatalog> list = catalogService.getProduct();
+		for (ProductCatalog productCatalog : list) {
+			if (productCatalog.getProductIdChild().equalsIgnoreCase(proId)) {
+				model.addAttribute("catalog", productCatalog);
+			}
+		}
+		model.addAttribute("name", admin1.getUsername());
+		return "EditProduct";
+	}
+
+	@RequestMapping(value = "/updateproduct", method = RequestMethod.GET)
+	public String updateProduct(@RequestParam("productIdChild") String productIdChild,
+			@RequestParam("catagoryName") String catagoryName, @RequestParam("productName") String productName,
+			@RequestParam("price") String price, ModelMap model) {
+		ProductCatalog prod = new ProductCatalog();
+		prod.setPrice(price);
+		prod.setCatagoryName(catagoryName);
+		prod.setProductName(productName);
+		prod.setProductIdChild(productIdChild);
+		String message = adminService.updateProduct(prod);
+		System.out.println("*****************");
+		List<ProductCatalog> cat = catalogService.getProduct();
+		model.addAttribute("catalog", cat);
+		model.addAttribute("name", admin1.getUsername());
+		return "AdminHome";
 	}
 
 	@RequestMapping(value = "/adminlog", method = RequestMethod.GET)
@@ -255,21 +279,21 @@ public class WebRequestController {
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "index";
 	}
-	
+
 	@RequestMapping(value = "/search1", method = RequestMethod.GET)
 	public String searchBeforeLogin(@RequestParam("key") String key, ModelMap model) {
 		List<ProductCatalog> list = catalogService.searchProduct(key);
 		model.addAttribute("catalog", list);
 		return "Home";
 	}
-	
+
 	@RequestMapping(value = "/category", method = RequestMethod.GET)
 	public String categoryBeforeLogin(@RequestParam("type") String key, ModelMap model) {
 		List<ProductCatalog> list = catalogService.categorySearch(key);
 		model.addAttribute("catalog", list);
 		return "Home";
 	}
-	
+
 	@RequestMapping(value = "/category1", method = RequestMethod.GET)
 	public String categoryAfterLogin(@RequestParam("type") String key, ModelMap model) {
 		List<ProductCatalog> list = catalogService.categorySearch(key);
@@ -277,7 +301,5 @@ public class WebRequestController {
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "index";
 	}
-	
-	
 
 }
