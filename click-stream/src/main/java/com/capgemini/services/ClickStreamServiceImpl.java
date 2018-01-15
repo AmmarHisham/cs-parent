@@ -1,19 +1,19 @@
 package com.capgemini.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.config.RedisTemplateConnection;
 import com.capgemini.config.UserUrl;
-import com.fasterxml.jackson.annotation.JsonFormat.Value;
 
 /**
  * @author dimehta
@@ -33,35 +33,43 @@ public class ClickStreamServiceImpl implements ClickStreamService {
 		Date date = new Date();
 		long tim = date.getTime();
 		String key = userId + "-" + tim;
-		if (userId == null || userId.isEmpty()) {
-			System.out.println("HHHHHHHHHHHHHHHHHHHHHHH" + userId);
-			searchKye.put("userId", userId);
-			searchKye.put("userUrl", userUrl);
-			searchKye.put("timestam", date.toString());
-			hash.putAll(userUrl, searchKye);
-		} else {
-			searchKye.put("userId", userId);
-			searchKye.put("userUrl", userUrl);
-			searchKye.put("timestam", date.toString());
-			hash.putAll(key, searchKye);
-		}
+
+		searchKye.put("userId", userId);
+		searchKye.put("userUrl", userUrl);
+		searchKye.put("timestam", date.toString());
+		hash.putAll(key, searchKye);
 	}
 
 	@Override
 	public List<UserUrl> getByUserId(String userId) {
-		System.out.println("***********");
+		List<UserUrl> uselist = new ArrayList<UserUrl>();
 
 		Set<String> names = redisTemplate.keys(userId + "*");
+
 		java.util.Iterator<String> it = names.iterator();
 		while (it.hasNext()) {
-			String s = it.next();
-		}
-		/*
-		 * System.out.println(redisTemplate.dump(s));
-		 * System.out.println(redisTemplate.boundHashOps("1"));
-		 */
 
-		return null;
+			UserUrl userUrl = new UserUrl();
+			String s = it.next();
+			Set<Object> sd = redisTemplate.opsForHash().keys(s);
+			List<Object> obj = redisTemplate.opsForHash().multiGet(s, sd);
+			List<String> str = new ArrayList<String>();
+			for (Iterator iterator = obj.iterator(); iterator.hasNext();) {
+				String string = (String) iterator.next();
+				str.add(string);
+			}
+			userUrl.setTimestam(str.get(0));
+			userUrl.setUserId(str.get(1));
+			userUrl.setUserUrl(str.get(2));
+
+			uselist.add(userUrl);
+		}
+		return uselist;
+
+	}
+
+	public static void main(String[] args) {
+		new ClickStreamServiceImpl().getByUserId("Dilip");
 	}
 
 	@Override
