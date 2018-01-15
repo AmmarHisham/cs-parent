@@ -55,11 +55,13 @@
 					</div>
 				</div>
 				<br/><br/>
+				<form action="/addgiftcardresponse">
 				<table width="600" height="120" align="center">
-					<tr><th>GiftCard ID</th><th><input type="text" name="id" placeholder="Enter the ID"/></th></tr>
-					<tr><th>GiftCard Value</th><th><input type="text" name="id" placeholder="Enter the Value"/></th></tr>
+					<tr><th>GiftCard ID</th><th><input type="text" name="id" readonly="readonly" th:value="${name}"/></th></tr>
+					<tr><th>GiftCard Value</th><th><input type="text" name="value" placeholder="Enter the Value"/></th></tr>
 					<tr><th></th><th><input type="reset" value="Refresh"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Save"/></th></tr>
 				</table>
+				</form>
 			</div>
 		</div>
 	</section>
