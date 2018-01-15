@@ -4,18 +4,30 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.capgemini.bean.OrderDetailsEntity;
+import com.capgemini.bean.OrderStatus;
+
 public class OrderEntity implements Serializable {
 	private static final long serialVersionUID = 2405172041950251807L;
-
+	
 	private Long orderId;
 
 	private Long userId;
 
-	private List<OrderDetailsEntity> orderDetails = new ArrayList<OrderDetailsEntity>();
+	private OrderStatus status;
+
+	
+	private List<OrderDetailsEntity> orderDetails = new ArrayList<>();
 
 	public OrderEntity() {
 	}
 
+	public OrderEntity(Long orderId, Long userId, OrderStatus status, List<OrderDetailsEntity> orderDetails) {
+		this.orderId = orderId;
+		this.userId = userId;
+		this.status = status;
+		this.orderDetails = orderDetails;
+	}
 
 	public Long getOrderId() {
 		return orderId;
@@ -33,6 +45,14 @@ public class OrderEntity implements Serializable {
 		this.userId = userId;
 	}
 
+	public OrderStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(OrderStatus status) {
+		this.status = status;
+	}
+
 	public List<OrderDetailsEntity> getOrderDetails() {
 		return orderDetails;
 	}
@@ -41,4 +61,4 @@ public class OrderEntity implements Serializable {
 		this.orderDetails = orderDetails;
 	}
 
-}
+	}

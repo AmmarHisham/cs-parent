@@ -23,7 +23,8 @@ public class URLConstants {
 	public static final String SEARCH_PRODUCT="http://10.77.116.23:9090/getPartialProducts?prodName={prodName}";
 	public static final String CATEGORY_SEARCH="http://10.77.116.23:9090/catagory?categoryName={categoryName}";
 	
-	public static final String GET_ORDER_BY_USERID="http://10.246.69.135:8000/orders/byuserid?userid={userid}";
+	public static final String GET_ORDER_BY_USERID="http://10.246.69.135:8000/orders/byuserid?userid={userId}";
+	public static final String GET_ALL_ORDERS="http://10.246.69.135:8000/orders/findall";
 	
 	public static final String ADD_GIFT_CARD="http://10.77.116.23:9090/addAllGifts";
 	public static final String GET_GIFT_CARD = "http://10.77.116.23:9090/getGiftCards";

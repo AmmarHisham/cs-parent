@@ -21,6 +21,7 @@ import com.capgemini.bean.AdminLogin;
 import com.capgemini.bean.ClickStream;
 import com.capgemini.bean.GiftCardCatalog;
 import com.capgemini.bean.Order;
+import com.capgemini.bean.OrderEntity;
 import com.capgemini.bean.ProductCatalog;
 import com.capgemini.bean.ProductList;
 import com.capgemini.bean.ShippingBean;
@@ -103,9 +104,10 @@ public class WebRequestController {
 		return "error";
 	}
 
+
 	@RequestMapping(value = "/userOrder", method = RequestMethod.GET)
 	public String userOrder(ModelMap model) {
-		ArrayList<Order> orderlist = cartServiceimpl.getAllOrder();
+		List<OrderEntity> orderlist = cartServiceimpl.getAllOrder("5");
 		model.addAttribute("orderInfo", orderlist);
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "UserOrder";
@@ -148,10 +150,11 @@ public class WebRequestController {
 		return "addProduct";
 	}
 
+
 	@RequestMapping(value = "/orderList", method = RequestMethod.GET)
 	public String showAdminOrderPage(ModelMap model) {
-		ArrayList<ProductList> productlist = adminService.getAllProduct();
-		model.addAttribute("prodInf", productlist);
+		List<OrderEntity> productlist = adminService.getAllOrder();
+		model.addAttribute("orderInfo", productlist);
 		model.addAttribute("name", admin1.getUsername());
 		return "AdminOrderList";
 	}

@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.GiftCardCatalog;
 import com.capgemini.bean.Order;
+import com.capgemini.bean.OrderEntity;
 import com.capgemini.bean.ProductCatalog;
 import com.capgemini.constant.URLConstants;
 import com.capgemini.service.CartService;
@@ -31,47 +32,25 @@ public class CartServiceimpl implements CartService {
 
 	CatalogService catalogService = new CatalogServiceImpl();
 
-	@Override
-	public ArrayList<Order> getAllOrder() {
-		Order ord = new Order();
-		ord.setProductId("1234");
-		ord.setProductName("abc");
-		ord.setProductPrice("100");
-		ord.setQuantity(2);
-		ord.setOrderNumber(1);
-		ord.setOrderDate("23-06-2017");
 
-		Order ord1 = new Order();
-		ord1.setProductId("2345");
-		ord1.setProductName("def");
-		ord1.setProductPrice("200");
-		ord1.setQuantity(1);
-		ord1.setOrderNumber(2);
-		ord1.setOrderDate("07-08-2017");
-
-		Order ord2 = new Order();
-		ord2.setProductId("3456");
-		ord2.setProductName("ghi");
-		ord2.setProductPrice("300");
-		ord2.setQuantity(1);
-		ord2.setOrderNumber(3);
-		ord2.setOrderDate("09-10-2017");
-
-		Order ord3 = new Order();
-		ord3.setProductId("4567");
-		ord3.setProductName("jkl");
-		ord3.setProductPrice("400");
-		ord3.setQuantity(3);
-		ord3.setOrderNumber(4);
-		ord3.setOrderDate("28-12-2017");
-
-		ArrayList<Order> order = new ArrayList<Order>();
-		order.add(ord);
-		order.add(ord1);
-		order.add(ord2);
-		order.add(ord3);
-		return order;
-
+@Override
+	@SuppressWarnings("null")
+	public List<OrderEntity> getAllOrder(String userId) {
+		
+		ResponseEntity<OrderEntity[]> orderlists = restTemplate.getForEntity(URLConstants.GET_ORDER_BY_USERID, OrderEntity[].class, userId);
+		List<OrderEntity> list = new ArrayList<OrderEntity>();
+		if (orderlists.getBody().length != 0) {
+			for (int i = 0; i < orderlists.getBody().length; i++) {
+				list.add(orderlists.getBody()[i]);
+			}
+		}
+		
+		System.out.println(list);
+		for (OrderEntity lists : list) {
+		System.out.println(lists.getOrderId());
+		}
+		//ArrayList<OrderEntity> cartLists = restTemplate.getForEntity(URLConstants.GET_ORDER_BY_USERID, OrderEntity.class, userId);	
+		return list;
 	}
 
 	@Override
