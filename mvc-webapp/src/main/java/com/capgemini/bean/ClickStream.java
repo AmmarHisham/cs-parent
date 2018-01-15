@@ -1,9 +1,10 @@
-package com.capgemini.config;
+package com.capgemini.bean;
 
-public class UserUrl {
-	private String userId;
-	private String UserUrl;
+public class ClickStream {
+
 	private String timestam;
+	private String userId;
+	private String userUrl;
 
 	public String getTimestam() {
 		return timestam;
@@ -22,11 +23,11 @@ public class UserUrl {
 	}
 
 	public String getUserUrl() {
-		return UserUrl;
+		return userUrl;
 	}
 
 	public void setUserUrl(String userUrl) {
-		UserUrl = userUrl;
+		this.userUrl = userUrl;
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.capgemini.config;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,16 +20,16 @@ public class RedisController {
 	@Autowired
 	ClickStreamServiceImpl clickStreamServiceImpl;
 	@RequestMapping(value = "/saveUrl", method = RequestMethod.POST, produces = "application/json")
-	public void saveUrl(@RequestParam (value="userId") String userId,@RequestParam (value="userUrl") String userUrl) {
+	public void saveUrl(@RequestParam (value="userId",required=false) String userId,@RequestParam (value="userUrl",required=false) String userUrl) {
 		clickStreamServiceImpl.saveUrl(userId, userUrl);
 		System.out.println(userId);
 		System.out.println(userUrl);
 
 	}
-	@RequestMapping(value = "/getById", method = RequestMethod.GET, produces = "application/json",consumes = "application/json")
-	public String getByUserId() {
-		System.out.println("hello");
-		return null;
+	@RequestMapping(value = "/getById", method = RequestMethod.GET, produces = "application/json",consumes = "application/*")
+	public List<UserUrl> getByUserId(@RequestParam (value="userId") String userId) {
+		System.out.println(userId);
+		return clickStreamServiceImpl.getByUserId(userId);
 
 	}
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET, produces = "application/json",consumes = "application/json")
@@ -35,8 +37,6 @@ public class RedisController {
 		System.out.println("hello");
 		System.out.println("hello");
 		return null;
-
 	}
 		
-
 }

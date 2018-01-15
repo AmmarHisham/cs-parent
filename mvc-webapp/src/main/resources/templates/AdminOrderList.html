@@ -8,22 +8,31 @@
 </head>
 <body>
 	<th:block th:include="/AdminHeader"></th:block>
-		<table width="1200" height="250" align="center">
-			<tr>
-				<th>Product Id</th>
-				<th>Product Name</th>
-				<th>Quantity</th>
-				<th>Price</th>
-			</tr>
-			<tr th:each="pro : ${prodInf}">
-				<td align="left"><span th:utext="${pro.productId}"></span></td>
-				<td align="left"><span th:utext="${pro.productName}"></span></td>
-				<td align="left"><span th:utext="${pro.quantity}"></span></td>
-				<td align="left"><span th:utext="${pro.productPrice}"></span></td>
-				<td align="center"><a href=""><img src="images/tick.png" width="30" title="Proceed To Checkout" align="center" /></a></td><td></td>
-				<td align="center"><a href=""><img src="images/wrong.jpg" width="30" title="Cancel" align="center" /></a></td>
-			</tr>
-		</table>
+		<table width="800" height="200" align="center">
+					<tr>
+						<th>Order Number</th>
+						<th>User Id</th>
+						<th>Status</th>
+						<th>Product ID</th>
+						<th>Product Name</th>
+						<th>Price</th>
+						<th>Quantity</th>
+					</tr>
+					
+					<tr th:each="ord : ${orderInfo}">
+					<tr th:each="orddetails : ${ord.orderDetails}">
+						<td align="left"><span th:utext="${ord.orderId}"></span></td>
+						<td align="left"><span th:utext="${ord.userId}"></span></td>
+						<td align="left"><span th:utext="${ord.status}"></span></td>
+						<td align="left"><span th:utext="${orddetails.productId}"></span></td>
+						<td align="left"><span th:utext="${orddetails.productName}"></span></td>
+						<td align="left"><span th:utext="${orddetails.price}"></span></td>
+						<td align="left"><span th:utext="${orddetails.quantity}"></span></td>
+						</tr>
+
+					</tr>
+				</table>
+
 	<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 	<th:block th:include="/_footer"></th:block>
 </body>
