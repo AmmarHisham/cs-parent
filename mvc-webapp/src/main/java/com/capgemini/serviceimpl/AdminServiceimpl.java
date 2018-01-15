@@ -7,10 +7,12 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.capgemini.bean.AdminLogin;
+import com.capgemini.bean.ClickStream;
 import com.capgemini.bean.ProductCatalog;
 import com.capgemini.bean.ProductList;
 import com.capgemini.constant.URLConstants;
@@ -74,9 +76,15 @@ public class AdminServiceimpl implements AdminService{
 
 	@Override
 	public String updateProduct(ProductCatalog prod) {
-		System.out.println("============================"+prod.getProductName());
 		restTemplate.postForObject(URLConstants.UPDATE_PRODUCT,prod,String.class);
-		System.err.println("hello");
 		return "sucessfully update";
+	}
+	
+	@Override
+	public ClickStream sar(String userId)
+	{
+		 ResponseEntity<ClickStream> click = restTemplate.getForEntity(URLConstants.click, ClickStream.class,String.class, userId);
+		 System.out.println(click);
+		 return click.getBody();
 	}
 }

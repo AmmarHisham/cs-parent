@@ -18,20 +18,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.capgemini.bean.AdminLogin;
-import com.capgemini.bean.Catalog;
-import com.capgemini.bean.Checkout;
-import com.capgemini.bean.GiftCard;
+import com.capgemini.bean.ClickStream;
 import com.capgemini.bean.GiftCardCatalog;
 import com.capgemini.bean.Order;
 import com.capgemini.bean.ProductCatalog;
 import com.capgemini.bean.ProductList;
 import com.capgemini.bean.ShippingBean;
-import com.capgemini.bean.User;
-import com.capgemini.constant.URLConstants;
 import com.capgemini.login.model.UserBean;
 import com.capgemini.login.social.providers.LinkedInProvider;
 import com.capgemini.service.AdminService;
-import com.capgemini.service.CatalogService;
 import com.capgemini.serviceimpl.CartServiceimpl;
 import com.capgemini.serviceimpl.CatalogServiceImpl;
 import com.capgemini.serviceimpl.UserCartModel;
@@ -69,6 +64,21 @@ public class WebRequestController {
 		List<ProductCatalog> list = catalogService.getProduct();
 		model.addAttribute("catalog", list);
 		return "Home";
+	}
+	
+	@RequestMapping("/sar")
+	public String sar(ModelMap model) {
+		model.addAttribute("name", admin1.getUsername());
+		return "SAR";
+	}
+	
+	@RequestMapping("/sar1")
+	public String sarResponse(@RequestParam("userId") String userId, ModelMap model) {
+		System.out.println("UserID==========="+userId);
+		ClickStream click=adminService.sar(userId);
+		model.addAttribute("sar", click);
+		model.addAttribute("name", admin1.getUsername());
+		return "SAR1";
 	}
 
 	@RequestMapping(value = "/home1", method = RequestMethod.GET)
@@ -118,8 +128,13 @@ public class WebRequestController {
 	
 	
 	@RequestMapping(value = "/addgiftcardresponse", method = RequestMethod.GET)
-	public String addGiftCardResponse(@ModelAttribute("giftcard") GiftCardCatalog giftCard, ModelMap model) {
-		cartServiceimpl.addUserGiftCard(giftCard);
+	public String addGiftCardResponse(@RequestParam("id") String id, @RequestParam("value") String value, ModelMap model) {
+		GiftCardCatalog giftcard=new GiftCardCatalog();
+		giftcard.setGiftCardId(id);
+		giftcard.setGiftCardValue(value);
+		
+		cartServiceimpl.addUserGiftCard(giftcard);
+		
 		String name=linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName();
 		GiftCardCatalog gift=cartServiceimpl.getUserGiftCard(name);
 		model.addAttribute("name", name);

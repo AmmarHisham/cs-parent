@@ -151,7 +151,9 @@ public class CartServiceimpl implements CartService {
 
 	@Override
 	public void addUserGiftCard(GiftCardCatalog giftCard) {
-		//restTemplate.postForObject(URLConstants.ADD_GIFT_CARD, giftCard, GiftCardCatalog.class);
+		System.out.println(giftCard.getGiftCardId());
+		System.out.println(giftCard.getGiftCardValue());
+		restTemplate.postForObject(URLConstants.ADD_GIFT_CARD, GiftCardCatalog.class, GiftCardCatalog.class, giftCard);
 		
 	}
 	
