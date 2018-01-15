@@ -28,7 +28,7 @@ public class URLConstants {
 	public static final String ADD_GIFT_CARD="http://10.77.116.23:9090/addAllGifts";
 	public static final String GET_GIFT_CARD = "http://10.77.116.23:9090/getGiftCards";
 	public static final String click = "http://10.77.116.60:8081/getById?userId={userId}";
-	
+	public static final String PUT_STREAM= "http://10.77.116.60:8081/saveUrl?userId= {userId}&userUrl= {userUrl}";
 	// public static final String GET_PRODUCT=
 	// "http://10.77.116.23:9090/addAll?productId={productId}&productName={productName}&productPrice{productPrice}";
 

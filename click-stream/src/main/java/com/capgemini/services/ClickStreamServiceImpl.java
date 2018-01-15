@@ -44,11 +44,10 @@ public class ClickStreamServiceImpl implements ClickStreamService {
 	public List<UserUrl> getByUserId(String userId) {
 		List<UserUrl> uselist = new ArrayList<UserUrl>();
 
-		Set<String> names = redisTemplate.keys(userId + "*");
-
+		Set<String> names = redisTemplate.keys(userId+"*");
+		
 		java.util.Iterator<String> it = names.iterator();
 		while (it.hasNext()) {
-
 			UserUrl userUrl = new UserUrl();
 			String s = it.next();
 			Set<Object> sd = redisTemplate.opsForHash().keys(s);
@@ -64,12 +63,13 @@ public class ClickStreamServiceImpl implements ClickStreamService {
 
 			uselist.add(userUrl);
 		}
+		System.out.println(uselist);
 		return uselist;
 
 	}
 
 	public static void main(String[] args) {
-		new ClickStreamServiceImpl().getByUserId("Dilip");
+		new ClickStreamServiceImpl().getByUserId("dd");
 	}
 
 	@Override
