@@ -75,7 +75,7 @@ public class AdminServiceimpl implements AdminService{
 	@Override
 	public String updateProduct(ProductCatalog prod) {
 		System.out.println("============================"+prod.getProductName());
-		restTemplate.postForObject(URLConstants.UPDATE_PRODUCT,ProductCatalog.class,ProductCatalog.class);
+		restTemplate.postForObject(URLConstants.UPDATE_PRODUCT,prod,String.class);
 		System.err.println("hello");
 		return "sucessfully update";
 	}

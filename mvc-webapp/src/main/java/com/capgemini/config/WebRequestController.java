@@ -21,8 +21,8 @@ import com.capgemini.bean.AdminLogin;
 import com.capgemini.bean.Catalog;
 import com.capgemini.bean.Checkout;
 import com.capgemini.bean.GiftCard;
+import com.capgemini.bean.GiftCardCatalog;
 import com.capgemini.bean.Order;
-import com.capgemini.bean.OrderEntity;
 import com.capgemini.bean.ProductCatalog;
 import com.capgemini.bean.ProductList;
 import com.capgemini.bean.ShippingBean;
@@ -93,17 +93,9 @@ public class WebRequestController {
 		return "error";
 	}
 
-	/*@RequestMapping(value = "/userOrder", method = RequestMethod.GET)
-	public String userOrder(ModelMap model) {
-		ArrayList<Order> orderlist = cartServiceimpl.getAllOrder();
-		model.addAttribute("orderInfo", orderlist);
-		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
-		return "UserOrder";
-	}
-	*/
 	@RequestMapping(value = "/userOrder", method = RequestMethod.GET)
 	public String userOrder(ModelMap model) {
-		List<OrderEntity> orderlist = cartServiceimpl.getAllOrder("5");
+		ArrayList<Order> orderlist = cartServiceimpl.getAllOrder();
 		model.addAttribute("orderInfo", orderlist);
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "UserOrder";
@@ -111,9 +103,10 @@ public class WebRequestController {
 
 	@RequestMapping(value = "/giftCard", method = RequestMethod.GET)
 	public String showgiftCardInfo(ModelMap model) {
-		GiftCard giftcard = cartServiceimpl.getAllgiftCard();
-		model.addAttribute("giftcard", giftcard);
-		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
+		String name=linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName();
+		GiftCardCatalog gift=cartServiceimpl.getUserGiftCard(name);
+		model.addAttribute("name", name);
+		model.addAttribute("giftcard", gift);
 		return "GiftCard";
 	}
 
@@ -121,6 +114,17 @@ public class WebRequestController {
 	public String addGiftCard(ModelMap model) {
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "AddGiftCart";
+	}
+	
+	
+	@RequestMapping(value = "/addgiftcardresponse", method = RequestMethod.GET)
+	public String addGiftCardResponse(@ModelAttribute("giftcard") GiftCardCatalog giftCard, ModelMap model) {
+		cartServiceimpl.addUserGiftCard(giftCard);
+		String name=linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName();
+		GiftCardCatalog gift=cartServiceimpl.getUserGiftCard(name);
+		model.addAttribute("name", name);
+		model.addAttribute("giftcard", gift);
+		return "GiftCard";
 	}
 
 	@RequestMapping(value = "/addProduct", method = RequestMethod.GET)
@@ -256,11 +260,7 @@ public class WebRequestController {
 
 	@RequestMapping(value = "/updateproduct", method = RequestMethod.POST)
 	public String updateProduct(@ModelAttribute("prod") ProductCatalog prod, ModelMap model) {
-		prod.setProductIdParent("SS");
-		System.out.println("============================"+prod.getProductName());
 		adminService.updateProduct(prod);
-		System.out.println("*****************");
-		
 		return AdminHome(model);
 	}
 

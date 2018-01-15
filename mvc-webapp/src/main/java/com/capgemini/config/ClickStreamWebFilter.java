@@ -44,7 +44,7 @@ public class ClickStreamWebFilter implements Filter {
 	        logger.info("filter:"+ ((HttpServletRequest)servletRequest).getRequestURL());
 	        HttpServletRequest ServletRequest= (HttpServletRequest)servletRequest;
 	        filterChain.doFilter(servletRequest, servletResponse);
-	        count++;
+	       /* count++;
 	       if(ServletRequest.getRequestURI().contains("/connect/linkedin") ||ServletRequest.getRequestURI().contains("/adminlogin")||count>=1) {
 	    	   UserBean userBean = new UserBean();
 	    	   String name= linkedInProvider1.populateUserDetailsFromLinkedIn(userBean).getFirstName();
@@ -53,10 +53,10 @@ public class ClickStreamWebFilter implements Filter {
 		        Map<String, String> params = new HashMap<String, String>();
 				params.put("userId", name);
 				params.put("userUrl", url);
-				restTemplate.postForObject(URLConstants.PUT_STREAM, String.class, String.class, params);
-				count=0;
+				//restTemplate.postForObject(URLConstants.PUT_STREAM, String.class, String.class, params);
+				count=0;*/
 				
-	       }
+	      // }
 	       
 	    }
 
