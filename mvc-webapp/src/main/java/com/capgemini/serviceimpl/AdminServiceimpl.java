@@ -69,18 +69,14 @@ public class AdminServiceimpl implements AdminService{
 
 	@Override
 	public void addToProduct(ProductCatalog prod) {
-	
-		System.out.println(prod);
-		//ProductCatalog pc=new ProductCatalog("bags","GGG","kkk","hhh","lll","dgreg");
-		//restTemplate.postForObject(URLConstants.ADD_TO_PRODUCT, ProductCatalog.class, ProductCatalog.class, prod);
-		ProductCatalog pro=restTemplate.postForObject(URLConstants.ADD_TO_PRODUCT,prod,ProductCatalog.class);
-		
+		restTemplate.postForObject(URLConstants.ADD_TO_PRODUCT,prod,ProductCatalog.class);
 	}
 
 	@Override
 	public String updateProduct(ProductCatalog prod) {
-		restTemplate.postForObject(URLConstants.UPDATE_PRODUCT,prod,ProductCatalog.class);
-		System.out.println("hello");
+		System.out.println("============================"+prod.getProductName());
+		restTemplate.postForObject(URLConstants.UPDATE_PRODUCT,ProductCatalog.class,ProductCatalog.class);
+		System.err.println("hello");
 		return "sucessfully update";
 	}
 }

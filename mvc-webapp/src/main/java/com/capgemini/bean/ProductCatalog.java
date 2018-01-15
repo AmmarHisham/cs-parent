@@ -1,10 +1,8 @@
 package com.capgemini.bean;
 
-import java.io.Serializable;
+public class ProductCatalog {
 
-public class ProductCatalog implements Serializable {
-
-	private String Id;
+	
 	private String catagoryName;
 	public String productName;
 	private String productIdParent;
@@ -60,12 +58,5 @@ public class ProductCatalog implements Serializable {
 		this.imageUrl = imageUrl;
 	}
 
-	public String getId() {
-		return Id;
-	}
-
-	public void setId(String id) {
-		Id = id;
-	}
 
 }

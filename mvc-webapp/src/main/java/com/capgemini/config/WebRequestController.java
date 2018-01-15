@@ -22,6 +22,7 @@ import com.capgemini.bean.Catalog;
 import com.capgemini.bean.Checkout;
 import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.Order;
+import com.capgemini.bean.OrderEntity;
 import com.capgemini.bean.ProductCatalog;
 import com.capgemini.bean.ProductList;
 import com.capgemini.bean.ShippingBean;
@@ -92,9 +93,17 @@ public class WebRequestController {
 		return "error";
 	}
 
-	@RequestMapping(value = "/userOrder", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/userOrder", method = RequestMethod.GET)
 	public String userOrder(ModelMap model) {
 		ArrayList<Order> orderlist = cartServiceimpl.getAllOrder();
+		model.addAttribute("orderInfo", orderlist);
+		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
+		return "UserOrder";
+	}
+	*/
+	@RequestMapping(value = "/userOrder", method = RequestMethod.GET)
+	public String userOrder(ModelMap model) {
+		List<OrderEntity> orderlist = cartServiceimpl.getAllOrder("5");
 		model.addAttribute("orderInfo", orderlist);
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "UserOrder";
@@ -245,24 +254,17 @@ public class WebRequestController {
 		return "EditProduct";
 	}
 
-	@RequestMapping(value = "/updateproduct", method = RequestMethod.GET)
-	public String updateProduct(@RequestParam("productIdChild") String productIdChild,
-			@RequestParam("catagoryName") String catagoryName, @RequestParam("productName") String productName,
-			@RequestParam("price") String price, ModelMap model) {
-		ProductCatalog prod = new ProductCatalog();
-		prod.setPrice(price);
-		prod.setCatagoryName(catagoryName);
-		prod.setProductName(productName);
-		prod.setProductIdChild(productIdChild);
-		String message = adminService.updateProduct(prod);
+	@RequestMapping(value = "/updateproduct", method = RequestMethod.POST)
+	public String updateProduct(@ModelAttribute("prod") ProductCatalog prod, ModelMap model) {
+		prod.setProductIdParent("SS");
+		System.out.println("============================"+prod.getProductName());
+		adminService.updateProduct(prod);
 		System.out.println("*****************");
-		List<ProductCatalog> cat = catalogService.getProduct();
-		model.addAttribute("catalog", cat);
-		model.addAttribute("name", admin1.getUsername());
-		return "AdminHome";
+		
+		return AdminHome(model);
 	}
 
-	@RequestMapping(value = "/adminlog", method = RequestMethod.GET)
+	@RequestMapping(value = "/adminlog", method = RequestMethod.POST)
 	public String adminLogin(@ModelAttribute("admin") AdminLogin admin, ModelMap model) {
 		String validate = adminService.adminLogin(admin);
 		admin1.setUsername(admin.getUsername());

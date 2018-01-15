@@ -31,10 +31,10 @@
 							<p>Bill To</p>
 							<div class="form-one">
 								<form action="/checkoutcomplete" method="get">
-									<input type="text" name="uid" th:value="${uid}" />
-									<input type="text" name="pid" th:value="${pid}" />
+									<input type="text" name="uid" readonly="readonly" th:value="${uid}" />
+									<input type="text" name="pid" readonly="readonly" th:value="${pid}" />
 									<input type="number" name="qua" th:value="${qua}" />
-									<input type="number" name="price" th:value="${price}" />
+									<input type="number" name="price" readonly="readonly" th:value="${price}" />
 									<input type="email" name="email" placeholder="Email" />
 									<input type="number" name="phone" placeholder="Phone" />
 									<input type="textarea" name="addressLine1" placeholder="Address line1" />
