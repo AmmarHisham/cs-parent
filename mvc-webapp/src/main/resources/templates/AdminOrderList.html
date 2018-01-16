@@ -28,8 +28,9 @@
 						<td align="left"><span th:utext="${orddetails.productName}"></span></td>
 						<td align="left"><span th:utext="${orddetails.price}"></span></td>
 						<td align="left"><span th:utext="${orddetails.quantity}"></span></td>
+						<td align="center"><a class="cart_quantity_delete" th:href="@{/updateorderList(orderId=${ord.orderId}, userId=${ord.userId}, productId=${orddetails.productId}, productName=${orddetails.productName}, price=${orddetails.price}, quantity=${orddetails.quantity})}"><img th:src="@{images/tick.png}" width="10" height="10" alt="tick"></img></a></td>
+						<td align="center"><a class="cart_quantity_delete"><img th:src="@{images/wrong.jpg}" width="10" height="10" alt="wrong"></img></a></td>
 						</tr>
-
 					</tr>
 				</table>
 

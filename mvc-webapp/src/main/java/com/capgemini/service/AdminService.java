@@ -21,4 +21,7 @@ public interface AdminService {
 	public ClickStream sar(String userId);
 
 	public List<OrderEntity> getAllOrder();
+
+	public String updateOrder(OrderEntity prod);
+
 }

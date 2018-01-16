@@ -73,6 +73,13 @@ public class AdminServiceimpl implements AdminService{
 	}
 	
 	@Override
+	@SuppressWarnings("null")
+	public String updateOrder(OrderEntity ord) {
+		restTemplate.postForObject(URLConstants.UPDATE_ORDER,ord,String.class);
+		return "sucessfully update";
+	}
+	
+	@Override
 	public ClickStream sar(String userId)
 	{
 		 ResponseEntity<ClickStream> click = restTemplate.getForEntity(URLConstants.click, ClickStream.class,String.class, userId);

@@ -21,7 +21,9 @@ import com.capgemini.bean.AdminLogin;
 import com.capgemini.bean.ClickStream;
 import com.capgemini.bean.GiftCardCatalog;
 import com.capgemini.bean.Order;
+import com.capgemini.bean.OrderDetailsEntity;
 import com.capgemini.bean.OrderEntity;
+import com.capgemini.bean.OrderStatus;
 import com.capgemini.bean.ProductCatalog;
 import com.capgemini.bean.ProductList;
 import com.capgemini.bean.ShippingBean;
@@ -157,6 +159,28 @@ public class WebRequestController {
 		model.addAttribute("orderInfo", productlist);
 		model.addAttribute("name", admin1.getUsername());
 		return "AdminOrderList";
+	}
+	
+	@RequestMapping(value = "/updateorderList", method = RequestMethod.GET)
+	public String updateOrder(@RequestParam("orderId") String orderId, @RequestParam("userId") String userId,
+			@RequestParam("productId") String productId, @RequestParam("productName") String productName,
+			@RequestParam("price") String price, @RequestParam("quantity") String quantity, ModelMap model) {
+		OrderDetailsEntity orddetails=new OrderDetailsEntity();
+		orddetails.setPrice(Integer.parseInt(price));
+		orddetails.setProductId(Long.parseLong(productId));
+		orddetails.setQuantity(Integer.parseInt(quantity));
+		orddetails.setProductName(productName);
+		orddetails.setId(Long.parseLong("5"));
+		List<OrderDetailsEntity> orddetailslist=new ArrayList<OrderDetailsEntity>();
+		orddetailslist.add(orddetails);
+		OrderEntity ord=new OrderEntity();
+		ord.setOrderDetails(orddetailslist);
+		ord.setOrderId(Long.parseLong(orderId));
+		ord.setUserId(Long.parseLong(userId));
+		OrderStatus ok = OrderStatus.valueOf("delivered");
+		ord.setStatus(ok);
+		adminService.updateOrder(ord);
+		return showAdminOrderPage(model);
 	}
 
 	@RequestMapping(value = "/adminlogin", method = RequestMethod.GET)

@@ -25,6 +25,7 @@ public class URLConstants {
 	
 	public static final String GET_ORDER_BY_USERID="http://10.246.69.135:8000/orders/byuserid?userid={userId}";
 	public static final String GET_ALL_ORDERS="http://10.246.69.135:8000/orders/findall";
+	public static final String UPDATE_ORDER="http://10.246.69.135:8000/orders";
 	
 	public static final String ADD_GIFT_CARD="http://10.77.116.23:9090/addAllGifts";
 	public static final String GET_GIFT_CARD = "http://10.77.116.23:9090/getGiftCards";
