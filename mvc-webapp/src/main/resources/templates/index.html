@@ -9,7 +9,21 @@
 </head>
 <body>
 	<th:block th:include="/UserHeader"></th:block>
-	<th:block th:include="/_menu"></th:block>
+	<header id="header">
+		<div class="header-bottom">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-3">
+						<div class="search_box pull-right">
+						<form action="/search">
+						<input name="key" placeholder="Search" type="text" />
+						</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
 	<section>
 		<div class="container">
 			<div class="row">
@@ -20,35 +34,35 @@
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title">
-										<a href="Mobiles.html">Mobiles</a>
+										<a href="/category1?type=mobiles">Mobiles</a>
 									</h4>
 								</div>
 							</div>
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title">
-										<a href="Laptops.html">Laptops</a>
+										<a href="/category1?type=laptops">Laptops</a>
 									</h4>
 								</div>
 							</div>
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title">
-										<a href="Clothing.html">Clothing</a>
+										<a href="/category1?type=clothing">Clothing</a>
 									</h4>
 								</div>
 							</div>
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title">
-										<a href="Bags.html">Bags</a>
+										<a href="/category1?type=bags">Bags</a>
 									</h4>
 								</div>
 							</div>
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title">
-										<a href="Shoes.html">Shoes</a>
+										<a href="/category?type=Electronics">Electronics</a>
 									</h4>
 								</div>
 							</div>
@@ -63,10 +77,10 @@
 								<div class="product-image-wrapper">
 									<div class="">
 										<div class="productinfo text-center">
-											<p th:utext="${cat.id}"></p>
-											<h2 th:utext="${cat.name}"></h2>
-											<p th:utext="${cat.price}"></p>
-											<a th:href="@{/addtocart} + '?id='+ ${cat.id}" class="btn btn-default add-to-cart"><i
+											<h2 th:utext="${cat.productName}"></h2>
+											<p th:utext="'Price: '+${cat.price}"></p>
+											<p th:utext="'Code: '+${cat.productIdChild}"></p>
+											<a th:href="@{/addtocart} + '?id='+ ${cat.productIdChild}" class="btn btn-default add-to-cart"><i
 												class="fa fa-shopping-cart"></i>Add to cart</a>
 										</div>
 									</div>
@@ -83,7 +97,7 @@
 			</div>
 		</div>
 	</section>
-	
 	<th:block th:include="/_footer"></th:block>
 </body>
 </html>
+

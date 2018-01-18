@@ -1,29 +1,22 @@
-package com.capgemini.entity;
+package com.capgemini.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import com.capgemini.bean.OrderDetailsEntity;
+import com.capgemini.bean.OrderStatus;
 
-@Entity
 public class OrderEntity implements Serializable {
 	private static final long serialVersionUID = 2405172041950251807L;
-	@Id
-	@GeneratedValue
+	
 	private Long orderId;
 
 	private Long userId;
 
 	private OrderStatus status;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "order_id")
+	
 	private List<OrderDetailsEntity> orderDetails = new ArrayList<>();
 
 	public OrderEntity() {
@@ -68,4 +61,4 @@ public class OrderEntity implements Serializable {
 		this.orderDetails = orderDetails;
 	}
 
-}
+	}

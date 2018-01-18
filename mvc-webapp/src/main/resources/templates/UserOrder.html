@@ -57,20 +57,22 @@
 				<table width="800" height="200" align="center">
 					<tr>
 						<th>Order Number</th>
-						<th>Order Date</th>
+						<th>Status</th>
 						<th>Product ID</th>
 						<th>Product Name</th>
-						<th>Quantity</th>
 						<th>Price</th>
+						<th>Quantity</th>
 					</tr>
-					<tr></tr>
+					
 					<tr th:each="ord : ${orderInfo}">
-						<td align="left"><span th:utext="${ord.orderNumber}"></span></td>
-						<td align="left"><span th:utext="${ord.orderDate}"></span></td>
-						<td align="left"><span th:utext="${ord.productId}"></span></td>
-						<td align="left"><span th:utext="${ord.productName}"></span></td>
-						<td align="left"><span th:utext="${ord.quantity}"></span></td>
-						<td align="left"><span th:utext="${ord.productPrice}"></span></td>
+					<tr th:each="orddetails : ${ord.orderDetails}">
+						<td align="left"><span th:utext="${ord.orderId}"></span></td>
+						<td align="left"><span th:utext="${ord.status}"></span></td>
+						<td align="left"><span th:utext="${orddetails.productId}"></span></td>
+						<td align="left"><span th:utext="${orddetails.productName}"></span></td>
+						<td align="left"><span th:utext="${orddetails.price}"></span></td>
+						<td align="left"><span th:utext="${orddetails.quantity}"></span></td>
+						</tr>
 
 					</tr>
 				</table>
