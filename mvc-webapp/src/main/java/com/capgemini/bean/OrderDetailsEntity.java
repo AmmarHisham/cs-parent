@@ -1,17 +1,10 @@
-package com.capgemini.entity;
+package com.capgemini.bean;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-@Entity
 public class OrderDetailsEntity implements Serializable {
 	private static final long serialVersionUID = 1905122041950251207L;
 
-	@Id
-	@GeneratedValue
 	private Long id;
 	private Long productId;
 	private String productName;

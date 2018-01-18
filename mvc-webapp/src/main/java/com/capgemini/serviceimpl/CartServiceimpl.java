@@ -10,17 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import com.capgemini.bean.Cart;
-import com.capgemini.bean.Cart1;
-import com.capgemini.bean.Catalog;
 import com.capgemini.bean.GiftCard;
+import com.capgemini.bean.GiftCardCatalog;
 import com.capgemini.bean.Order;
-import com.capgemini.bean.ProductList;
-import com.capgemini.bean.User;
-import com.capgemini.config.WebRequestController;
+import com.capgemini.bean.OrderEntity;
+import com.capgemini.bean.ProductCatalog;
 import com.capgemini.constant.URLConstants;
 import com.capgemini.service.CartService;
+import com.capgemini.service.CatalogService;
 
 /**
  * @author dimehta
@@ -33,84 +30,27 @@ public class CartServiceimpl implements CartService {
 
 	RestTemplate restTemplate = new RestTemplate();
 
-	@Override
-	public ArrayList<Catalog> getDetails() {
-		ArrayList<Catalog> col = new ArrayList<Catalog>();
+	CatalogService catalogService = new CatalogServiceImpl();
 
-		Catalog cat = new Catalog();
-		cat.setName("aaaaaaaa");
-		cat.setPrice("1200");
-		cat.setId("11111");
-		Catalog cat1 = new Catalog();
-		cat1.setName("bbbbbbbbbb");
-		cat1.setPrice("850");
-		cat1.setId("2222");
-		Catalog cat2 = new Catalog();
-		cat2.setName("cccccccccc");
-		cat2.setPrice("453");
-		cat2.setId("3333");
-		Catalog cat3 = new Catalog();
-		cat3.setName("aaaaaaaaaa");
-		cat3.setPrice("670");
-		cat3.setId("4444");
-		Catalog cat4 = new Catalog();
-		cat4.setName("dddddddda");
-		cat4.setPrice("1900");
-		cat4.setId("5555");
-		Catalog cat5 = new Catalog();
-		cat5.setName("aaaaaaaaa");
-		cat5.setPrice("2700");
-		cat5.setId("6666");
-		col.add(cat);
-		col.add(cat1);
-		col.add(cat2);
-		col.add(cat3);
-		col.add(cat4);
-		col.add(cat5);
-		return col;
-	}
 
-	@Override
-	public ArrayList<Order> getAllOrder() {
-		Order ord = new Order();
-		ord.setProductId("1234");
-		ord.setProductName("abc");
-		ord.setProductPrice("100");
-		ord.setQuantity(2);
-		ord.setOrderNumber(1);
-		ord.setOrderDate("23-06-2017");
-
-		Order ord1 = new Order();
-		ord1.setProductId("2345");
-		ord1.setProductName("def");
-		ord1.setProductPrice("200");
-		ord1.setQuantity(1);
-		ord1.setOrderNumber(2);
-		ord1.setOrderDate("07-08-2017");
-
-		Order ord2 = new Order();
-		ord2.setProductId("3456");
-		ord2.setProductName("ghi");
-		ord2.setProductPrice("300");
-		ord2.setQuantity(1);
-		ord2.setOrderNumber(3);
-		ord2.setOrderDate("09-10-2017");
-
-		Order ord3 = new Order();
-		ord3.setProductId("4567");
-		ord3.setProductName("jkl");
-		ord3.setProductPrice("400");
-		ord3.setQuantity(3);
-		ord3.setOrderNumber(4);
-		ord3.setOrderDate("28-12-2017");
-
-		ArrayList<Order> order = new ArrayList<Order>();
-		order.add(ord);
-		order.add(ord1);
-		order.add(ord2);
-		order.add(ord3);
-		return order;
-
+@Override
+	@SuppressWarnings("null")
+	public List<OrderEntity> getAllOrder(String userId) {
+		
+		ResponseEntity<OrderEntity[]> orderlists = restTemplate.getForEntity(URLConstants.GET_ORDER_BY_USERID, OrderEntity[].class, userId);
+		List<OrderEntity> list = new ArrayList<OrderEntity>();
+		if (orderlists.getBody().length != 0) {
+			for (int i = 0; i < orderlists.getBody().length; i++) {
+				list.add(orderlists.getBody()[i]);
+			}
+		}
+		
+		System.out.println(list);
+		for (OrderEntity lists : list) {
+		System.out.println(lists.getOrderId());
+		}
+		//ArrayList<OrderEntity> cartLists = restTemplate.getForEntity(URLConstants.GET_ORDER_BY_USERID, OrderEntity.class, userId);	
+		return list;
 	}
 
 	@Override
@@ -123,13 +63,12 @@ public class CartServiceimpl implements CartService {
 		return giftcard;
 	}
 
-	
 	@Override
-	public void addToCart(String productId, String userId) {
+	public void addToCart(String productName, String userId) {
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("productId", productId);
+		params.put("productId", productName);
 		params.put("userId", userId);
-		logger.info("productId  =" + productId + "  userId =" + userId);
+		logger.info("productId  =" + productName + "  userId =" + userId);
 		restTemplate.postForObject(URLConstants.ADD_TO_CART, String.class, String.class, params);
 	}
 
@@ -154,6 +93,7 @@ public class CartServiceimpl implements CartService {
 		logger.info("getCardDetails service invoke with userID" + userId);
 		ResponseEntity<UserCartModel> cartLists = restTemplate.getForEntity(URLConstants.GET_CART, UserCartModel.class,
 				userId);
+		System.out.println(cartLists);
 		if (cartLists != null) {
 			return cartLists.getBody();
 		}
@@ -161,24 +101,16 @@ public class CartServiceimpl implements CartService {
 		return null;
 	}
 
-	/*
-	 * @SuppressWarnings("null") public ProductList searchProduct(String key) {
-	 * logger.info("getCardDetails service invoke with userID" + key);
-	 * ResponseEntity<ProductList> proList =
-	 * restTemplate.getForEntity(URLConstants.SEARCH_PRODUCT, ProductList.class,
-	 * key); if (proList != null) { return proList.getBody(); }
-	 * logger.info("getCardDetails service Responce body " + proList.getBody());
-	 * return null;
-	 * 
-	 * }
-	 */
-
 	@Override
 	public String getProductPrice(String productId) {
-		ArrayList<Catalog> pro = getDetails();
-		for (Catalog product : pro) {
-			if ((product.getId()).equalsIgnoreCase(productId)) {
-				return product.getPrice();
+		List<ProductCatalog> list = catalogService.getProduct();
+		for (ProductCatalog productCatalog : list) {
+			System.out.println(productCatalog.getProductIdChild());
+		}
+
+		for (ProductCatalog productCatalog : list) {
+			if ((productCatalog.getProductIdChild()).equalsIgnoreCase(productId)) {
+				return productCatalog.getPrice();
 			}
 		}
 		return null;
@@ -188,34 +120,53 @@ public class CartServiceimpl implements CartService {
 	public UserCartModel setProductPrice(UserCartModel user) {
 		List<ProductCartModel> list = user.getCartItemList();
 		for (ProductCartModel prod : list) {
+			System.out.println(prod.getProductId());
 			String price = getProductPrice(prod.getProductId());
+			System.out.println(prod.getProductId() + "========" + price);
 			prod.setPrice(price);
 		}
 		return user;
 	}
 
-	/*public void createUserGiftCard(User user)
-	{
+	@Override
+	public void addUserGiftCard(GiftCardCatalog giftCard) {
+		System.out.println(giftCard.getGiftCardId());
+		System.out.println(giftCard.getGiftCardValue());
+		restTemplate.postForObject(URLConstants.ADD_GIFT_CARD, GiftCardCatalog.class, GiftCardCatalog.class, giftCard);
 		
 	}
 	
-	public void debitGiftCard(User user) {
-		createUserGiftCard(user);
-		restTemplate.postForObject(URLConstants.DEBIT_GIFTCARD, User.class, User.class, user);
-	}*/
-	
-	/*@Override
-	public void creditGiftCard(String firstName, int balance) {
-		String str1 = Integer.toString(balance);
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("userId", firstName);
-		params.put("price", str1);
-		restTemplate.postForEntity(URLConstants.CREDIT_GIFTCARD, User.class, User.class, params);
-	}*/
-	
-	/*public static void main(String[] args) {
-		new CartServiceimpl().debitGiftCard("DILIP");
-	}*/
-	
+	@Override
+	public GiftCardCatalog getUserGiftCard(String name) {
+		GiftCardCatalog[] gift= restTemplate.getForObject(URLConstants.GET_GIFT_CARD, GiftCardCatalog[].class);
+		for (int i = 0; i < gift.length; i++) {
+			if(gift[i].getGiftCardId().equalsIgnoreCase(name))
+			{
+				return gift[i];
+			}
+		}
+		return null;
+		
+		
+	}
+
+	/*
+	 * public void createUserGiftCard(User user) {
+	 * 
+	 * }
+	 * 
+	 * public void debitGiftCard(User user) { createUserGiftCard(user);
+	 * restTemplate.postForObject(URLConstants.DEBIT_GIFTCARD, User.class,
+	 * User.class, user); }
+	 */
+
+	/*
+	 * @Override public void creditGiftCard(String firstName, int balance) { String
+	 * str1 = Integer.toString(balance); Map<String, String> params = new
+	 * HashMap<String, String>(); params.put("userId", firstName);
+	 * params.put("price", str1);
+	 * restTemplate.postForEntity(URLConstants.CREDIT_GIFTCARD, User.class,
+	 * User.class, params); }
+	 */
 
 }
