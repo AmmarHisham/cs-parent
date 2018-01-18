@@ -20,8 +20,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class UserProfileTests {
 	
 	@Value("classpath:unit.json")
@@ -43,13 +43,13 @@ public class UserProfileTests {
 	
 	Gson gson = new Gson();
 	
-	@Test
+	//@Test
 	public void testAddUsers() throws JSONException {
 		
 		User user=new User();
 		user.setFirstName("Bala");
 		user.setLastName("Bharath");
-		user.setEmail("gbbr@gmail.com");
+		//user.setEmail("gbbr@gmail.com");
 		user.setBalance(200);
 		user.setMobileNo("9492080475");
 		user.setRole("user");
@@ -79,14 +79,14 @@ public class UserProfileTests {
 		}
 	}
 	
-	@Test
-	public void testUserById() throws JSONException {
+	//@Test
+	/*public void testUserById() throws JSONException {
 		User user = new User();
 		user.setFirstName("Nathan");
 		user.setLastName("Lyon");
-		user.setEmail("gbbr@gmail.com");
+		user.setEmail("lyon@gmail.com");
 		user.setBalance(200);
-		user.setMobileNo("9492080475");
+		user.setMobileNo("9994080482");
 		user.setRole("user");
 		User user1=upcontrol.createUser(user);
 		
@@ -114,17 +114,17 @@ public class UserProfileTests {
 			e.printStackTrace();
 		}
 		
-	}
+	}*/
 	
-	@Test
+	//@Test
 	public void testCreditAmount() throws JSONException {
 		
 		User user = new User();
 		user.setFirstName("shahul");
 		user.setLastName("hameed");
-		user.setEmail("gbbr@gmail.com");
+		//user.setEmail("shahul@gmail.com");
 		user.setBalance(100);
-		user.setMobileNo("9492080475");
+		user.setMobileNo("8457902231");
 		user.setRole("user");
 		
 		User user1 = upcontrol.createUser(user);
@@ -155,15 +155,15 @@ public class UserProfileTests {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testDebitAmount() throws JSONException {
 		
 		User user = new User();
-		user.setFirstName("Virat");
-		user.setLastName("Kohli");
-		user.setEmail("gbbr@gmail.com");
+		user.setFirstName("Rama");
+		user.setLastName("Sumanth");
+		//user.setEmail("sumanth@gmail.com");
 		user.setBalance(300);
-		user.setMobileNo("9492080475");
+		user.setMobileNo("7638293317");
 		user.setRole("user");
 		
 		User user1 = upcontrol.createUser(user);

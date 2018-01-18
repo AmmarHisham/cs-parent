@@ -12,7 +12,7 @@ public class User {
 	private long userId;
 	private String firstName;
 	private String lastName;
-	private String email;
+	private String userName;
 	private String mobileNo;
 	private long balance;
 	private String role;
@@ -41,12 +41,12 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUserName(String email) {
+		this.userName = email;
 	}
 
 	public String getMobileNo() {
@@ -82,8 +82,8 @@ public class User {
 		builder.append(firstName);
 		builder.append(", lastName=");
 		builder.append(lastName);
-		builder.append(", email=");
-		builder.append(email);
+		builder.append(", userName=");
+		builder.append(userName);
 		builder.append(", mobileNo=");
 		builder.append(mobileNo);
 		builder.append(", balance=");

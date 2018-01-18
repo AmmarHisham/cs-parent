@@ -2,6 +2,8 @@ package com.cg.userprofile.controller;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +27,15 @@ public class UserProfileController {
 		return profileRepo.save(user);
 	}
 
-	@RequestMapping(value = "findbyid", method = RequestMethod.GET, params = { "userId" })
+    @RequestMapping(value = "findbyid", method = RequestMethod.GET, params = { "userId" })
 	public User getUserById(@RequestParam(value = "userId", required = true) String userId) {
 		return profileRepo.findOne(Long.parseLong(userId));
 	} 
 
+	@RequestMapping(value = "findbyusername", method = RequestMethod.GET, params = { "userName" })
+	public List<User> getUserByUserName(@RequestParam(value = "userName", required = true) String userName) {
+		return profileRepo.findByUserName(userName);
+	}
 	
 	@RequestMapping(value = "credit", method = RequestMethod.POST, params = { "userId", "amount" })
 	public User credit(@RequestParam(value = "userId", required = true) String userId,
@@ -47,5 +53,7 @@ public class UserProfileController {
 		return profileRepo.save(user);
 	}
 
+	 
+	
 	
 }
