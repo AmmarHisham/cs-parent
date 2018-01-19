@@ -35,5 +35,4 @@ public class URLConstants {
 	public static final String PUT_STREAM= "http://10.77.116.60:8081/saveUrl?userId= {userId}&userUrl= {userUrl}";
 	// public static final String GET_PRODUCT=
 	// "http://13.127.14.15:9090/addAll?productId={productId}&productName={productName}&productPrice{productPrice}";
-
 }
