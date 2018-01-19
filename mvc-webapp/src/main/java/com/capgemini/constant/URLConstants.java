@@ -7,8 +7,6 @@ import java.net.URI;
  *
  */
 public class URLConstants {
-	//http://10.246.17.174:1003/swagger-ui.html  
-	//system IP got 
 
 	public static final String GET_CART = "http://10.246.17.174:1003/cart/detail?userId={userId}";
 	public static final String ADD_TO_CART = "http://10.246.17.174:1003/cart/add?userId={userId}&productId={productId}&quantity=1";

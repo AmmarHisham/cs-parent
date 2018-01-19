@@ -220,6 +220,23 @@ public class WebRequestController {
 		// cartServiceimpl.debitGiftCard(user);
 		cartServiceimpl.deleteFromCart(pId, userId);
 		List<ProductCatalog> cat = catalogService.getProduct();
+		/*
+		 * OrderDetailsEntity orddetails=new OrderDetailsEntity();
+		orddetails.setPrice(Integer.parseInt(price));
+		orddetails.setProductId(Long.parseLong(productId));
+		orddetails.setQuantity(Integer.parseInt(quantity));
+		orddetails.setProductName(productName);
+		orddetails.setId(Long.parseLong("5"));
+		List<OrderDetailsEntity> orddetailslist=new ArrayList<OrderDetailsEntity>();
+		orddetailslist.add(orddetails);
+		OrderEntity ord=new OrderEntity();
+		ord.setOrderDetails(orddetailslist);
+		ord.setOrderId(Long.parseLong(orderId));
+		ord.setUserId(Long.parseLong(user));
+		OrderStatus ok = OrderStatus.valueOf("delivered");
+		ord.setStatus(ok);
+		adminService.updateOrder(ord);
+		 */
 		model.addAttribute("catalog", cat);
 		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "index";
