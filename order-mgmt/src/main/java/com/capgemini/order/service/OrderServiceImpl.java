@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
 		});
 		orderRepo.save(oe);
 		Notification body = new Notification();
-		body.setComment("Order placeddd");
+		body.setComment("Order placed");
 		body.setRecipientId(oe.getUserId());
 		body.setRecipientType(RecipientType.EMAIL);
 		body.setNotificationType(NotificationType.SUCCESS);
