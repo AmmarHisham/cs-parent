@@ -51,7 +51,7 @@ public class OrderManagementController {
 
 	@GetMapping(value = "getCompletedOrdersByUserId/{userId}")
 	public List<OrderEntity> getOrdersByOkStatus(@PathVariable String userId) {
-		return orderService.getOrdersByStatus(Long.parseLong(userId), OrderStatus.ok);
+		return orderService.getOrdersByStatus(Long.parseLong(userId), OrderStatus.cancelled);
 	}
 
 	@GetMapping(value = "getOpenOrdersByUserId/{userId}")
