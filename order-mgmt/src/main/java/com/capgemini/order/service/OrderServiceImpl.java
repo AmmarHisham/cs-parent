@@ -1,23 +1,30 @@
 package com.capgemini.order.service;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.capgemini.entity.OrderDetailsEntity;
 import com.capgemini.entity.OrderEntity;
 import com.capgemini.entity.OrderStatus;
-import com.capgemini.order.repo.OrderDetailRepo;
 import com.capgemini.order.repo.OrderRepo;
+import com.cg.notification.Notification;
+import com.cg.notification.NotificationType;
+import com.cg.notification.RecipientType;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private OrderRepo orderRepo;
+
+	@Autowired
+	private RestTemplate restTemplate;
 
 	@Override
 	public OrderEntity saveOrder(OrderEntity entity) {
@@ -30,10 +37,16 @@ public class OrderServiceImpl implements OrderService {
 			oe.getOrderDetails().add(item);
 		});
 		orderRepo.save(oe);
-		System.out.println(oe);
+		Notification body = new Notification();
+		body.setComment("Order placeddd");
+		body.setRecipientId(oe.getUserId());
+		body.setRecipientType(RecipientType.EMAIL);
+		body.setNotificationType(NotificationType.SUCCESS);
+		HttpEntity<Notification> httpEntity = new HttpEntity<Notification>(body);
+		ResponseEntity<Notification> r = restTemplate.postForEntity("http://localhost:8080/notification", httpEntity, Notification.class);
 		return oe;
-
 	}
+
 
 	@Override
 	public OrderEntity updateOrders(OrderEntity entity) {

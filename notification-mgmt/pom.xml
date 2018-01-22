@@ -27,7 +27,7 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.capgemini</groupId>
+			<groupId>com.cg</groupId>
 			<artifactId>pojos</artifactId>
 			<version>${project.version}</version>
 			<exclusions>
