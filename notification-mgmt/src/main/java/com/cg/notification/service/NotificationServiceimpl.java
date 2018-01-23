@@ -1,11 +1,14 @@
 package com.cg.notification.service;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.notification.Notification;
+import com.cg.notification.ReadStatus;
 import com.cg.notification.RecipientType;
 import com.cg.notification.repo.NotificationRepo;
 import com.cg.notification.sender.NotificationSender;
@@ -22,6 +25,8 @@ public class NotificationServiceimpl implements NotificationService {
 	@Override
 	public Notification saveNotification(Notification notification) {
 		// TODO all business logic goes here
+		notification.setId(null);
+		notification.setReadStatus(ReadStatus.UNREAD);
 		notification = notificationRepo.saveNotification(notification);
 		System.err.println("before sending notification from service layer");
 		notificationSender.sendNotification(notification);
@@ -32,6 +37,7 @@ public class NotificationServiceimpl implements NotificationService {
 	@Override
 	public Notification updateNotification(Notification notification) {
 		// TTODO all business logic goes here
+		assertNotNull("Notification id cannot be null while updating", notification.getId());
 		return notificationRepo.updateNotification(notification);
 	}
 
