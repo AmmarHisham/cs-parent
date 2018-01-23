@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.capgemini.constant.URLConstant;
 import com.capgemini.entity.OrderDetailsEntity;
 import com.capgemini.entity.OrderEntity;
 import com.capgemini.entity.OrderStatus;
@@ -43,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
 		body.setRecipientType(RecipientType.EMAIL);
 		body.setNotificationType(NotificationType.SUCCESS);
 		HttpEntity<Notification> httpEntity = new HttpEntity<Notification>(body);
-		ResponseEntity<Notification> r = restTemplate.postForEntity("http://localhost:8080/notification", httpEntity, Notification.class);
+		ResponseEntity<Notification> r = restTemplate.postForEntity(URLConstant.GET_Notification, httpEntity, Notification.class);
 		return oe;
 	}
 
