@@ -1,31 +1,49 @@
 package com.cg.cassandra;
 
+
+import java.util.UUID;
+
 import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.Table;
 
-@Table
+@Table("feedback")
 public class Customer {
+
 	@PrimaryKey
-	private int id;
-	private String firstname;
-	private String lastname;
-	private int age;
+	private UUID id;
+
+	private String productId;
+
+	private String userId;
+
 	private String feedback;
-	private int rating;
-	
-	public Customer(){}
-	
-	public Customer(int id, String firstname, String lastname, int age, String feedback, int rating ){
-		this.id = id;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.age = age;
-		this.feedback = feedback;
-		this.rating = rating;
-		
-		
+
+	private String rating;
+
+	public UUID getId() {
+		return id;
 	}
-	
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public String getProductId() {
+		return productId;
+	}
+
+	public void setProductId(String productId) {
+		this.productId = productId;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 	public String getFeedback() {
 		return feedback;
 	}
@@ -34,49 +52,29 @@ public class Customer {
 		this.feedback = feedback;
 	}
 
-	public int getRating() {
+	public String getRating() {
 		return rating;
 	}
 
-	public void setRating(int rating) {
+	public void setRating(String rating) {
 		this.rating = rating;
 	}
 
-	public void setId(int id){
-		this.id = id;
-	}
-	
-	public int getId(){
-		return this.id;
-	}
-	
-	public void setFirstname(String firstname){
-		this.firstname = firstname;
-	}
-	
-	public String getFirstname(){
-		return this.firstname;
-	}
-	
-	public void setLastname(String lastname){
-		this.lastname = lastname;
-	}
-	
-	public String getLastname(){
-		return this.lastname;
-	}
-	
-	public void setAge(int age){
-		this.age = age;
-	}
-	
-	public int getAge(){
-		return this.age;
-	}
-	
 	@Override
 	public String toString() {
-		return String.format("Customer[id=%d, firstName='%s', lastName='%s', age=%d, feedback='%s', rating=%d]", this.id,
-				this.firstname, this.lastname, this.age,this.feedback, this.rating);
+		StringBuilder builder = new StringBuilder();
+		builder.append("Customer [id=");
+		builder.append(id);
+		builder.append(", productId=");
+		builder.append(productId);
+		builder.append(", userId=");
+		builder.append(userId);
+		builder.append(", feedback=");
+		builder.append(feedback);
+		builder.append(", rating=");
+		builder.append(rating);
+		builder.append("]");
+		return builder.toString();
 	}
+
 }
