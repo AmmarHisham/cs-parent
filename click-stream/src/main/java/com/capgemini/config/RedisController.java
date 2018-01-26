@@ -22,8 +22,8 @@ public class RedisController {
 	@RequestMapping(value = "/saveUrl", method = RequestMethod.POST, produces = "application/json")
 	public void saveUrl(@RequestParam (value="userId",required=false) String userId,@RequestParam (value="userUrl",required=false) String userUrl) {
 		clickStreamServiceImpl.saveUrl(userId, userUrl);
-		System.out.println(userId);
-		System.out.println(userUrl);
+		System.out.println("userId"+userId);
+		System.out.println("URl"+userUrl);
 
 	}
 	@RequestMapping(value = "/getById", method = RequestMethod.GET, produces = "application/json",consumes = "application/*")
