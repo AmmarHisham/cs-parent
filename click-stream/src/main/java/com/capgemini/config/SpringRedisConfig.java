@@ -7,14 +7,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 @Configuration
 public class SpringRedisConfig {
+
 	@Bean
 	public JedisConnectionFactory connectionFactory() {
 		JedisConnectionFactory connectionFactory = new JedisConnectionFactory();

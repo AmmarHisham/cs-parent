@@ -10,10 +10,12 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import com.capgemini.config.RedisTemplateConnection;
 import com.capgemini.config.UserUrl;
 
 /**
@@ -25,7 +27,8 @@ public class ClickStreamServiceImpl implements ClickStreamService {
 
 	@Autowired
 	@Qualifier("redisTemplate")
-	private StringRedisTemplate redisTemplate;
+	private StringRedisTemplate redisTemplate1;
+	private StringRedisTemplate redisTemplate=RedisTemplateConnection.getConnection();
 
 	@Override
 	public void saveUrl(String userId, String userUrl) {
