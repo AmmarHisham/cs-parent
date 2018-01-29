@@ -20,23 +20,18 @@ public abstract class AbstractNotificationSender<T extends Notification> impleme
 	}
 
 	private void sendEmail(Notification notification) {
-		System.err.println("b4 sending email");
 		CompletableFuture.supplyAsync(() -> sendEmailNotification(notification)).thenAccept(s -> {
 			logMessage(s);
 		});
-		System.err.println("after sending email");
 	}
 
 	private void sendSms(Notification notification) {
-		System.err.println("b4 sending sms");
 		CompletableFuture.supplyAsync(() -> sendSmsNotification(notification)).thenAccept(s -> {
 			logMessage(s);
 		});
-		System.err.println("after sending sms");
 	}
 
 	private void sendEmailAndSms(Notification notification) {
-		System.err.println("b4 sending email/sms");
 		CompletableFuture<String> futureA = sendEmailNotification(notification);
 		CompletableFuture<String> futureB = sendSmsNotification(notification);
 		futureA.thenCombine(futureB, (a, b) -> {
@@ -44,12 +39,10 @@ public abstract class AbstractNotificationSender<T extends Notification> impleme
 			logMessage(b);
 			return null;
 		});
-		System.err.println("after sending email/sms");
 	}
 
 	@Override
 	public final void sendNotification(Notification notification) {
-		System.out.println("From notification sender \n\n\n" + notification);
 		switch (notification.getRecipientType()) {
 		case EMAIL:
 			sendEmail(notification);
@@ -63,7 +56,6 @@ public abstract class AbstractNotificationSender<T extends Notification> impleme
 		default:
 			break;
 		}
-		System.err.println("after sending notification");
 	}
 
 }

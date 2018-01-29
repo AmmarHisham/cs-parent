@@ -28,9 +28,7 @@ public class NotificationServiceimpl implements NotificationService {
 		notification.setId(null);
 		notification.setReadStatus(ReadStatus.UNREAD);
 		notification = notificationRepo.saveNotification(notification);
-		System.err.println("before sending notification from service layer");
 		notificationSender.sendNotification(notification);
-		System.err.println("after sending notification from service layer");
 		return notification;
 	}
 
