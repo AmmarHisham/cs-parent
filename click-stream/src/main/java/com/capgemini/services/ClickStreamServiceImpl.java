@@ -63,8 +63,8 @@ public class ClickStreamServiceImpl implements ClickStreamService {
 				String string = (String) iterator.next();
 				str.add(string);
 			}
-			userUrl.setTimestam(str.get(0));
-			userUrl.setUserId(str.get(1));
+			userUrl.setUserId(str.get(0));
+			userUrl.setTimestam(str.get(1));
 			userUrl.setUserUrl(str.get(2));
 
 			uselist.add(userUrl);
