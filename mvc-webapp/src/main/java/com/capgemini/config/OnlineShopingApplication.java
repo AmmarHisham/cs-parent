@@ -7,13 +7,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * @author dimehta
  *
  */
 @EnableDiscoveryClient
+@EnableZuulProxy
 @ServletComponentScan
 @ComponentScan({"com.capgemini.serviceimpl","com.capgemini.config","com.capgemini.login.social.providers"})
 @SpringBootApplication
@@ -23,5 +28,11 @@ public class OnlineShopingApplication extends SpringBootServletInitializer {
 		SpringApplication.run(OnlineShopingApplication.class, args);
 		logger.info("Main call");
 		
+	}
+	
+	@Bean
+	@LoadBalanced
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
 	}
 }
