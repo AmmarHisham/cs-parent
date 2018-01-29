@@ -3,7 +3,7 @@ package com.capgemini.serviceimpl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,9 +14,10 @@ import com.capgemini.service.CatalogService;
 
 @Service
 public class CatalogServiceImpl implements CatalogService {
-
-	RestTemplate restTemplate = new RestTemplate();
-	static CatalogServiceImpl cat = new CatalogServiceImpl();
+	@Autowired
+	RestTemplate restTemplate;
+	@Autowired
+	CatalogServiceImpl cat;
 
 	@Override
 	@SuppressWarnings("null")

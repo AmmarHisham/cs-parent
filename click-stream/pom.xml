@@ -9,10 +9,9 @@
 	<packaging>jar</packaging>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.9.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<groupId>org.capgemini</groupId>
+		<artifactId>cs-parent</artifactId>
+		<version>0.1.0</version>
 	</parent>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
