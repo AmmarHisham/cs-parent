@@ -36,7 +36,7 @@ public class NotificationSenderImpl extends AbstractNotificationSender<Notificat
 		return email;
 	}
 
-	private void sendEmail(Notification t) {
+	private void sendEmailFromAWS(Notification t) {
 		try {
 			AmazonSimpleEmailService client = AmazonSimpleEmailServiceClientBuilder.standard()
 					.withRegion(Regions.US_WEST_2).build();
@@ -55,7 +55,7 @@ public class NotificationSenderImpl extends AbstractNotificationSender<Notificat
 	@Override
 	public CompletableFuture<String> sendEmailNotification(Notification t) {
 		CompletableFuture<String> future = new CompletableFuture<>();
-		sendEmail(t);
+		sendEmailFromAWS(t);
 		future.complete("sent email from future");
 		return future;
 	}
