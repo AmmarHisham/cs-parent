@@ -27,7 +27,7 @@ public class NotificationSenderImpl extends AbstractNotificationSender<Notificat
 
 	private static final String SUBJECT = "Email from CFSD case study";
 
-	private String USER_PROFILE_SERVICE = "http://localhost:8090/";
+	private String USER_PROFILE_SERVICE = "http://user-profile/";
 
 	private String getEmailFromUser(String userId) {
 		String email = this.restTemplate
