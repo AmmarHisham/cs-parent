@@ -1,4 +1,4 @@
-
+/*
 package com.capgemini.usercart.testcase;
 
 import static org.junit.Assert.assertEquals;
@@ -153,3 +153,4 @@ public class SpringBootDemoApplicationTests {
     }
 
 }
+*/

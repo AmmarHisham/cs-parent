@@ -13,7 +13,6 @@ import com.capgemini.usercart.repository.MongoRepositoryDataBaseOperations;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-@Data
 @Service
 @Slf4j
 public class AddProductCartService {

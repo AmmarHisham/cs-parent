@@ -27,5 +27,34 @@ public class UserCartModel implements Serializable{
 	@Id
 	private String userId;
 	private List<ProductCartModel> cartItemList;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserCartModel other = (UserCartModel) obj;
+		if (cartItemList == null) {
+			if (other.cartItemList != null)
+				return false;
+		} else if (!cartItemList.equals(other.cartItemList))
+			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		return true;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cartItemList == null) ? 0 : cartItemList.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		return result;
+	}
 
 }
