@@ -1,5 +1,4 @@
-package com.cg.cassandra;
-
+package com.cg.entity;
 
 import java.util.UUID;
 
@@ -7,15 +6,15 @@ import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.Table;
 
 @Table("feedback")
-public class Customer {
+public class CustomerFeedback {
 
 	@PrimaryKey
 	private UUID id;
 
-	private String productId;
-
 	private String userId;
-
+	
+	private String productId;
+	
 	private String feedback;
 
 	private String rating;
@@ -27,6 +26,13 @@ public class Customer {
 	public void setId(UUID id) {
 		this.id = id;
 	}
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	public String getProductId() {
 		return productId;
@@ -34,14 +40,6 @@ public class Customer {
 
 	public void setProductId(String productId) {
 		this.productId = productId;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
 	}
 
 	public String getFeedback() {
@@ -63,12 +61,12 @@ public class Customer {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Customer [id=");
+		builder.append("CustomerFeedback [id=");
 		builder.append(id);
-		builder.append(", productId=");
-		builder.append(productId);
 		builder.append(", userId=");
 		builder.append(userId);
+		builder.append(", productId=");
+		builder.append(productId);
 		builder.append(", feedback=");
 		builder.append(feedback);
 		builder.append(", rating=");

@@ -1,11 +1,12 @@
-package com.cg.cassandra;
+package com.cg.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.cassandra.repository.CustomerRepository;
+import com.cg.entity.CustomerFeedback;
+import com.cg.repository.CustomerRepository;
 
 @Service
 public class CustomerService {
@@ -13,11 +14,11 @@ public class CustomerService {
 	@Autowired
 	CustomerRepository customerRepository;
 
-	public Customer saveData(Customer customer) {
+	public CustomerFeedback saveData(CustomerFeedback customer) {
 		return customerRepository.save(customer);
 	}
 
-	public List<Customer> getData(String productId) {
+	public List<CustomerFeedback> getData(String productId) {
 		return customerRepository.findByProductId(productId);
 	}
 

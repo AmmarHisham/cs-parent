@@ -1,12 +1,13 @@
-package com.cg.cassandra.repository;
+package com.cg.repository;
 
 import java.util.List;
 
 import org.springframework.data.cassandra.repository.CassandraRepository;
+import org.springframework.data.cassandra.repository.Query;
 
-import com.cg.cassandra.Customer;
+import com.cg.entity.CustomerFeedback;
 
-public interface CustomerRepository extends CassandraRepository<Customer> {
+public interface CustomerRepository extends CassandraRepository<CustomerFeedback> {
 
 	// @Query(value = "SELECT * FROM customer WHERE firstname=?0")
 	// public List<Customer> findByFirstname(String firstname);
@@ -14,5 +15,6 @@ public interface CustomerRepository extends CassandraRepository<Customer> {
 	// @Query("SELECT * FROM customer WHERE age > ?0 ALLOW FILTERING")
 	// public List<Customer> findCustomerHasAgeGreaterThan(int age);
 
-	public List<Customer> findByProductId(String pid);
+	@Query("SELECT * FROM feedback WHERE productId =?0 ALLOW FILTERING")
+	public List<CustomerFeedback> findByProductId(String pid);
 }
