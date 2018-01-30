@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 /**
  * The class <code>ProductCartModelTest</code> contains tests for the class <code>{@link ProductCartModel}</code>.
  *
- * @generatedBy CodePro at 1/30/18 5:15 PM
+ * @generatedBy CodePro at 1/30/18 6:40 PM
  * @author dsriniv1
  * @version $Revision: 1.0 $
  */
@@ -16,7 +16,7 @@ public class ProductCartModelTest {
 	 *
 	 * @throws Exception
 	 *
-	 * @generatedBy CodePro at 1/30/18 5:15 PM
+	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	@Test
 	public void testProductCartModel_1()
@@ -36,7 +36,7 @@ public class ProductCartModelTest {
 	 *
 	 * @throws Exception
 	 *
-	 * @generatedBy CodePro at 1/30/18 5:15 PM
+	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	@Test
 	public void testProductCartModel_2()
@@ -58,7 +58,7 @@ public class ProductCartModelTest {
 	 *
 	 * @throws Exception
 	 *
-	 * @generatedBy CodePro at 1/30/18 5:15 PM
+	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	@Test
 	public void testEquals_1()
@@ -77,7 +77,7 @@ public class ProductCartModelTest {
 	 *
 	 * @throws Exception
 	 *
-	 * @generatedBy CodePro at 1/30/18 5:15 PM
+	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	@Test
 	public void testEquals_2()
@@ -96,7 +96,7 @@ public class ProductCartModelTest {
 	 *
 	 * @throws Exception
 	 *
-	 * @generatedBy CodePro at 1/30/18 5:15 PM
+	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	@Test
 	public void testEquals_3()
@@ -115,7 +115,7 @@ public class ProductCartModelTest {
 	 *
 	 * @throws Exception
 	 *
-	 * @generatedBy CodePro at 1/30/18 5:15 PM
+	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	@Test
 	public void testEquals_4()
@@ -134,7 +134,7 @@ public class ProductCartModelTest {
 	 *
 	 * @throws Exception
 	 *
-	 * @generatedBy CodePro at 1/30/18 5:15 PM
+	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	@Test
 	public void testEquals_5()
@@ -153,7 +153,7 @@ public class ProductCartModelTest {
 	 *
 	 * @throws Exception
 	 *
-	 * @generatedBy CodePro at 1/30/18 5:15 PM
+	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	@Test
 	public void testEquals_6()
@@ -172,7 +172,7 @@ public class ProductCartModelTest {
 	 *
 	 * @throws Exception
 	 *
-	 * @generatedBy CodePro at 1/30/18 5:15 PM
+	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	@Test
 	public void testEquals_7()
@@ -191,7 +191,7 @@ public class ProductCartModelTest {
 	 *
 	 * @throws Exception
 	 *
-	 * @generatedBy CodePro at 1/30/18 5:15 PM
+	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	@Test
 	public void testGetProductId_1()
@@ -209,7 +209,7 @@ public class ProductCartModelTest {
 	 *
 	 * @throws Exception
 	 *
-	 * @generatedBy CodePro at 1/30/18 5:15 PM
+	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	@Test
 	public void testGetQuantity_1()
@@ -227,7 +227,7 @@ public class ProductCartModelTest {
 	 *
 	 * @throws Exception
 	 *
-	 * @generatedBy CodePro at 1/30/18 5:15 PM
+	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	@Test
 	public void testHashCode_1()
@@ -245,7 +245,7 @@ public class ProductCartModelTest {
 	 *
 	 * @throws Exception
 	 *
-	 * @generatedBy CodePro at 1/30/18 5:15 PM
+	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	@Test
 	public void testHashCode_2()
@@ -263,7 +263,7 @@ public class ProductCartModelTest {
 	 *
 	 * @throws Exception
 	 *
-	 * @generatedBy CodePro at 1/30/18 5:15 PM
+	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	@Test
 	public void testSetProductId_1()
@@ -281,7 +281,7 @@ public class ProductCartModelTest {
 	 *
 	 * @throws Exception
 	 *
-	 * @generatedBy CodePro at 1/30/18 5:15 PM
+	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	@Test
 	public void testSetQuantity_1()
@@ -300,7 +300,7 @@ public class ProductCartModelTest {
 	 * @throws Exception
 	 *         if the initialization fails for some reason
 	 *
-	 * @generatedBy CodePro at 1/30/18 5:15 PM
+	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	@Before
 	public void setUp()
@@ -314,7 +314,7 @@ public class ProductCartModelTest {
 	 * @throws Exception
 	 *         if the clean-up fails for some reason
 	 *
-	 * @generatedBy CodePro at 1/30/18 5:15 PM
+	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	@After
 	public void tearDown()
@@ -327,7 +327,7 @@ public class ProductCartModelTest {
 	 *
 	 * @param args the command line arguments
 	 *
-	 * @generatedBy CodePro at 1/30/18 5:15 PM
+	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	public static void main(String[] args) {
 		new org.junit.runner.JUnitCore().run(ProductCartModelTest.class);

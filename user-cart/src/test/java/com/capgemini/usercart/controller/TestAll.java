@@ -1,4 +1,4 @@
-package com.capgemini.usercart.model;
+package com.capgemini.usercart.controller;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
@@ -15,9 +15,10 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	ProductCartModelTest.class,
-	UserCartModelTest.class,
-	ConstantValuesTest.class,
+	UserCartEmptyControllerTest.class,
+	UserCartDelteProductControllerTest.class,
+	UserCartAddControllerTest.class,
+	UserCartDetailControllerTest.class,
 })
 public class TestAll {
 

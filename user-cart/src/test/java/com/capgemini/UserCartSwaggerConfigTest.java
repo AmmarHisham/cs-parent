@@ -1,27 +1,35 @@
-package com.capgemini.usercart.model;
+package com.capgemini;
 
 import org.junit.*;
+import springfox.documentation.spring.web.plugins.Docket;
 import static org.junit.Assert.*;
 
 /**
- * The class <code>ConstantValuesTest</code> contains tests for the class <code>{@link ConstantValues}</code>.
+ * The class <code>UserCartSwaggerConfigTest</code> contains tests for the class <code>{@link UserCartSwaggerConfig}</code>.
  *
  * @generatedBy CodePro at 1/30/18 6:40 PM
  * @author dsriniv1
  * @version $Revision: 1.0 $
  */
-public class ConstantValuesTest {
+public class UserCartSwaggerConfigTest {
 	/**
-	 * Run the ConstantValues() constructor test.
+	 * Run the Docket api() method test.
+	 *
+	 * @throws Exception
 	 *
 	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	@Test
-	public void testConstantValues_1()
+	public void testApi_1()
 		throws Exception {
-		ConstantValues result = new ConstantValues();
-		assertNotNull(result);
+		UserCartSwaggerConfig fixture = new UserCartSwaggerConfig();
+
+		Docket result = fixture.api();
+
 		// add additional test code here
+		assertNotNull(result);
+		assertEquals(true, result.isEnabled());
+		assertEquals("default", result.getGroupName());
 	}
 
 	/**
@@ -60,6 +68,6 @@ public class ConstantValuesTest {
 	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	public static void main(String[] args) {
-		new org.junit.runner.JUnitCore().run(ConstantValuesTest.class);
+		new org.junit.runner.JUnitCore().run(UserCartSwaggerConfigTest.class);
 	}
 }

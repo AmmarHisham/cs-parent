@@ -1,4 +1,3 @@
-
 package com.capgemini.usercart.controller;
 
 import org.junit.*;
@@ -11,20 +10,8 @@ import static org.junit.Assert.*;
 import com.capgemini.usercart.model.UserCartModel;
 import com.capgemini.usercart.services.AddProductCartService;
 
-/**
- * The class <code>UserCartAddControllerTest</code> contains tests for the class <code>{@link UserCartAddController}</code>.
- *
- * @generatedBy CodePro at 1/30/18 10:28 AM
- * @author dsriniv1
- * @version $Revision: 1.0 $
- */
 public class UserCartAddControllerTest {
-	/**
-	 * Run the UserCartAddController() constructor test.
-	 *
-	 * @generatedBy CodePro at 1/30/18 10:28 AM
-	 */
-	
+		
 	@InjectMocks
 	UserCartAddController userCartAddController;
 	

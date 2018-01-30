@@ -8,7 +8,7 @@ import com.capgemini.usercart.repository.MongoRepositoryDataBaseOperations;
 
 import lombok.Data;
 
-@Data
+
 @Service
 public class EmptyProductCartService {
 	

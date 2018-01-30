@@ -14,7 +14,6 @@ import org.mockito.MockitoAnnotations;
 import com.capgemini.usercart.model.ProductCartModel;
 import com.capgemini.usercart.model.UserCartModel;
 import com.capgemini.usercart.repository.MongoRepositoryDataBaseOperations;
-import com.capgemini.usercart.repository.UserCartRepositoryDataBaseOperations;
 
 public class AddProductCartServiceTest {
 
@@ -23,6 +22,17 @@ public class AddProductCartServiceTest {
 
 	@Mock
 	MongoRepositoryDataBaseOperations mongoRepositoryDataBaseOperations;
+
+	
+	@Test
+	public void testAddProductCartService_2()
+		throws Exception {
+		AddProductCartService result = new AddProductCartService();
+		assertNotNull(result);
+		// add additional test code here
+	}
+
+
 
 	@Before
 	public void setUp() throws Exception {
@@ -109,4 +119,6 @@ public class AddProductCartServiceTest {
 		assertNotNull(result);
 	}
 
+
+	
 }

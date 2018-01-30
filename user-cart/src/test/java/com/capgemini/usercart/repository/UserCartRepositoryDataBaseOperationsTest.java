@@ -1,29 +1,16 @@
-package com.capgemini.usercart.model;
+package com.capgemini.usercart.repository;
 
 import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
- * The class <code>ConstantValuesTest</code> contains tests for the class <code>{@link ConstantValues}</code>.
+ * The class <code>UserCartRepositoryDataBaseOperationsTest</code> contains tests for the class <code>{@link UserCartRepositoryDataBaseOperations}</code>.
  *
  * @generatedBy CodePro at 1/30/18 6:40 PM
  * @author dsriniv1
  * @version $Revision: 1.0 $
  */
-public class ConstantValuesTest {
-	/**
-	 * Run the ConstantValues() constructor test.
-	 *
-	 * @generatedBy CodePro at 1/30/18 6:40 PM
-	 */
-	@Test
-	public void testConstantValues_1()
-		throws Exception {
-		ConstantValues result = new ConstantValues();
-		assertNotNull(result);
-		// add additional test code here
-	}
-
+public class UserCartRepositoryDataBaseOperationsTest {
 	/**
 	 * Perform pre-test initialization.
 	 *
@@ -60,6 +47,6 @@ public class ConstantValuesTest {
 	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
 	public static void main(String[] args) {
-		new org.junit.runner.JUnitCore().run(ConstantValuesTest.class);
+		new org.junit.runner.JUnitCore().run(UserCartRepositoryDataBaseOperationsTest.class);
 	}
 }

@@ -6,12 +6,8 @@ import org.springframework.stereotype.Service;
 import com.capgemini.usercart.model.UserCartModel;
 import com.capgemini.usercart.repository.MongoRepositoryDataBaseOperations;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
 @Service
-@Data
-@AllArgsConstructor
+
 public class UserCartDetailService {
 
 	@Autowired
