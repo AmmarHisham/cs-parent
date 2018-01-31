@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 import com.capgemini.usercart.model.ConstantValues;
 import com.capgemini.usercart.repository.MongoRepositoryDataBaseOperations;
 
-import lombok.Data;
-
 
 @Service
 public class EmptyProductCartService {
