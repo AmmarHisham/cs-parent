@@ -24,13 +24,12 @@ public class UserProfileController {
 	
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public User createUser(@RequestBody User user) {
-		return profileRepo.save(user);
-	}
+		return profileRepo.save(user);	}
 
-    @RequestMapping(value = "findbyid", method = RequestMethod.GET, params = { "userId" })
+    /*@RequestMapping(value = "findbyid", method = RequestMethod.GET, params = { "userId" })
 	public User getUserById(@RequestParam(value = "userId", required = true) String userId) {
 		return profileRepo.findOne(Long.parseLong(userId));
-	} 
+	} */
 
 	@RequestMapping(value = "findbyusername", method = RequestMethod.GET, params = { "userName" })
 	public List<User> getUserByUserName(@RequestParam(value = "userName", required = true) String userName) {
@@ -40,7 +39,8 @@ public class UserProfileController {
 	@RequestMapping(value = "credit", method = RequestMethod.POST, params = { "userName", "amount" })
 	public User credit(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "amount", required = true) String amount) {
-		User user = profileRepo.findOne(Long.parseLong(userName));
+		List<User> users = profileRepo.findByUserName(userName);
+		User user=users.get(0);
 		user.setBalance(user.getBalance() + Long.parseLong(amount));
 		return profileRepo.save(user);
 	}
@@ -48,7 +48,8 @@ public class UserProfileController {
 	@RequestMapping(value = "debit", method = RequestMethod.POST, params = { "userName", "amount" })
 	public User debit(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "amount", required = true) String amount) {
-		User user = profileRepo.findOne(Long.parseLong(userName));
+		List<User> users = profileRepo.findByUserName(userName);
+		User user=users.get(0);
 		user.setBalance(user.getBalance() - Long.parseLong(amount));
 		return profileRepo.save(user);
 	}
