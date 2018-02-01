@@ -11,7 +11,9 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.ui.Model;
 import com.capgemini.bean.AdminLogin;
+import com.capgemini.bean.OrderEntity;
 import com.capgemini.bean.ProductCatalog;
 import com.capgemini.bean.ShippingBean;
 import com.capgemini.bean.UserBean;
@@ -49,6 +51,15 @@ public class WebRequestControllerTest {
 	
 	@Mock
 	ModelMap model;
+	
+	@Mock
+	LinkedInProvider linkedInProvider;
+	
+	@Mock
+	Model model1;
+	
+	@Mock
+	AdminLogin admin1;
 	
 	
 	
@@ -88,7 +99,92 @@ public class WebRequestControllerTest {
 			
 		}
 	
+	@Test
+	public void testLinkedInUserInfo_1()
+			throws Exception {
 	
+		//Model mod=(Model) new ModelMap();
+		Mockito.when(linkedInProvider.getLinkedInUserData(Mockito.isA(Model.class), Mockito.isA(UserBean.class))).thenReturn("test");
+		webrequest.linkedInUserInfo(model1);
+		
+	}
+	
+	@Test
+	public void testLogin_1() {
+		webrequest.login();
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void testUpdateProduct_1()
+			throws Exception {
+		ProductCatalog prod = new ProductCatalog();
+		Mockito.when(adminService.updateProduct(Mockito.isA(ProductCatalog.class))).thenReturn("sample");
+		webrequest.updateProduct(prod, model);
+	}
+		
+	@Test
+	public void testUpdateOrder_1()
+			throws Exception {
+		//OrderEntity ord=new OrderEntity();
+		Mockito.when(adminService.updateOrder(Mockito.isA(OrderEntity.class))).thenReturn("sample");
+		webrequest.updateOrder("1", "1", "1", "1", "1", "1", model);
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void testCategoryAfterLogin_1()
+			throws Exception {
+		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
+		Mockito.when(catalogService.categorySearch("sample")).thenReturn(list);
+		webrequest.categoryAfterLogin("sample", model);
+	}
+	
+	
+	@Test(expected = NullPointerException.class)
+	public void testCategoryBeforeLogin_1()
+			throws Exception {
+		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
+		Mockito.when(catalogService.categorySearch("sample")).thenReturn(list);
+		webrequest.categoryBeforeLogin("sample", model);
+	}
+	
+	
+	@Test(expected = NullPointerException.class)
+	public void testSearchBeforeLogin_1()
+			throws Exception {
+		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
+		Mockito.when(catalogService.searchProduct("sample")).thenReturn(list);
+		webrequest.searchBeforeLogin("sample", model);
+		
+	}
+	
+	
+	@Test(expected = NullPointerException.class)
+	public void testSearchAfterLogin_1()
+			throws Exception {
+		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
+		Mockito.when(catalogService.searchProduct("sample")).thenReturn(list);
+		webrequest.searchAfterLogin("sample", model);
+		
+	}
+	
+	
+	
+	@Test(expected = NullPointerException.class)
+	public void testAdminLogin_1()
+			throws Exception {
+		admin1.setUsername("capgemini");
+		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
+		Mockito.when(catalogService.getProduct()).thenReturn(list);
+		webrequest.adminLogin(admin1, model);
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void testUpdateProduct1_1()
+			throws Exception {
+		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
+		Mockito.when(catalogService.getProduct()).thenReturn(list);
+		webrequest.updateProduct1("sample", model);
+	}
 	
 	/*
 	*//**
