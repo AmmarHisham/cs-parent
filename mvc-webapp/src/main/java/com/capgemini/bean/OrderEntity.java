@@ -22,13 +22,6 @@ public class OrderEntity implements Serializable {
 	public OrderEntity() {
 	}
 
-	public OrderEntity(Long orderId, Long userId, OrderStatus status, List<OrderDetailsEntity> orderDetails) {
-		this.orderId = orderId;
-		this.userId = userId;
-		this.status = status;
-		this.orderDetails = orderDetails;
-	}
-
 	public Long getOrderId() {
 		return orderId;
 	}

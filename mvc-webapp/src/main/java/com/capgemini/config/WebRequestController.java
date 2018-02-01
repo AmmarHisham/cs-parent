@@ -20,7 +20,7 @@ import com.capgemini.bean.OrderEntity;
 import com.capgemini.bean.OrderStatus;
 import com.capgemini.bean.ProductCatalog;
 import com.capgemini.bean.ShippingBean;
-import com.capgemini.login.model.UserBean;
+import com.capgemini.bean.UserBean;
 import com.capgemini.login.social.providers.LinkedInProvider;
 import com.capgemini.service.AdminService;
 import com.capgemini.serviceimpl.CartServiceimpl;

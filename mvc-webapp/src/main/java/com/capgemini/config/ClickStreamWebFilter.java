@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
 import com.capgemini.constant.URLConstants;
-import com.capgemini.login.model.UserBean;
 import com.capgemini.login.social.providers.LinkedInProvider;
 
 /**

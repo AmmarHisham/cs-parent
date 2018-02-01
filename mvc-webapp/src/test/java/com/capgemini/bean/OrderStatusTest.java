@@ -8,7 +8,6 @@ public class OrderStatusTest {
 
 	@Before
 	public void setUp() throws Exception {
-		System.err.println("inside setup");
 	}
 	
 	@Test
@@ -19,7 +18,6 @@ public class OrderStatusTest {
 
 	@After
 	public void tearDown() throws Exception {
-		System.err.println("inside teardown");
 	}
 
 }

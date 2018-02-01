@@ -96,9 +96,7 @@ public class CartServiceimpl implements CartService {
 	public UserCartModel setProductPrice(UserCartModel user) {
 		List<ProductCartModel> list = user.getCartItemList();
 		for (ProductCartModel prod : list) {
-			System.out.println(prod.getProductId());
 			String price = getProductPrice(prod.getProductId());
-			System.out.println(prod.getProductId() + "========" + price);
 			prod.setPrice(price);
 		}
 		return user;
