@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.capgemini.bean.GiftCard;
-import com.capgemini.bean.GiftCardCatalog;
 import com.capgemini.bean.Order;
 import com.capgemini.bean.OrderEntity;
 import com.capgemini.serviceimpl.UserCartModel;
@@ -22,14 +21,13 @@ public interface CartService {
 	public void emptyCart(String userId);
 
 	public List<OrderEntity> getAllOrder(String userId);
-	public GiftCard getAllgiftCard();
 	/*public ProductList searchProduct(String key);*/
 	String getProductPrice(String productId);
 	UserCartModel setProductPrice(UserCartModel user);
 	//public void debitGiftCard(User user);
 	//void creditGiftCard(String firstName, int balance);
-	public void addUserGiftCard(GiftCardCatalog giftCard);
-	public GiftCardCatalog getUserGiftCard(String name);
+	public void addUserGiftCard(GiftCard giftCard);
+	public GiftCard getUserGiftCard(String name);
 	
 	
 	

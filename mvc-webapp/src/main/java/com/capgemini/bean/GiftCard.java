@@ -1,8 +1,10 @@
 package com.capgemini.bean;
 
 public class GiftCard {
-	private String giftCardValue;
+	
 	private String giftCardId;
+	private String giftCardValue;
+	
 
 	public String getGiftCardId() {
 		return giftCardId;

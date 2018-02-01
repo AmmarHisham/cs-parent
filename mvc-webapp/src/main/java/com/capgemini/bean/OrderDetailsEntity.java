@@ -90,6 +90,7 @@ public class OrderDetailsEntity implements Serializable {
 				return false;
 		} else if (!productId.equals(other.productId))
 			return false;
+		
 		if (productName == null) {
 			if (other.productName != null)
 				return false;

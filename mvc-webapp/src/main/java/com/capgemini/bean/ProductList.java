@@ -1,10 +1,9 @@
 package com.capgemini.bean;
 
 public class ProductList {
-	private String productId;
-
-	private String productName;
 	
+	private String productId;
+	private String productName;
 	private String productPrice;
 	private int quantity;
 	private String orderNumber;
@@ -54,7 +53,5 @@ public class ProductList {
 		return "Product [productId=" + productId + ", productName=" + productName + ", productPrice=" + productPrice
 				+ "]";
 	}
-	
-	
 
 }

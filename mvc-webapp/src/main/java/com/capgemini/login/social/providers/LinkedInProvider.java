@@ -10,7 +10,6 @@ import org.springframework.social.linkedin.api.LinkedInProfileFull;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.capgemini.bean.Catalog;
 import com.capgemini.bean.ProductCatalog;
 import com.capgemini.login.model.UserBean;
 import com.capgemini.serviceimpl.CartServiceimpl;

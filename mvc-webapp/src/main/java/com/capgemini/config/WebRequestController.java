@@ -1,11 +1,7 @@
 package com.capgemini.config;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +12,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.capgemini.bean.AdminLogin;
 import com.capgemini.bean.ClickStream;
-import com.capgemini.bean.GiftCardCatalog;
-import com.capgemini.bean.Order;
+import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.OrderDetailsEntity;
 import com.capgemini.bean.OrderEntity;
 import com.capgemini.bean.OrderStatus;
 import com.capgemini.bean.ProductCatalog;
-import com.capgemini.bean.ProductList;
 import com.capgemini.bean.ShippingBean;
 import com.capgemini.login.model.UserBean;
 import com.capgemini.login.social.providers.LinkedInProvider;
@@ -118,7 +111,7 @@ public class WebRequestController {
 	@RequestMapping(value = "/giftCard", method = RequestMethod.GET)
 	public String showgiftCardInfo(ModelMap model) {
 		String name=linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName();
-		GiftCardCatalog gift=cartServiceimpl.getUserGiftCard(name);
+		GiftCard gift=cartServiceimpl.getUserGiftCard(name);
 		model.addAttribute("name", name);
 		model.addAttribute("giftcard", gift);
 		return "GiftCard";
@@ -133,14 +126,14 @@ public class WebRequestController {
 	
 	@RequestMapping(value = "/addgiftcardresponse", method = RequestMethod.GET)
 	public String addGiftCardResponse(@RequestParam("id") String id, @RequestParam("value") String value, ModelMap model) {
-		GiftCardCatalog giftcard=new GiftCardCatalog();
+		GiftCard giftcard=new GiftCard();
 		giftcard.setGiftCardId(id);
 		giftcard.setGiftCardValue(value);
 		
 		cartServiceimpl.addUserGiftCard(giftcard);
 		
 		String name=linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName();
-		GiftCardCatalog gift=cartServiceimpl.getUserGiftCard(name);
+		GiftCard gift=cartServiceimpl.getUserGiftCard(name);
 		model.addAttribute("name", name);
 		model.addAttribute("giftcard", gift);
 		return "GiftCard";

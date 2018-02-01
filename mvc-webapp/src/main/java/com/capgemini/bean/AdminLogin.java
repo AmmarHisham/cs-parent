@@ -1,7 +1,10 @@
 package com.capgemini.bean;
 
+import org.springframework.stereotype.Component;
+
 public class AdminLogin {
 
+	
 	private String username;
 	private String password;
 

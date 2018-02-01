@@ -22,12 +22,12 @@ public class AddProductCartService {
 
 	public UserCartModel addProduct(String userId, String productId, String quantity) {
 		try {
-			log.info("Inside AddProductCartService "+userId+ " "+ productId+" "+quantity);
+			//log.info("Inside AddProductCartService "+userId+ " "+ productId+" "+quantity);
 			final ProductCartModel pcart = new ProductCartModel();
 			pcart.setProductId(productId);
 			pcart.setQuantity(quantity);
 			if (mongoRepositoryDataBaseOperations.exists(userId)) {
-				log.info("Indise If condition ");
+				//log.info("Indise If condition ");
 				UserCartModel user = mongoRepositoryDataBaseOperations.findOne(userId);
 				int index = CheckProductInList.getUserDetail(user.getCartItemList(), productId);
 				if (index < user.getCartItemList().size()) {
@@ -36,7 +36,7 @@ public class AddProductCartService {
 				user.getCartItemList().add(pcart);
 				return mongoRepositoryDataBaseOperations.save(user);
 			} else {
-				log.info("inside else condition");
+				//log.info("inside else condition");
 				List<ProductCartModel> newUserProductAdditionList = new ArrayList<>();
 				newUserProductAdditionList.add(pcart);
 				UserCartModel user = new UserCartModel();

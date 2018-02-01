@@ -32,7 +32,7 @@ public class CheckProductInList {
 		}
 		catch(Exception e)
 		{
-			log.info("Error occured while CheckProductInList");
+			//log.info("Error occured while CheckProductInList");
 			return index;
 		}
 		

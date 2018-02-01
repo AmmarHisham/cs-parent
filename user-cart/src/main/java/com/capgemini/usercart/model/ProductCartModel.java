@@ -23,6 +23,24 @@ public class ProductCartModel implements Serializable {
 	private static final long serialVersionUID = 5537789757476648851L;
 	private String productId;
 	private String quantity;
+	public ProductCartModel(String productId2, String quantity2) {
+		// TODO Auto-generated constructor stub
+	}
+	public ProductCartModel() {
+		// TODO Auto-generated constructor stub
+	}
+	public String getProductId() {
+		return productId;
+	}
+	public void setProductId(String productId) {
+		this.productId = productId;
+	}
+	public String getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(String quantity) {
+		this.quantity = quantity;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.capgemini.bean.GiftCard;
-import com.capgemini.bean.GiftCardCatalog;
 import com.capgemini.bean.Order;
 import com.capgemini.bean.OrderEntity;
 import com.capgemini.bean.ProductCatalog;
@@ -42,30 +41,12 @@ public class CartServiceimpl implements CartService {
 		ResponseEntity<OrderEntity[]> orderlists = restTemplate.getForEntity(URLConstants.GET_ORDER_BY_USERID,
 				OrderEntity[].class, userId);
 		List<OrderEntity> list = new ArrayList<OrderEntity>();
-		if (orderlists.getBody().length != 0) {
-			for (int i = 0; i < orderlists.getBody().length; i++) {
-				list.add(orderlists.getBody()[i]);
-			}
+
+		for (int i = 0; i < orderlists.getBody().length; i++) {
+			list.add(orderlists.getBody()[i]);
 		}
 
-		System.out.println(list);
-		for (OrderEntity lists : list) {
-			System.out.println(lists.getOrderId());
-		}
-		// ArrayList<OrderEntity> cartLists =
-		// restTemplate.getForEntity(URLConstants.GET_ORDER_BY_USERID,
-		// OrderEntity.class, userId);
 		return list;
-	}
-
-	@Override
-	public GiftCard getAllgiftCard() {
-		GiftCard giftcard = new GiftCard();
-		giftcard.setGiftCardId("123");
-		giftcard.setGiftCardValue("$50");
-		System.out.println(giftcard.getGiftCardId());
-		System.out.println(giftcard.getGiftCardValue());
-		return giftcard;
 	}
 
 	@Override
@@ -73,7 +54,7 @@ public class CartServiceimpl implements CartService {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("productId", productName);
 		params.put("userId", userId);
-		logger.info("productId  =" + productName + "  userId =" + userId);
+		//logger.info("productId  =" + productName + "  userId =" + userId);
 		restTemplate.postForObject(URLConstants.ADD_TO_CART, String.class, String.class, params);
 	}
 
@@ -82,7 +63,7 @@ public class CartServiceimpl implements CartService {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("productId", productId);
 		params.put("userId", userId);
-		logger.info("productId  =" + productId + "  userId =" + userId);
+		//logger.info("productId  =" + productId + "  userId =" + userId);
 		restTemplate.postForObject(URLConstants.DELETE_FROM_CART, String.class, String.class, params);
 
 	}
@@ -90,29 +71,19 @@ public class CartServiceimpl implements CartService {
 	@Override
 	public void emptyCart(String userId) {
 		restTemplate.postForObject(URLConstants.CLEAR_CART, String.class, String.class, userId);
-		logger.info("userId =" + userId);
+		//logger.info("userId =" + userId);
 	}
 
-	@SuppressWarnings("null")
 	public UserCartModel getCardDetails(String userId) {
-		logger.info("getCardDetails service invoke with userID" + userId);
-		ResponseEntity<UserCartModel> cartLists = restTemplate.getForEntity(URLConstants.GET_CART, UserCartModel.class,
-				userId);
-		System.out.println(cartLists);
-		if (cartLists != null) {
+		//logger.info("getCardDetails service invoke with userID" + userId);
+		ResponseEntity<UserCartModel> cartLists = restTemplate.getForEntity(URLConstants.GET_CART, UserCartModel.class,userId);
 			return cartLists.getBody();
-		}
-		logger.info("getCardDetails service Responce body " + cartLists.getBody());
-		return null;
+		//logger.info("getCardDetails service Responce body " + cartLists.getBody());
 	}
 
 	@Override
 	public String getProductPrice(String productId) {
 		List<ProductCatalog> list = catalogService.getProduct();
-		for (ProductCatalog productCatalog : list) {
-			System.out.println(productCatalog.getProductIdChild());
-		}
-
 		for (ProductCatalog productCatalog : list) {
 			if ((productCatalog.getProductIdChild()).equalsIgnoreCase(productId)) {
 				return productCatalog.getPrice();
@@ -134,16 +105,14 @@ public class CartServiceimpl implements CartService {
 	}
 
 	@Override
-	public void addUserGiftCard(GiftCardCatalog giftCard) {
-		System.out.println(giftCard.getGiftCardId());
-		System.out.println(giftCard.getGiftCardValue());
-		restTemplate.postForObject(URLConstants.ADD_GIFT_CARD, GiftCardCatalog.class, GiftCardCatalog.class, giftCard);
+	public void addUserGiftCard(GiftCard giftCard) {
+		restTemplate.postForObject(URLConstants.ADD_GIFT_CARD, GiftCard.class, GiftCard.class, giftCard);
 
 	}
 
 	@Override
-	public GiftCardCatalog getUserGiftCard(String name) {
-		GiftCardCatalog[] gift = restTemplate.getForObject(URLConstants.GET_GIFT_CARD, GiftCardCatalog[].class);
+	public GiftCard getUserGiftCard(String name) {
+		GiftCard[] gift = restTemplate.getForObject(URLConstants.GET_GIFT_CARD, GiftCard[].class);
 		for (int i = 0; i < gift.length; i++) {
 			if (gift[i].getGiftCardId().equalsIgnoreCase(name)) {
 				return gift[i];

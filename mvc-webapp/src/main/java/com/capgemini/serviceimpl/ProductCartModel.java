@@ -28,9 +28,11 @@ public class ProductCartModel implements Serializable {
 		this.quantity = quantity;
 	}
 
+	
+
 	@Override
 	public String toString() {
-		return "ProductCartModel [productId=" + productId + ", quantity=" + quantity + "]";
+		return "ProductCartModel [productId=" + productId + ", quantity=" + quantity + ", price=" + price + "]";
 	}
 
 	public String getPrice() {

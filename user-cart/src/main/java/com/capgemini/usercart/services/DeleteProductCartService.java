@@ -21,14 +21,14 @@ public class DeleteProductCartService {
 			
 			
 			if (mongoRepositoryDataBaseOperations.exists(userId)) {
-				log.info(" del: userId "+ userId+" exist");
+			//	log.info(" del: userId "+ userId+" exist");
 				UserCartModel user = mongoRepositoryDataBaseOperations.findOne(userId);
 				
 				int index = CheckProductInList.getUserDetail(user.getCartItemList(), productId);
-				log.info("del: index value is :"+index);
+				//log.info("del: index value is :"+index);
 				if (index < user.getCartItemList().size()) {
 					user.getCartItemList().remove(index);
-					log.info("del: value delete");
+					//log.info("del: value delete");
 				}
 				
 				
@@ -36,13 +36,13 @@ public class DeleteProductCartService {
 			}
 			else
 			{
-				log.info("user does not exist");
+				//log.info("user does not exist");
 				return null;
 			}
 			
 		} catch (Exception e) {
 			
-			log.error("Error while deleting product user "+userId+ " productId: "+productId);
+			//log.error("Error while deleting product user "+userId+ " productId: "+productId);
 			return null;
 		}
 		

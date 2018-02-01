@@ -27,7 +27,7 @@ public class UserCartAddController {
 	public UserCartModel create(@RequestParam("userId") String userId,
 			@RequestParam("productId") String productId,
 			@RequestParam("quantity") String quantity) {
-			log.info(userId+" "+productId);
+			//log.info(userId+" "+productId);
 		return addProductcartService.addProduct(userId, productId, quantity);
 	
 	}
