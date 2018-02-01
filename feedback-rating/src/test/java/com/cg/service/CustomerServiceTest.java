@@ -1,100 +1,70 @@
 package com.cg.service;
 
+import static org.junit.Assert.assertNotNull;
+
+import java.util.ArrayList;
 import java.util.List;
-import org.junit.*;
-import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+
 import com.cg.entity.CustomerFeedback;
 import com.cg.repository.CustomerRepository;
 
 /**
  * The class <code>CustomerServiceTest</code> contains tests for the class <code>{@link CustomerService}</code>.
  *
- * @generatedBy CodePro at 1/30/18 4:24 PM
+ * @generatedBy CodePro at 1/31/18 12:05 PM
  * @author ppallama
  * @version $Revision: 1.0 $
  */
 public class CustomerServiceTest {
-	/**
-	 * Run the List<CustomerFeedback> getData(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 1/30/18 4:24 PM
-	 */
-	@Test
-	public void testGetData_1()
-		throws Exception {
-		CustomerService fixture = new CustomerService();
-		fixture.customerRepository = null;
-		String productId = "";
-
-		List<CustomerFeedback> result = fixture.getData(productId);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.cg.service.CustomerService.getData(CustomerService.java:22)
-		assertNotNull(result);
-	}
-
-	/**
-	 * Run the CustomerFeedback saveData(CustomerFeedback) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 1/30/18 4:24 PM
-	 */
-	@Test
-	public void testSaveData_1()
-		throws Exception {
-		CustomerService fixture = new CustomerService();
-		fixture.customerRepository = null;
-		CustomerFeedback customer = new CustomerFeedback();
-
-		CustomerFeedback result = fixture.saveData(customer);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.cg.service.CustomerService.saveData(CustomerService.java:18)
-		assertNotNull(result);
-	}
-
-	/**
-	 * Perform pre-test initialization.
-	 *
-	 * @throws Exception
-	 *         if the initialization fails for some reason
-	 *
-	 * @generatedBy CodePro at 1/30/18 4:24 PM
-	 */
+	
+	
+	@InjectMocks
+	private CustomerService customerService;
+	
+	@Mock
+	private CustomerRepository customerRepository;
+	
 	@Before
-	public void setUp()
-		throws Exception {
-		// add additional set up code here
+    public void setUp() throws Exception {
+         MockitoAnnotations.initMocks(this);
+    }
+	
+
+	@Test
+	public void testSaveData_1() throws Exception {
+
+		CustomerFeedback custFeedback = new CustomerFeedback();
+		Mockito.when(customerRepository.save(Mockito.isA(CustomerFeedback.class))).thenReturn(custFeedback);
+		CustomerFeedback customer = customerService.saveData(custFeedback);
+		assertNotNull(customer);	
+		
+	}
+	
+	
+	@Test
+	public void testGetData_1() throws Exception {
+		
+		ArrayList<CustomerFeedback> listReturn = new ArrayList<>();
+		Mockito.when(customerRepository.findByProductId(Mockito.isA(String.class))).thenReturn(listReturn);
+		List<CustomerFeedback> list = customerService.getData("abcd");
+		assertNotNull(list);
 	}
 
-	/**
-	 * Perform post-test clean-up.
-	 *
-	 * @throws Exception
-	 *         if the clean-up fails for some reason
-	 *
-	 * @generatedBy CodePro at 1/30/18 4:24 PM
-	 */
+	
 	@After
-	public void tearDown()
-		throws Exception {
+	public void tearDown() throws Exception {
 		// Add additional tear down code here
 	}
 
-	/**
-	 * Launch the test.
-	 *
-	 * @param args the command line arguments
-	 *
-	 * @generatedBy CodePro at 1/30/18 4:24 PM
-	 */
+	
 	public static void main(String[] args) {
 		new org.junit.runner.JUnitCore().run(CustomerServiceTest.class);
 	}
