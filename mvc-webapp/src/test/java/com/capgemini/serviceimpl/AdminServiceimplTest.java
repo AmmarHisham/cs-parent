@@ -26,6 +26,13 @@ import com.capgemini.bean.OrderStatus;
 import com.capgemini.bean.ProductCatalog;
 import com.capgemini.service.CatalogService;
 
+/**
+ * The class <code>AdminServiceimplTest</code> contains tests for the class <code>{@link AdminServiceimpl}</code>.
+ *
+ * @author vamshkri
+ * @version $Revision: 1.0 $
+ */
+
 public class AdminServiceimplTest {
 
 	@InjectMocks

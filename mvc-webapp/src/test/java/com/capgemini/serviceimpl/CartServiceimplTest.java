@@ -18,6 +18,13 @@ import com.capgemini.bean.OrderEntity;
 import com.capgemini.bean.ProductCatalog;
 import com.capgemini.service.CatalogService;
 
+/**
+ * The class <code>CartServiceimplTest</code> contains tests for the class <code>{@link CartServiceimpl}</code>.
+ *
+ * @author vamshkri
+ * @version $Revision: 1.0 $
+ */
+
 public class CartServiceimplTest {
 
 	@InjectMocks

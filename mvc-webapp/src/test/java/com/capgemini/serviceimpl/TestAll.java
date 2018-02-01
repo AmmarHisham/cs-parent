@@ -9,14 +9,16 @@ import org.junit.runners.Suite;
  * of the tests within its package as well as within any subpackages of its
  * package.
  *
- * @generatedBy CodePro at 2/1/18 9:52 AM
+ * @generatedBy CodePro at 2/1/18 11:05 AM
  * @author vamshkri
  * @version $Revision: 1.0 $
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+	ProductCartModelTest.class,
 	UserCartModelTest.class,
 	CartServiceimplTest.class,
+	CatalogServiceImplTest.class,
 	AdminServiceimplTest.class,
 })
 public class TestAll {
@@ -26,7 +28,7 @@ public class TestAll {
 	 *
 	 * @param args the command line arguments
 	 *
-	 * @generatedBy CodePro at 2/1/18 9:52 AM
+	 * @generatedBy CodePro at 2/1/18 11:05 AM
 	 */
 	public static void main(String[] args) {
 		JUnitCore.runClasses(new Class[] { TestAll.class });

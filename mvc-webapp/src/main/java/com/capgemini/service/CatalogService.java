@@ -6,11 +6,7 @@ import com.capgemini.bean.ProductCatalog;
 
 public interface CatalogService {
 
-	public GiftCard addCatalog();
-
 	public List<ProductCatalog> getProduct();
-
-	public String updateCatalog(ProductCatalog product);
 
 	List<ProductCatalog> searchProduct(String prodName);
 
