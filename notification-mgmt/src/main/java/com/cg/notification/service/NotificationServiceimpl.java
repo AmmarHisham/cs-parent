@@ -1,11 +1,10 @@
 package com.cg.notification.service;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.cg.notification.Notification;
 import com.cg.notification.ReadStatus;
@@ -35,7 +34,7 @@ public class NotificationServiceimpl implements NotificationService {
 	@Override
 	public Notification updateNotification(Notification notification) {
 		// TTODO all business logic goes here
-		assertNotNull("Notification id cannot be null while updating", notification.getId());
+		Assert.notNull("Notification id cannot be null while updating", notification.getId());
 		return notificationRepo.updateNotification(notification);
 	}
 

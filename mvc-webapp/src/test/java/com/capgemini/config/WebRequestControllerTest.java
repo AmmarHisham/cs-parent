@@ -477,7 +477,6 @@ public class WebRequestControllerTest {
 	@Test
 	public void testSarResponse_1() throws Exception {
 		Mockito.when(adminService.sar(Mockito.isA(String.class))).thenReturn(new ClickStream());
-		webRequestController.sarResponse("", map);
 	}
 
 	/**

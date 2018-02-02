@@ -29,7 +29,5 @@ public class ConstantValuesTest {
 	}
 
 	
-	public static void main(String[] args) {
-		new org.junit.runner.JUnitCore().run(ConstantValuesTest.class);
-	}
+	
 }

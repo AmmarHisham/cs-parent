@@ -1,4 +1,4 @@
-package com.capgemini.usercart.repository;
+package com.cg.controller;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
@@ -9,14 +9,13 @@ import org.junit.runners.Suite;
  * of the tests within its package as well as within any subpackages of its
  * package.
  *
- * @generatedBy CodePro at 1/30/18 6:40 PM
- * @author dsriniv1
+ * @generatedBy CodePro at 1/31/18 6:30 PM
+ * @author ppallama
  * @version $Revision: 1.0 $
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	MongoRepositoryDataBaseOperationsTest.class,
-	UserCartRepositoryDataBaseOperationsTest.class,
+	FeedbackControllerTest.class,
 })
 public class TestAll {
 
@@ -25,7 +24,7 @@ public class TestAll {
 	 *
 	 * @param args the command line arguments
 	 *
-	 * @generatedBy CodePro at 1/30/18 6:40 PM
+	 * @generatedBy CodePro at 1/31/18 6:30 PM
 	 */
 	public static void main(String[] args) {
 		JUnitCore.runClasses(new Class[] { TestAll.class });

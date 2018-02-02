@@ -331,7 +331,5 @@ public class UserCartModelTest {
 	 *
 	 * @generatedBy CodePro at 1/30/18 6:40 PM
 	 */
-	public static void main(String[] args) {
-		new org.junit.runner.JUnitCore().run(UserCartModelTest.class);
-	}
+	
 }

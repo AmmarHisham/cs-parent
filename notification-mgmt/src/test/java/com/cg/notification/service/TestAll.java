@@ -1,4 +1,4 @@
-package com.capgemini;
+package com.cg.notification.service;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
@@ -9,15 +9,24 @@ import org.junit.runners.Suite;
  * of the tests within its package as well as within any subpackages of its
  * package.
  *
- * @generatedBy CodePro at 2/2/18 9:32 AM
- * @author vamshkri
+ * @generatedBy CodePro at 1/31/18 5:47 PM
+ * @author samhia
  * @version $Revision: 1.0 $
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	com.capgemini.bean.TestAll.class,
-	com.capgemini.config.TestAll.class,
-	com.capgemini.serviceimpl.TestAll.class,
+	NotificationServiceimplTest.class,
 })
 public class TestAll {
+
+	/**
+	 * Launch the test.
+	 *
+	 * @param args the command line arguments
+	 *
+	 * @generatedBy CodePro at 1/31/18 5:47 PM
+	 */
+	public static void main(String[] args) {
+		JUnitCore.runClasses(new Class[] { TestAll.class });
+	}
 }

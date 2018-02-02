@@ -119,7 +119,5 @@ public class CheckProductInListTest {
 	 *
 	 * @generatedBy CodePro at 1/30/18 7:16 PM
 	 */
-	public static void main(String[] args) {
-		new org.junit.runner.JUnitCore().run(CheckProductInListTest.class);
-	}
+	
 }

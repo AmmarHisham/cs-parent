@@ -6,9 +6,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletRequestWrapper;
 import javax.servlet.ServletResponse;
 import javax.servlet.ServletResponseWrapper;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
@@ -31,7 +29,7 @@ public class ClickStreamWebFilterTest {
 	public void testClickStreamWebFilter_1() throws Exception {
 		ClickStreamWebFilter result = new ClickStreamWebFilter();
 		assertNotNull(result);
-		
+		// add additional test code here
 	}
 
 	@Test
