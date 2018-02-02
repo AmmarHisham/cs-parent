@@ -26,12 +26,7 @@ public class UserCartModel implements Serializable{
 	private static final long serialVersionUID = -3715031506442555230L;
 	@Id
 	private String userId;
-	public UserCartModel(String userId2, Object object) {
-		// TODO Auto-generated constructor stub
-	}
-	public UserCartModel() {
-		// TODO Auto-generated constructor stub
-	}
+	
 	public String getUserId() {
 		return userId;
 	}
