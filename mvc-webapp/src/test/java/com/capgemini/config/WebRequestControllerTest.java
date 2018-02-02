@@ -1,3 +1,4 @@
+
 package com.capgemini.config;
 
 import static org.junit.Assert.assertNotNull;
@@ -12,15 +13,20 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.capgemini.bean.AdminLogin;
 import com.capgemini.bean.ClickStream;
+import com.capgemini.bean.OrderEntity;
 import com.capgemini.bean.ProductCatalog;
+import com.capgemini.bean.UserBean;
 import com.capgemini.login.social.providers.LinkedInProvider;
 import com.capgemini.service.AdminService;
 import com.capgemini.serviceimpl.CartServiceimpl;
 import com.capgemini.serviceimpl.CatalogServiceImpl;
+import com.capgemini.serviceimpl.UserCartModel;
 
 /**
  * The class <code>WebRequestControllerTest</code> contains tests for the class <code>{@link WebRequestController}</code>.
@@ -41,12 +47,26 @@ public class WebRequestControllerTest {
 
 	@Mock
 	CatalogServiceImpl catalogService;
+	
+	@Mock
+	CartServiceimpl cartServiceimpl;
 
 	@Mock
 	ModelMap map;
 	
 	@Mock
 	RestTemplate restTemplate;
+	
+	@Mock
+	Model moedl; 
+	
+	@Mock
+	UserBean userbean;
+	
+	
+	
+	@Mock
+	AdminLogin admin1;
 	
 	private MockMvc mockMvc;
 	 
@@ -71,6 +91,140 @@ public class WebRequestControllerTest {
 
 	}
 	
+
+	@Test(expected = NullPointerException.class)
+	public void testCategoryAfterLogin_1()
+			throws Exception {
+		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
+		Mockito.when(catalogService.categorySearch("sample")).thenReturn(list);
+		Mockito.when(webRequestController.categoryAfterLogin("sample", map)).thenReturn("sample");
+		webRequestController.categoryAfterLogin("sample", map);
+	}
+	
+	
+
+	@Test
+	public void testCategoryBeforeLogin_1()
+			throws Exception {
+		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
+		Mockito.when(catalogService.categorySearch("sample")).thenReturn(list);
+		webRequestController.categoryBeforeLogin("sample", map);
+	}
+	
+	@Test
+	public void testUpdateOrder_1()
+			throws Exception {
+		OrderEntity ord=new OrderEntity();
+		Mockito.when(adminService.updateOrder(Mockito.isA(OrderEntity.class))).thenReturn("sample");
+		webRequestController.updateOrder("1", "1", "1", "1", "1", "1", map);
+	}
+	
+
+	@Test
+	public void testSearchBeforeLogin_1()
+			throws Exception {
+		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
+		Mockito.when(catalogService.searchProduct("sample")).thenReturn(list);
+		webRequestController.searchBeforeLogin("sample", map);
+		
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void testSearchAfterLogin_1()
+			throws Exception {
+		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
+		Mockito.when(catalogService.searchProduct("sample")).thenReturn(list);
+		webRequestController.searchAfterLogin("sample", map);
+		
+	}
+	
+	
+
+	@Test
+	public void testAdminLogin_1()
+			throws Exception {
+		admin1.setUsername("capgemini");
+		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
+		Mockito.when(catalogService.getProduct()).thenReturn(list);
+		webRequestController.adminLogin(admin1, map);
+	}
+	
+	
+	@Test
+	public void testUpdateProduct1_1()
+			throws Exception {
+		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
+		ProductCatalog pc=new ProductCatalog();
+		list.add(pc);
+		pc.setProductIdChild("sample");
+		Mockito.when(catalogService.getProduct()).thenReturn(list);
+		webRequestController.updateProduct1("sample", map);
+	}
+	
+
+	/*@Test
+	public void testLinkedInUserInfo_1()
+			throws Exception {
+	
+		//Model mod=(Model) new ModelMap();
+		Mockito.when(linkedInProvider.getLinkedInUserData(Mockito.isA(Model.class), Mockito.isA(UserBean.class))).thenReturn("test");
+		webRequestController.linkedInUserInfo(map,new Userbean());
+		
+	}*/
+	
+	@Test
+	public void testLogin_1() {
+		webRequestController.login();
+	}
+	
+	@Test
+	public void testUpdateProduct_1()
+			throws Exception {
+		ProductCatalog prod = new ProductCatalog();
+		Mockito.when(adminService.updateProduct(Mockito.isA(ProductCatalog.class))).thenReturn("sample");
+		webRequestController.updateProduct(prod, map);
+	}
+	
+	@Test
+	public void testAddToProduct_1()
+			throws Exception {
+		List<ProductCatalog> list = new ArrayList<ProductCatalog>();
+		ProductCatalog cat=new ProductCatalog();
+		list.add(cat);
+		ProductCatalog pc=new ProductCatalog();
+		Mockito.when(catalogService.getProduct()).thenReturn(list);
+		webRequestController.addToProduct(pc, map);	
+		}
+	
+	@Test
+	public void testClearCart_1()
+			throws Exception {
+		UserCartModel usercartmodel=new UserCartModel();
+		//Mockito.when(cartServiceimpl.emptyCart("sample")).thenReturn(null);
+		Mockito.when(cartServiceimpl.getCardDetails(Mockito.isA(String.class))).thenReturn(usercartmodel);
+		webRequestController.clearCart("sample", moedl);	
+	}
+	
+	
+	@Test(expected = NullPointerException.class)
+	public void testaddToCart()
+			throws Exception {
+		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
+		//Mockito.when(cartServiceimpl.emptyCart("sample")).thenReturn(null);
+		Mockito.when(catalogService.getProduct()).thenReturn(list);
+		webRequestController.addToCart("sample", moedl);	
+	}
+	
+	
+	@Test(expected = NullPointerException.class)
+	public void testgetCardDetails() throws Exception{
+		UserCartModel user=new UserCartModel();
+		//Mockito.when(cartServiceimpl.getCardDetails(Mockito.isA(String.class))).thenReturn(user);
+		Mockito.when(cartServiceimpl.setProductPrice(Mockito.isA(UserCartModel.class))).thenReturn(user);
+		webRequestController.getCardDetails("sample",moedl);
+	}
+	
+	
 /*	@Test
 	public void testAddGiftCard_1() throws Exception {
 		
@@ -90,9 +244,7 @@ public class WebRequestControllerTest {
 		String id = (String) null;
 		String value = (String) null;
 		ModelMap model = new ModelMap();
-
 		String result = fixture.addGiftCardResponse(id, value, model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -100,7 +252,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.addGiftCardResponse(WebRequestController.java:133)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String addToCart(String,Model) method test.
 	 *
@@ -120,9 +271,7 @@ public class WebRequestControllerTest {
 		fixture.web = new WebRequestController();
 		String productId = (String) null;
 		ExtendedModelMap model = new ExtendedModelMap();
-
 		String result = fixture.addToCart(productId, model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -130,7 +279,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.addToCart(WebRequestController.java:257)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String addToProduct(ProductCatalog,ModelMap) method test.
 	 *
@@ -152,9 +300,7 @@ public class WebRequestControllerTest {
 		fixture.web = new WebRequestController();
 		ProductCatalog prod = new ProductCatalog();
 		ModelMap model = new ModelMap();
-
 		String result = fixture.addToProduct(prod, model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -162,7 +308,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.addToProduct(WebRequestController.java:294)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String adminLogin(AdminLogin,ModelMap) method test.
 	 *
@@ -183,9 +328,7 @@ public class WebRequestControllerTest {
 		AdminLogin admin = new AdminLogin();
 		admin.setUsername("");
 		ModelMap model = new ModelMap();
-
 		String result = fixture.adminLogin(admin, model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -193,7 +336,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.adminLogin(WebRequestController.java:323)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String categoryAfterLogin(String,ModelMap) method test.
 	 *
@@ -213,9 +355,7 @@ public class WebRequestControllerTest {
 		fixture.web = new WebRequestController();
 		String key = (String) null;
 		ModelMap model = new ModelMap();
-
 		String result = fixture.categoryAfterLogin(key, model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -223,7 +363,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.categoryAfterLogin(WebRequestController.java:353)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String categoryBeforeLogin(String,ModelMap) method test.
 	 *
@@ -243,9 +382,7 @@ public class WebRequestControllerTest {
 		fixture.web = new WebRequestController();
 		String key = (String) null;
 		ModelMap model = new ModelMap();
-
 		String result = fixture.categoryBeforeLogin(key, model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -253,7 +390,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.categoryBeforeLogin(WebRequestController.java:346)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String clearCart(String,Model) method test.
 	 *
@@ -273,9 +409,7 @@ public class WebRequestControllerTest {
 		fixture.web = new WebRequestController();
 		String userId = (String) null;
 		ExtendedModelMap model = new ExtendedModelMap();
-
 		String result = fixture.clearCart(userId, model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -283,7 +417,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.clearCart(WebRequestController.java:285)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String deleteFromCart(String,Model) method test.
 	 *
@@ -303,9 +436,7 @@ public class WebRequestControllerTest {
 		fixture.web = new WebRequestController();
 		String productId = (String) null;
 		ExtendedModelMap model = new ExtendedModelMap();
-
 		String result = fixture.deleteFromCart(productId, model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -313,7 +444,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.deleteFromCart(WebRequestController.java:275)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String error(ModelMap) method test.
 	 *
@@ -332,9 +462,7 @@ public class WebRequestControllerTest {
 		fixture.admin1 = new AdminLogin();
 		fixture.web = new WebRequestController();
 		ModelMap model = new ModelMap();
-
 		String result = fixture.error(model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -342,7 +470,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.error(WebRequestController.java:98)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String homeAfterLogin(ModelMap) method test.
 	 *
@@ -361,9 +488,7 @@ public class WebRequestControllerTest {
 		fixture.admin1 = new AdminLogin();
 		fixture.web = new WebRequestController();
 		ModelMap model = new ModelMap();
-
 		String result = fixture.homeAfterLogin(model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -371,7 +496,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.homeAfterLogin(WebRequestController.java:82)
 		assertNotNull(result);
 	}
-
 	*/
 	
 	@Test
@@ -401,9 +525,7 @@ public class WebRequestControllerTest {
 		fixture.admin1 = new AdminLogin();
 		fixture.web = new WebRequestController();
 		ExtendedModelMap model = new ExtendedModelMap();
-
 		String result = fixture.linkedInUserInfo(model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -411,7 +533,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.linkedInUserInfo(WebRequestController.java:247)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String login() method test.
 	 *
@@ -429,13 +550,10 @@ public class WebRequestControllerTest {
 		fixture.cartServiceimpl = new CartServiceimpl();
 		fixture.admin1 = new AdminLogin();
 		fixture.web = new WebRequestController();
-
 		String result = fixture.login();
-
 		// add additional test code here
 		assertEquals("login-auth", result);
 	}
-
 	*//**
 	 * Run the String payment(String,String,Model) method test.
 	 *
@@ -456,9 +574,7 @@ public class WebRequestControllerTest {
 		String userId = (String) null;
 		String pId = (String) null;
 		ExtendedModelMap model = new ExtendedModelMap();
-
 		String result = fixture.payment(userId, pId, model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -466,7 +582,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.payment(WebRequestController.java:214)
 		assertNotNull(result);
 	}
-
 	*/
 	
 	@Test
@@ -498,9 +613,7 @@ public class WebRequestControllerTest {
 		fixture.web = new WebRequestController();
 		String key = (String) null;
 		ModelMap model = new ModelMap();
-
 		String result = fixture.searchAfterLogin(key, model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -508,7 +621,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.searchAfterLogin(WebRequestController.java:331)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String searchBeforeLogin(String,ModelMap) method test.
 	 *
@@ -528,9 +640,7 @@ public class WebRequestControllerTest {
 		fixture.web = new WebRequestController();
 		String key = (String) null;
 		ModelMap model = new ModelMap();
-
 		String result = fixture.searchBeforeLogin(key, model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -538,7 +648,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.searchBeforeLogin(WebRequestController.java:339)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String showAddPage(ModelMap) method test.
 	 *
@@ -559,13 +668,10 @@ public class WebRequestControllerTest {
 		fixture.admin1 = adminLogin;
 		fixture.web = new WebRequestController();
 		ModelMap model = new ModelMap();
-
 		String result = fixture.showAddPage(model);
-
 		// add additional test code here
 		assertEquals("addProduct", result);
 	}
-
 	*//**
 	 * Run the String showAdminLoginPage(ModelMap) method test.
 	 *
@@ -584,13 +690,10 @@ public class WebRequestControllerTest {
 		fixture.admin1 = new AdminLogin();
 		fixture.web = new WebRequestController();
 		ModelMap model = new ModelMap();
-
 		String result = fixture.showAdminLoginPage(model);
-
 		// add additional test code here
 		assertEquals("AdminLogin", result);
 	}
-
 	*//**
 	 * Run the String showAdminOrderPage(ModelMap) method test.
 	 *
@@ -611,9 +714,7 @@ public class WebRequestControllerTest {
 		fixture.admin1 = adminLogin;
 		fixture.web = new WebRequestController();
 		ModelMap model = new ModelMap();
-
 		String result = fixture.showAdminOrderPage(model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -621,7 +722,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.showAdminOrderPage(WebRequestController.java:151)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String showCheckoutCompletePage(ShippingBean,ModelMap) method test.
 	 *
@@ -643,9 +743,7 @@ public class WebRequestControllerTest {
 		address.setQua(1);
 		address.setPrice(1);
 		ModelMap model = new ModelMap();
-
 		String result = fixture.showCheckoutCompletePage(address, model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -653,7 +751,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.showCheckoutCompletePage(WebRequestController.java:207)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String showCheckoutPage(String,String,String,String,ModelMap) method test.
 	 *
@@ -676,9 +773,7 @@ public class WebRequestControllerTest {
 		String quantity = (String) null;
 		String price = (String) null;
 		ModelMap model = new ModelMap();
-
 		String result = fixture.showCheckoutPage(userId, productid, quantity, price, model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -686,7 +781,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.showCheckoutPage(WebRequestController.java:199)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String showOrderInfo(ModelMap) method test.
 	 *
@@ -705,9 +799,7 @@ public class WebRequestControllerTest {
 		fixture.admin1 = new AdminLogin();
 		fixture.web = new WebRequestController();
 		ModelMap model = new ModelMap();
-
 		String result = fixture.showOrderInfo(model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -715,7 +807,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.showOrderInfo(WebRequestController.java:90)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String showgiftCardInfo(ModelMap) method test.
 	 *
@@ -734,9 +825,7 @@ public class WebRequestControllerTest {
 		fixture.admin1 = new AdminLogin();
 		fixture.web = new WebRequestController();
 		ModelMap model = new ModelMap();
-
 		String result = fixture.showgiftCardInfo(model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -744,7 +833,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.showgiftCardInfo(WebRequestController.java:113)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String updateOrder(String,String,String,String,String,String,ModelMap) method test.
 	 *
@@ -769,9 +857,7 @@ public class WebRequestControllerTest {
 		String price = (String) null;
 		String quantity = (String) null;
 		ModelMap model = new ModelMap();
-
 		String result = fixture.updateOrder(orderId, user, productId, productName, price, quantity, model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NumberFormatException: null
@@ -780,7 +866,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.updateOrder(WebRequestController.java:162)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String updateOrder(String,String,String,String,String,String,ModelMap) method test.
 	 *
@@ -806,16 +891,13 @@ public class WebRequestControllerTest {
 			String price = (String) null;
 			String quantity = (String) null;
 			ModelMap model = new ModelMap();
-
 			String result = fixture.updateOrder(orderId, user, productId, productName, price, quantity, model);
-
 			// add additional test code here
 			fail("The exception java.lang.NumberFormatException should have been thrown.");
 		} catch (java.lang.NumberFormatException exception) {
 			// The test succeeded by throwing the expected exception
 		}
 	}
-
 	*//**
 	 * Run the String updateOrder(String,String,String,String,String,String,ModelMap) method test.
 	 *
@@ -841,16 +923,13 @@ public class WebRequestControllerTest {
 			String price = (String) null;
 			String quantity = (String) null;
 			ModelMap model = new ModelMap();
-
 			String result = fixture.updateOrder(orderId, user, productId, productName, price, quantity, model);
-
 			// add additional test code here
 			fail("The exception java.lang.NumberFormatException should have been thrown.");
 		} catch (java.lang.NumberFormatException exception) {
 			// The test succeeded by throwing the expected exception
 		}
 	}
-
 	*//**
 	 * Run the String updateOrder(String,String,String,String,String,String,ModelMap) method test.
 	 *
@@ -876,16 +955,13 @@ public class WebRequestControllerTest {
 			String price = (String) null;
 			String quantity = (String) null;
 			ModelMap model = new ModelMap();
-
 			String result = fixture.updateOrder(orderId, user, productId, productName, price, quantity, model);
-
 			// add additional test code here
 			fail("The exception java.lang.NumberFormatException should have been thrown.");
 		} catch (java.lang.NumberFormatException exception) {
 			// The test succeeded by throwing the expected exception
 		}
 	}
-
 	*//**
 	 * Run the String updateOrder(String,String,String,String,String,String,ModelMap) method test.
 	 *
@@ -911,16 +987,13 @@ public class WebRequestControllerTest {
 			String price = (String) null;
 			String quantity = (String) null;
 			ModelMap model = new ModelMap();
-
 			String result = fixture.updateOrder(orderId, user, productId, productName, price, quantity, model);
-
 			// add additional test code here
 			fail("The exception java.lang.NumberFormatException should have been thrown.");
 		} catch (java.lang.NumberFormatException exception) {
 			// The test succeeded by throwing the expected exception
 		}
 	}
-
 	*//**
 	 * Run the String updateOrder(String,String,String,String,String,String,ModelMap) method test.
 	 *
@@ -946,16 +1019,13 @@ public class WebRequestControllerTest {
 			String price = (String) null;
 			String quantity = (String) null;
 			ModelMap model = new ModelMap();
-
 			String result = fixture.updateOrder(orderId, user, productId, productName, price, quantity, model);
-
 			// add additional test code here
 			fail("The exception java.lang.NumberFormatException should have been thrown.");
 		} catch (java.lang.NumberFormatException exception) {
 			// The test succeeded by throwing the expected exception
 		}
 	}
-
 	*//**
 	 * Run the String updateOrder(String,String,String,String,String,String,ModelMap) method test.
 	 *
@@ -981,16 +1051,13 @@ public class WebRequestControllerTest {
 			String price = (String) null;
 			String quantity = (String) null;
 			ModelMap model = new ModelMap();
-
 			String result = fixture.updateOrder(orderId, user, productId, productName, price, quantity, model);
-
 			// add additional test code here
 			fail("The exception java.lang.NumberFormatException should have been thrown.");
 		} catch (java.lang.NumberFormatException exception) {
 			// The test succeeded by throwing the expected exception
 		}
 	}
-
 	*//**
 	 * Run the String updateProduct(ProductCatalog,ModelMap) method test.
 	 *
@@ -1010,9 +1077,7 @@ public class WebRequestControllerTest {
 		fixture.web = new WebRequestController();
 		ProductCatalog prod = new ProductCatalog();
 		ModelMap model = new ModelMap();
-
 		String result = fixture.updateProduct(prod, model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -1020,7 +1085,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.updateProduct(WebRequestController.java:315)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String updateProduct1(String,ModelMap) method test.
 	 *
@@ -1042,9 +1106,7 @@ public class WebRequestControllerTest {
 		fixture.web = new WebRequestController();
 		String proId = (String) null;
 		ModelMap model = new ModelMap();
-
 		String result = fixture.updateProduct1(proId, model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -1052,7 +1114,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.updateProduct1(WebRequestController.java:303)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String updateProduct1(String,ModelMap) method test.
 	 *
@@ -1074,9 +1135,7 @@ public class WebRequestControllerTest {
 		fixture.web = new WebRequestController();
 		String proId = (String) null;
 		ModelMap model = new ModelMap();
-
 		String result = fixture.updateProduct1(proId, model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -1084,7 +1143,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.updateProduct1(WebRequestController.java:303)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String updateProduct1(String,ModelMap) method test.
 	 *
@@ -1106,9 +1164,7 @@ public class WebRequestControllerTest {
 		fixture.web = new WebRequestController();
 		String proId = (String) null;
 		ModelMap model = new ModelMap();
-
 		String result = fixture.updateProduct1(proId, model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
@@ -1116,7 +1172,6 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.updateProduct1(WebRequestController.java:303)
 		assertNotNull(result);
 	}
-
 	*//**
 	 * Run the String userOrder(ModelMap) method test.
 	 *
@@ -1135,9 +1190,7 @@ public class WebRequestControllerTest {
 		fixture.admin1 = new AdminLogin();
 		fixture.web = new WebRequestController();
 		ModelMap model = new ModelMap();
-
 		String result = fixture.userOrder(model);
-
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
 		//    java.lang.NullPointerException
