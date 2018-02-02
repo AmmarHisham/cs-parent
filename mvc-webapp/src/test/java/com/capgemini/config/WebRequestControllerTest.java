@@ -19,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.capgemini.bean.AdminLogin;
 import com.capgemini.bean.ClickStream;
+import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.OrderEntity;
 import com.capgemini.bean.ProductCatalog;
 import com.capgemini.bean.UserBean;
@@ -58,7 +59,7 @@ public class WebRequestControllerTest {
 	RestTemplate restTemplate;
 	
 	@Mock
-	Model moedl; 
+	Model model; 
 	
 	@Mock
 	UserBean userbean;
@@ -91,25 +92,6 @@ public class WebRequestControllerTest {
 
 	}
 	
-
-	@Test(expected = NullPointerException.class)
-	public void testCategoryAfterLogin_1()
-			throws Exception {
-		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
-		Mockito.when(catalogService.categorySearch("sample")).thenReturn(list);
-		Mockito.when(webRequestController.categoryAfterLogin("sample", map)).thenReturn("sample");
-		webRequestController.categoryAfterLogin("sample", map);
-	}
-	
-	
-
-	@Test
-	public void testCategoryBeforeLogin_1()
-			throws Exception {
-		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
-		Mockito.when(catalogService.categorySearch("sample")).thenReturn(list);
-		webRequestController.categoryBeforeLogin("sample", map);
-	}
 	
 	@Test
 	public void testUpdateOrder_1()
@@ -119,27 +101,6 @@ public class WebRequestControllerTest {
 		webRequestController.updateOrder("1", "1", "1", "1", "1", "1", map);
 	}
 	
-
-	@Test
-	public void testSearchBeforeLogin_1()
-			throws Exception {
-		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
-		Mockito.when(catalogService.searchProduct("sample")).thenReturn(list);
-		webRequestController.searchBeforeLogin("sample", map);
-		
-	}
-	
-	@Test(expected = NullPointerException.class)
-	public void testSearchAfterLogin_1()
-			throws Exception {
-		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
-		Mockito.when(catalogService.searchProduct("sample")).thenReturn(list);
-		webRequestController.searchAfterLogin("sample", map);
-		
-	}
-	
-	
-
 	@Test
 	public void testAdminLogin_1()
 			throws Exception {
@@ -161,16 +122,52 @@ public class WebRequestControllerTest {
 		webRequestController.updateProduct1("sample", map);
 	}
 	
+	@Test
+	public void testSar() throws Exception {
+		webRequestController.sar(map);
+	}
 
-	/*@Test
-	public void testLinkedInUserInfo_1()
-			throws Exception {
+	@Test
+	public void testSarResponse() throws Exception {
+		Mockito.when(adminService.sar(Mockito.isA(String.class))).thenReturn(new ClickStream());
+		webRequestController.sarResponse("", map);
+	}
+
+	@Test
+	public void testSearchAfterLogin() throws Exception {
+		UserBean bean=new UserBean();
+		bean.setFirstName("XYZ");
+		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
+		list.add(new ProductCatalog());
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		Mockito.when(catalogService.searchProduct(Mockito.isA(String.class))).thenReturn(list);
+		webRequestController.searchAfterLogin("", map);
+	}
+
+	@Test
+	public void testSearchBeforeLogin() throws Exception {
+		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
+		list.add(new ProductCatalog());
+		Mockito.when(catalogService.searchProduct(Mockito.isA(String.class))).thenReturn(list);
+		webRequestController.searchBeforeLogin("", map);
+	}
 	
-		//Model mod=(Model) new ModelMap();
-		Mockito.when(linkedInProvider.getLinkedInUserData(Mockito.isA(Model.class), Mockito.isA(UserBean.class))).thenReturn("test");
-		webRequestController.linkedInUserInfo(map,new Userbean());
+	@Test
+	public void testShowOrderInfo() throws Exception {
+		UserBean bean=new UserBean();
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		webRequestController.showOrderInfo(map);
+	}
+	
+	@Test
+	public void testLinkedInUserInfo_1() throws Exception {
+	
+		UserBean bean=new UserBean();
+		bean.setFirstName("XYZ");
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		webRequestController.linkedInUserInfo(model);
 		
-	}*/
+	}
 	
 	@Test
 	public void testLogin_1() {
@@ -178,16 +175,14 @@ public class WebRequestControllerTest {
 	}
 	
 	@Test
-	public void testUpdateProduct_1()
-			throws Exception {
+	public void testUpdateProduct_1() throws Exception {
 		ProductCatalog prod = new ProductCatalog();
 		Mockito.when(adminService.updateProduct(Mockito.isA(ProductCatalog.class))).thenReturn("sample");
 		webRequestController.updateProduct(prod, map);
 	}
 	
 	@Test
-	public void testAddToProduct_1()
-			throws Exception {
+	public void testAddToProduct_1() throws Exception {
 		List<ProductCatalog> list = new ArrayList<ProductCatalog>();
 		ProductCatalog cat=new ProductCatalog();
 		list.add(cat);
@@ -197,22 +192,24 @@ public class WebRequestControllerTest {
 		}
 	
 	@Test
-	public void testClearCart_1()
-			throws Exception {
+	public void testClearCart_1() throws Exception {
 		UserCartModel usercartmodel=new UserCartModel();
 		//Mockito.when(cartServiceimpl.emptyCart("sample")).thenReturn(null);
 		Mockito.when(cartServiceimpl.getCardDetails(Mockito.isA(String.class))).thenReturn(usercartmodel);
-		webRequestController.clearCart("sample", moedl);	
+		webRequestController.clearCart("sample", model);	
 	}
 	
 	
-	@Test(expected = NullPointerException.class)
-	public void testaddToCart()
-			throws Exception {
+	@Test
+	public void testaddToCart() throws Exception {
 		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
-		//Mockito.when(cartServiceimpl.emptyCart("sample")).thenReturn(null);
+		
+		UserBean bean=new UserBean();
+		bean.setFirstName("XYZ");
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		Mockito.when(cartServiceimpl.addToCart(Mockito.isA(String.class), Mockito.isA(String.class))).thenReturn("");
 		Mockito.when(catalogService.getProduct()).thenReturn(list);
-		webRequestController.addToCart("sample", moedl);	
+		webRequestController.addToCart("sample", model);	
 	}
 	
 	
@@ -221,44 +218,83 @@ public class WebRequestControllerTest {
 		UserCartModel user=new UserCartModel();
 		//Mockito.when(cartServiceimpl.getCardDetails(Mockito.isA(String.class))).thenReturn(user);
 		Mockito.when(cartServiceimpl.setProductPrice(Mockito.isA(UserCartModel.class))).thenReturn(user);
-		webRequestController.getCardDetails("sample",moedl);
+		webRequestController.getCardDetails("sample",model);
 	}
 	
-	
-/*	@Test
-	public void testAddGiftCard_1() throws Exception {
-		
-	}*/
+	@Test
+	public void testCategoryAfterLogin() throws Exception {
+		UserBean bean=new UserBean();
+		bean.setFirstName("XYZ");
+		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
+		list.add(new ProductCatalog());
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		Mockito.when(catalogService.categorySearch(Mockito.isA(String.class))).thenReturn(list);
+		webRequestController.categoryAfterLogin("", map);
+	}
 
-	/*
-	public void testAddGiftCardResponse_1()
-		throws Exception {
-		WebRequestController fixture = new WebRequestController();
-		fixture.linkedInProvider = new LinkedInProvider();
-		fixture.catalogService = new CatalogServiceImpl();
-		fixture.userBean = new UserBean();
-		fixture.adminService = new AdminServiceimpl();
-		fixture.cartServiceimpl = new CartServiceimpl();
-		fixture.admin1 = new AdminLogin();
-		fixture.web = new WebRequestController();
-		String id = (String) null;
-		String value = (String) null;
-		ModelMap model = new ModelMap();
-		String result = fixture.addGiftCardResponse(id, value, model);
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.capgemini.serviceimpl.CartServiceimpl.addUserGiftCard(CartServiceimpl.java:107)
-		//       at com.capgemini.config.WebRequestController.addGiftCardResponse(WebRequestController.java:133)
-		assertNotNull(result);
+	@Test
+	public void testCategoryBeforeLogin() throws Exception {
+		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
+		list.add(new ProductCatalog());
+		Mockito.when(catalogService.categorySearch(Mockito.isA(String.class))).thenReturn(list);
+		webRequestController.categoryBeforeLogin("", map);
 	}
-	*//**
-	 * Run the String addToCart(String,Model) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 2/2/18 9:32 AM
-	 *//*
+	
+	@Test
+	public void testError() throws Exception {
+		UserBean bean=new UserBean();
+		bean.setFirstName("ABC");
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		webRequestController.error(map);
+	}
+	
+	@Test
+	public void testUserOrder() throws Exception {
+		OrderEntity orderEntity =new OrderEntity();
+		List<OrderEntity> list=new ArrayList<OrderEntity>();
+		list.add(orderEntity);
+		
+		UserBean bean=new UserBean();
+		bean.setFirstName("ABC");
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		Mockito.when(cartServiceimpl.getAllOrder(Mockito.isA(String.class))).thenReturn(list);
+		webRequestController.userOrder(map);
+	}
+	
+	@Test
+	public void testHomeAfterLogin() throws Exception {
+		ProductCatalog productCatalog =new ProductCatalog();
+		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
+		list.add(productCatalog);
+		UserBean bean = new UserBean();
+		bean.setFirstName("XYZ");
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		Mockito.when(catalogService.getProduct()).thenReturn(list);
+		webRequestController.homeAfterLogin(map);
+		
+	}
+	
+	@Test
+	public void testAddGiftCard() throws Exception {
+		UserBean bean = new UserBean();
+		bean.setFirstName("XYZ");
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		webRequestController.addGiftCard(map);
+	}
+
+	@Test
+	public void testAddGiftCardResponse() throws Exception {
+		GiftCard giftcard=new GiftCard();
+		giftcard.setGiftCardId("");
+		giftcard.setGiftCardValue("");
+		UserBean bean = new UserBean();
+		bean.setFirstName("XYZ");
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		Mockito.when(cartServiceimpl.addUserGiftCard(Mockito.isA(GiftCard.class))).thenReturn(giftcard);
+		Mockito.when(cartServiceimpl.getUserGiftCard(Mockito.isA(String.class))).thenReturn(giftcard);
+	}
+	
+	/*
 	public void testAddToCart_1()
 		throws Exception {
 		WebRequestController fixture = new WebRequestController();
@@ -336,67 +372,7 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.adminLogin(WebRequestController.java:323)
 		assertNotNull(result);
 	}
-	*//**
-	 * Run the String categoryAfterLogin(String,ModelMap) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 2/2/18 9:32 AM
-	 *//*
-	public void testCategoryAfterLogin_1()
-		throws Exception {
-		WebRequestController fixture = new WebRequestController();
-		fixture.linkedInProvider = new LinkedInProvider();
-		fixture.catalogService = new CatalogServiceImpl();
-		fixture.userBean = new UserBean();
-		fixture.adminService = new AdminServiceimpl();
-		fixture.cartServiceimpl = new CartServiceimpl();
-		fixture.admin1 = new AdminLogin();
-		fixture.web = new WebRequestController();
-		String key = (String) null;
-		ModelMap model = new ModelMap();
-		String result = fixture.categoryAfterLogin(key, model);
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.capgemini.serviceimpl.CatalogServiceImpl.categorySearch(CatalogServiceImpl.java:43)
-		//       at com.capgemini.config.WebRequestController.categoryAfterLogin(WebRequestController.java:353)
-		assertNotNull(result);
-	}
-	*//**
-	 * Run the String categoryBeforeLogin(String,ModelMap) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 2/2/18 9:32 AM
-	 *//*
-	public void testCategoryBeforeLogin_1()
-		throws Exception {
-		WebRequestController fixture = new WebRequestController();
-		fixture.linkedInProvider = new LinkedInProvider();
-		fixture.catalogService = new CatalogServiceImpl();
-		fixture.userBean = new UserBean();
-		fixture.adminService = new AdminServiceimpl();
-		fixture.cartServiceimpl = new CartServiceimpl();
-		fixture.admin1 = new AdminLogin();
-		fixture.web = new WebRequestController();
-		String key = (String) null;
-		ModelMap model = new ModelMap();
-		String result = fixture.categoryBeforeLogin(key, model);
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.capgemini.serviceimpl.CatalogServiceImpl.categorySearch(CatalogServiceImpl.java:43)
-		//       at com.capgemini.config.WebRequestController.categoryBeforeLogin(WebRequestController.java:346)
-		assertNotNull(result);
-	}
-	*//**
-	 * Run the String clearCart(String,Model) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 2/2/18 9:32 AM
-	 *//*
+	*//*
 	public void testClearCart_1()
 		throws Exception {
 		WebRequestController fixture = new WebRequestController();
@@ -417,15 +393,8 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.clearCart(WebRequestController.java:285)
 		assertNotNull(result);
 	}
-	*//**
-	 * Run the String deleteFromCart(String,Model) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 2/2/18 9:32 AM
-	 *//*
-	public void testDeleteFromCart_1()
-		throws Exception {
+	*/
+	/*public void testDeleteFromCart_1() throws Exception {
 		WebRequestController fixture = new WebRequestController();
 		fixture.linkedInProvider = new LinkedInProvider();
 		fixture.catalogService = new CatalogServiceImpl();
@@ -443,8 +412,8 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.login.social.providers.LinkedInProvider.populateUserDetailsFromLinkedIn(LinkedInProvider.java:54)
 		//       at com.capgemini.config.WebRequestController.deleteFromCart(WebRequestController.java:275)
 		assertNotNull(result);
-	}
-	*//**
+	}*/
+	/**
 	 * Run the String error(ModelMap) method test.
 	 *
 	 * @throws Exception
@@ -476,27 +445,7 @@ public class WebRequestControllerTest {
 	 * @throws Exception
 	 *
 	 * @generatedBy CodePro at 2/2/18 9:32 AM
-	 *//*
-	public void testHomeAfterLogin_1()
-		throws Exception {
-		WebRequestController fixture = new WebRequestController();
-		fixture.linkedInProvider = new LinkedInProvider();
-		fixture.catalogService = new CatalogServiceImpl();
-		fixture.userBean = new UserBean();
-		fixture.adminService = new AdminServiceimpl();
-		fixture.cartServiceimpl = new CartServiceimpl();
-		fixture.admin1 = new AdminLogin();
-		fixture.web = new WebRequestController();
-		ModelMap model = new ModelMap();
-		String result = fixture.homeAfterLogin(model);
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.capgemini.serviceimpl.CatalogServiceImpl.getProduct(CatalogServiceImpl.java:22)
-		//       at com.capgemini.config.WebRequestController.homeAfterLogin(WebRequestController.java:82)
-		assertNotNull(result);
-	}
-	*/
+	 */
 	
 	@Test
 	public void testHomeBeforeLogin() throws Exception {
@@ -583,124 +532,17 @@ public class WebRequestControllerTest {
 		assertNotNull(result);
 	}
 	*/
+
+	@Test
+	public void testShowAddPage() throws Exception {
+		webRequestController.showAddPage(map);
+	}
 	
 	@Test
-	public void testSar() throws Exception {
-		webRequestController.sar(map);
+	public void testShowAdminLoginPage() throws Exception {
+		webRequestController.showAdminLoginPage(map);
 	}
-
-	@Test
-	public void testSarResponse_1() throws Exception {
-		Mockito.when(adminService.sar(Mockito.isA(String.class))).thenReturn(new ClickStream());
-	}
-
-	/**
-	 * Run the String searchAfterLogin(String,ModelMap) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 2/2/18 9:32 AM
-	 *//*
-	public void testSearchAfterLogin_1()
-		throws Exception {
-		WebRequestController fixture = new WebRequestController();
-		fixture.linkedInProvider = new LinkedInProvider();
-		fixture.catalogService = new CatalogServiceImpl();
-		fixture.userBean = new UserBean();
-		fixture.adminService = new AdminServiceimpl();
-		fixture.cartServiceimpl = new CartServiceimpl();
-		fixture.admin1 = new AdminLogin();
-		fixture.web = new WebRequestController();
-		String key = (String) null;
-		ModelMap model = new ModelMap();
-		String result = fixture.searchAfterLogin(key, model);
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.capgemini.serviceimpl.CatalogServiceImpl.searchProduct(CatalogServiceImpl.java:32)
-		//       at com.capgemini.config.WebRequestController.searchAfterLogin(WebRequestController.java:331)
-		assertNotNull(result);
-	}
-	*//**
-	 * Run the String searchBeforeLogin(String,ModelMap) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 2/2/18 9:32 AM
-	 *//*
-	public void testSearchBeforeLogin_1()
-		throws Exception {
-		WebRequestController fixture = new WebRequestController();
-		fixture.linkedInProvider = new LinkedInProvider();
-		fixture.catalogService = new CatalogServiceImpl();
-		fixture.userBean = new UserBean();
-		fixture.adminService = new AdminServiceimpl();
-		fixture.cartServiceimpl = new CartServiceimpl();
-		fixture.admin1 = new AdminLogin();
-		fixture.web = new WebRequestController();
-		String key = (String) null;
-		ModelMap model = new ModelMap();
-		String result = fixture.searchBeforeLogin(key, model);
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.capgemini.serviceimpl.CatalogServiceImpl.searchProduct(CatalogServiceImpl.java:32)
-		//       at com.capgemini.config.WebRequestController.searchBeforeLogin(WebRequestController.java:339)
-		assertNotNull(result);
-	}
-	*//**
-	 * Run the String showAddPage(ModelMap) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 2/2/18 9:32 AM
-	 *//*
-	public void testShowAddPage_1()
-		throws Exception {
-		WebRequestController fixture = new WebRequestController();
-		fixture.linkedInProvider = new LinkedInProvider();
-		fixture.catalogService = new CatalogServiceImpl();
-		fixture.userBean = new UserBean();
-		fixture.adminService = new AdminServiceimpl();
-		fixture.cartServiceimpl = new CartServiceimpl();
-		AdminLogin adminLogin = new AdminLogin();
-		adminLogin.setUsername("");
-		fixture.admin1 = adminLogin;
-		fixture.web = new WebRequestController();
-		ModelMap model = new ModelMap();
-		String result = fixture.showAddPage(model);
-		// add additional test code here
-		assertEquals("addProduct", result);
-	}
-	*//**
-	 * Run the String showAdminLoginPage(ModelMap) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 2/2/18 9:32 AM
-	 *//*
-	public void testShowAdminLoginPage_1()
-		throws Exception {
-		WebRequestController fixture = new WebRequestController();
-		fixture.linkedInProvider = new LinkedInProvider();
-		fixture.catalogService = new CatalogServiceImpl();
-		fixture.userBean = new UserBean();
-		fixture.adminService = new AdminServiceimpl();
-		fixture.cartServiceimpl = new CartServiceimpl();
-		fixture.admin1 = new AdminLogin();
-		fixture.web = new WebRequestController();
-		ModelMap model = new ModelMap();
-		String result = fixture.showAdminLoginPage(model);
-		// add additional test code here
-		assertEquals("AdminLogin", result);
-	}
-	*//**
-	 * Run the String showAdminOrderPage(ModelMap) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 2/2/18 9:32 AM
-	 *//*
+/*
 	public void testShowAdminOrderPage_1()
 		throws Exception {
 		WebRequestController fixture = new WebRequestController();
@@ -781,65 +623,19 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.showCheckoutPage(WebRequestController.java:199)
 		assertNotNull(result);
 	}
-	*//**
-	 * Run the String showOrderInfo(ModelMap) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 2/2/18 9:32 AM
-	 *//*
-	public void testShowOrderInfo_1()
-		throws Exception {
-		WebRequestController fixture = new WebRequestController();
-		fixture.linkedInProvider = new LinkedInProvider();
-		fixture.catalogService = new CatalogServiceImpl();
-		fixture.userBean = new UserBean();
-		fixture.adminService = new AdminServiceimpl();
-		fixture.cartServiceimpl = new CartServiceimpl();
-		fixture.admin1 = new AdminLogin();
-		fixture.web = new WebRequestController();
-		ModelMap model = new ModelMap();
-		String result = fixture.showOrderInfo(model);
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.capgemini.login.social.providers.LinkedInProvider.populateUserDetailsFromLinkedIn(LinkedInProvider.java:54)
-		//       at com.capgemini.config.WebRequestController.showOrderInfo(WebRequestController.java:90)
-		assertNotNull(result);
+	*/
+	@Test
+	public void testShowgiftCardInfo() throws Exception {
+		UserBean bean=new UserBean();
+		bean.setFirstName("XYZ");
+		GiftCard giftCard=new GiftCard();
+		giftCard.setGiftCardId("");
+		giftCard.setGiftCardValue("");
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		Mockito.when(cartServiceimpl.getUserGiftCard(Mockito.isA(String.class))).thenReturn(giftCard);
+
 	}
-	*//**
-	 * Run the String showgiftCardInfo(ModelMap) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 2/2/18 9:32 AM
-	 *//*
-	public void testShowgiftCardInfo_1()
-		throws Exception {
-		WebRequestController fixture = new WebRequestController();
-		fixture.linkedInProvider = new LinkedInProvider();
-		fixture.catalogService = new CatalogServiceImpl();
-		fixture.userBean = new UserBean();
-		fixture.adminService = new AdminServiceimpl();
-		fixture.cartServiceimpl = new CartServiceimpl();
-		fixture.admin1 = new AdminLogin();
-		fixture.web = new WebRequestController();
-		ModelMap model = new ModelMap();
-		String result = fixture.showgiftCardInfo(model);
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.capgemini.login.social.providers.LinkedInProvider.populateUserDetailsFromLinkedIn(LinkedInProvider.java:54)
-		//       at com.capgemini.config.WebRequestController.showgiftCardInfo(WebRequestController.java:113)
-		assertNotNull(result);
-	}
-	*//**
-	 * Run the String updateOrder(String,String,String,String,String,String,ModelMap) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 2/2/18 9:32 AM
-	 *//*
+/*
 	public void testUpdateOrder_1()
 		throws Exception {
 		WebRequestController fixture = new WebRequestController();
@@ -1178,27 +974,7 @@ public class WebRequestControllerTest {
 	 * @throws Exception
 	 *
 	 * @generatedBy CodePro at 2/2/18 9:32 AM
-	 *//*
-	public void testUserOrder_1()
-		throws Exception {
-		WebRequestController fixture = new WebRequestController();
-		fixture.linkedInProvider = new LinkedInProvider();
-		fixture.catalogService = new CatalogServiceImpl();
-		fixture.userBean = new UserBean();
-		fixture.adminService = new AdminServiceimpl();
-		fixture.cartServiceimpl = new CartServiceimpl();
-		fixture.admin1 = new AdminLogin();
-		fixture.web = new WebRequestController();
-		ModelMap model = new ModelMap();
-		String result = fixture.userOrder(model);
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.capgemini.serviceimpl.CartServiceimpl.getAllOrder(CartServiceimpl.java:41)
-		//       at com.capgemini.config.WebRequestController.userOrder(WebRequestController.java:105)
-		assertNotNull(result);
-	}*/
-
+	 */
 	protected void tearDown() throws Exception {
 		
 	}

@@ -35,6 +35,9 @@ import com.capgemini.serviceimpl.UserCartModel;
 @Controller
 public class WebRequestController {
 
+	@Autowired
+	WebRequestController web;
+
 	private static final Logger logger = LoggerFactory.getLogger(WebRequestController.class);
 	@Autowired
 	public CartServiceimpl cartServiceimpl;
@@ -67,6 +70,7 @@ public class WebRequestController {
 	
 	@RequestMapping("/sar1")
 	public String sarResponse(@RequestParam("userId") String userId, ModelMap model) {
+		System.out.println("UserID==========="+userId);
 		ClickStream click=adminService.sar(userId);
 		model.addAttribute("sar", click);
 		model.addAttribute("name", admin1.getUsername());

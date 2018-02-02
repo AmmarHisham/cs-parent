@@ -15,7 +15,7 @@ import com.capgemini.serviceimpl.UserCartModel;
 public interface CartService {
 
 	
-	public void addToCart(String productId, String userId);
+	public String addToCart(String productId, String userId);
 	public void deleteFromCart(String productId, String userId);
 	public UserCartModel getCardDetails(String userId);
 	public void emptyCart(String userId);
@@ -26,7 +26,7 @@ public interface CartService {
 	UserCartModel setProductPrice(UserCartModel user);
 	//public void debitGiftCard(User user);
 	//void creditGiftCard(String firstName, int balance);
-	public void addUserGiftCard(GiftCard giftCard);
+	public GiftCard addUserGiftCard(GiftCard giftCard);
 	public GiftCard getUserGiftCard(String name);
 	
 	
