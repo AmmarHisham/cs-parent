@@ -47,8 +47,9 @@ public class CatalogController {
 	}
 	
 	@RequestMapping(value="add",method=RequestMethod.POST)
-	public void addProduct(@RequestBody ProductCatalog pc){
+	public ProductCatalog addProduct(@RequestBody ProductCatalog pc){
 	    mongoRepo.save(pc);
+	    return pc;
 	}
 	
 	
@@ -88,10 +89,12 @@ public class CatalogController {
 	}
 	
 	@RequestMapping(value="addAllGifts",method=RequestMethod.POST)
-	public void addAllGifts(@RequestBody List<GiftCardCatalog> pc){
+	public List<GiftCardCatalog> addAllGifts(@RequestBody List<GiftCardCatalog> pc){
 		for (GiftCardCatalog productCatalog : pc) {
 			 mongoRepoGifts.save(productCatalog);
+			
 		}
+		 return pc;
 	}
 
 }
