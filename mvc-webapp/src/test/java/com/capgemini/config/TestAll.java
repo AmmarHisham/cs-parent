@@ -1,4 +1,4 @@
-package com.capgemini;
+package com.capgemini.config;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
@@ -15,9 +15,8 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	com.capgemini.bean.TestAll.class,
-	com.capgemini.config.TestAll.class,
-	com.capgemini.serviceimpl.TestAll.class,
+	WebRequestControllerTest.class,
+	ClickStreamWebFilterTest.class,
 })
 public class TestAll {
 

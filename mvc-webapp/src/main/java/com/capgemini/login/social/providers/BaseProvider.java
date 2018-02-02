@@ -18,11 +18,6 @@ public class BaseProvider {
 
 	private LinkedIn linkedIn;
 	private ConnectionRepository connectionRepository;
-	
-	public  BaseProvider(LinkedIn linkedIn, ConnectionRepository connectionRepository) {	
-		this.connectionRepository = connectionRepository;	
-		this.linkedIn= linkedIn;
-	}
 
 	public ConnectionRepository getConnectionRepository() {
 		return connectionRepository;
@@ -39,6 +34,7 @@ public class BaseProvider {
 
 	public void setLinkedIn(LinkedIn linkedIn) {
 		this.linkedIn = linkedIn;
+		
 	}
 		
 

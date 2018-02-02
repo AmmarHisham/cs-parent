@@ -34,6 +34,7 @@ public class ClickStreamWebFilter implements Filter {
 	  long count=0;
 	  @Autowired
 	  RestTemplate restTemplate;
+	  
 	  @Override
 	    public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -41,11 +42,11 @@ public class ClickStreamWebFilter implements Filter {
 
 	    @Override
 	    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-	        logger.info("filter:"+ ((HttpServletRequest)servletRequest).getRequestURL());
+	    	/* logger.info("filter:"+ ((HttpServletRequest)servletRequest).getRequestURL());
 	        HttpServletRequest ServletRequest= (HttpServletRequest)servletRequest;
 	        filterChain.doFilter(servletRequest, servletResponse);
 	        count++;
-	      /* if(ServletRequest.getRequestURI().contains("/connect/linkedin") ||ServletRequest.getRequestURI().contains("/adminlogin")||count>=1) {
+	       if(ServletRequest.getRequestURI().contains("/connect/linkedin") ||ServletRequest.getRequestURI().contains("/adminlogin")||count>=1) {
 	    	   UserBean userBean = new UserBean();
 	    	   String name= linkedInProvider1.populateUserDetailsFromLinkedIn(userBean).getFirstName();
 	    	   System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"+name);
