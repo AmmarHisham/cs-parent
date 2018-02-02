@@ -22,6 +22,7 @@ import com.capgemini.bean.ClickStream;
 import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.OrderEntity;
 import com.capgemini.bean.ProductCatalog;
+import com.capgemini.bean.ShippingBean;
 import com.capgemini.bean.UserBean;
 import com.capgemini.login.social.providers.LinkedInProvider;
 import com.capgemini.service.AdminService;
@@ -46,6 +47,9 @@ public class WebRequestControllerTest {
 	@Mock
 	AdminService adminService;
 
+	@Mock
+	ShippingBean shippingBean;
+	
 	@Mock
 	CatalogServiceImpl catalogService;
 	
@@ -292,6 +296,7 @@ public class WebRequestControllerTest {
 		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
 		Mockito.when(cartServiceimpl.addUserGiftCard(Mockito.isA(GiftCard.class))).thenReturn(giftcard);
 		Mockito.when(cartServiceimpl.getUserGiftCard(Mockito.isA(String.class))).thenReturn(giftcard);
+		webRequestController.addGiftCardResponse("", "", map);
 	}
 	
 	/*
@@ -564,66 +569,25 @@ public class WebRequestControllerTest {
 		//       at com.capgemini.config.WebRequestController.showAdminOrderPage(WebRequestController.java:151)
 		assertNotNull(result);
 	}
-	*//**
-	 * Run the String showCheckoutCompletePage(ShippingBean,ModelMap) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 2/2/18 9:32 AM
-	 *//*
-	public void testShowCheckoutCompletePage_1()
-		throws Exception {
-		WebRequestController fixture = new WebRequestController();
-		fixture.linkedInProvider = new LinkedInProvider();
-		fixture.catalogService = new CatalogServiceImpl();
-		fixture.userBean = new UserBean();
-		fixture.adminService = new AdminServiceimpl();
-		fixture.cartServiceimpl = new CartServiceimpl();
-		fixture.admin1 = new AdminLogin();
-		fixture.web = new WebRequestController();
-		ShippingBean address = new ShippingBean();
-		address.setQua(1);
-		address.setPrice(1);
-		ModelMap model = new ModelMap();
-		String result = fixture.showCheckoutCompletePage(address, model);
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.capgemini.login.social.providers.LinkedInProvider.populateUserDetailsFromLinkedIn(LinkedInProvider.java:54)
-		//       at com.capgemini.config.WebRequestController.showCheckoutCompletePage(WebRequestController.java:207)
-		assertNotNull(result);
-	}
-	*//**
-	 * Run the String showCheckoutPage(String,String,String,String,ModelMap) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 2/2/18 9:32 AM
-	 *//*
-	public void testShowCheckoutPage_1()
-		throws Exception {
-		WebRequestController fixture = new WebRequestController();
-		fixture.linkedInProvider = new LinkedInProvider();
-		fixture.catalogService = new CatalogServiceImpl();
-		fixture.userBean = new UserBean();
-		fixture.adminService = new AdminServiceimpl();
-		fixture.cartServiceimpl = new CartServiceimpl();
-		fixture.admin1 = new AdminLogin();
-		fixture.web = new WebRequestController();
-		String userId = (String) null;
-		String productid = (String) null;
-		String quantity = (String) null;
-		String price = (String) null;
-		ModelMap model = new ModelMap();
-		String result = fixture.showCheckoutPage(userId, productid, quantity, price, model);
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.capgemini.login.social.providers.LinkedInProvider.populateUserDetailsFromLinkedIn(LinkedInProvider.java:54)
-		//       at com.capgemini.config.WebRequestController.showCheckoutPage(WebRequestController.java:199)
-		assertNotNull(result);
-	}
 	*/
+	/*
+	@Test
+	public void testShowCheckoutCompletePage_1() throws Exception {
+		UserBean bean = new UserBean();
+		bean.setFirstName("XYZ");
+		Mockito.when(shippingBean.setPrice(Mockito.isA(1))
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		webRequestController.showCheckoutPage("", "", "", "", map);
+	}*/
+
+	@Test
+	public void testShowCheckoutPage() throws Exception {
+		UserBean bean=new UserBean();
+		bean.setFirstName("XYZ");
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		webRequestController.showCheckoutPage("", "", "", "", map);
+	}
+	
 	@Test
 	public void testShowgiftCardInfo() throws Exception {
 		UserBean bean=new UserBean();
@@ -633,6 +597,7 @@ public class WebRequestControllerTest {
 		giftCard.setGiftCardValue("");
 		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
 		Mockito.when(cartServiceimpl.getUserGiftCard(Mockito.isA(String.class))).thenReturn(giftCard);
+		webRequestController.showgiftCardInfo(map);
 
 	}
 /*
