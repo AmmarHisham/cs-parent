@@ -65,14 +65,23 @@
 		</dependency>
 	</dependencies>
 
-	<!-- <build>
+	 <build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+				<archive>
+					<mainfest>
+						<mainClass>com.capgemini.config.OnlineShopingApplication</mainClass>
+					</mainfest>
+				</archive>
+			</configuration>
 			</plugin>
 		</plugins>
-	</build> -->
+	</build> 
+	
+	
 
 
 </project>

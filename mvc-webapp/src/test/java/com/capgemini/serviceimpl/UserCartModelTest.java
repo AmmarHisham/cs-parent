@@ -87,7 +87,4 @@ public class UserCartModelTest {
 	 *
 	 * @generatedBy CodePro at 2/1/18 9:52 AM
 	 */
-	public static void main(String[] args) {
-		new org.junit.runner.JUnitCore().run(UserCartModelTest.class);
-	}
 }

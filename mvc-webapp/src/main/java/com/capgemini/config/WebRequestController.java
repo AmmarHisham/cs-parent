@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,9 +36,6 @@ import com.capgemini.serviceimpl.UserCartModel;
 @Controller
 public class WebRequestController {
 
-	@Autowired
-	WebRequestController web;
-
 	private static final Logger logger = LoggerFactory.getLogger(WebRequestController.class);
 	@Autowired
 	public CartServiceimpl cartServiceimpl;
@@ -55,8 +53,9 @@ public class WebRequestController {
 
 	UserBean userBean = new UserBean();
 
-	@RequestMapping({ "/", "/home" })
+	@RequestMapping({"/","/home" })
 	public String homeBeforeLogin(ModelMap model) {
+		logger.info("Inside home 11  111 ");
 		List<ProductCatalog> list = catalogService.getProduct();
 		model.addAttribute("catalog", list);
 		return "Home";
@@ -70,7 +69,6 @@ public class WebRequestController {
 	
 	@RequestMapping("/sar1")
 	public String sarResponse(@RequestParam("userId") String userId, ModelMap model) {
-		System.out.println("UserID==========="+userId);
 		ClickStream click=adminService.sar(userId);
 		model.addAttribute("sar", click);
 		model.addAttribute("name", admin1.getUsername());
@@ -326,6 +324,7 @@ public class WebRequestController {
 		return validate;
 	}
 
+	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String searchAfterLogin(@RequestParam("key") String key, ModelMap model) {
 		List<ProductCatalog> list = catalogService.searchProduct(key);
@@ -356,4 +355,9 @@ public class WebRequestController {
 		return "index";
 	}
 
+	@GetMapping("/test")
+	public String test()
+	{
+		return "Hi";
+	}
 }

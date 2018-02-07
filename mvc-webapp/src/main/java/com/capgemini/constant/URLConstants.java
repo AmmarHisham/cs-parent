@@ -37,8 +37,8 @@ public class URLConstants {
 	public static final String ADD_TO_PRODUCT = "http://catalog-mgmt/add";
 	public static final String UPDATE_PRODUCT = "http://catalog-mgmt/update";
 	
-	/*public static final String GET_ALLPRODUCT="http://10.77.116.23:9090/getAllProds";
-	public static final String SEARCH_PRODUCT="http://10.77.116.23:9090/getPartialProducts?prodName={prodName}";
+	//public static final String GET_ALLPRODUCT="http://10.77.116.23:9090/getAllProds";
+	/*public static final String SEARCH_PRODUCT="http://10.77.116.23:9090/getPartialProducts?prodName={prodName}";
 	public static final String CATEGORY_SEARCH="http://10.77.116.23:9090/catagory?categoryName={categoryName}";*/
 	
 	public static final String GET_ALLPRODUCT="http://catalog-mgmt/getAllProds";

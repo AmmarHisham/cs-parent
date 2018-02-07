@@ -21,8 +21,11 @@ public class AdminServiceimpl implements AdminService {
 	//private static final Logger logger = LoggerFactory.getLogger(AdminServiceimpl.class);
 	@Autowired
 	RestTemplate restTemplate;
-	@Autowired
-	CatalogService catalogService;
+	
+	//RestTemplate restTemplate=new RestTemplate();
+	//@Autowired
+	//CatalogService catalogService;
+	
 
 	@Override
 	public List<OrderEntity> getAllOrder() {

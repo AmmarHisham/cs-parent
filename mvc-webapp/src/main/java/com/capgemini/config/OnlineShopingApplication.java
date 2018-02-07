@@ -11,6 +11,7 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -19,9 +20,8 @@ import org.springframework.web.client.RestTemplate;
  */
 @EnableDiscoveryClient
 @EnableZuulProxy
-@ServletComponentScan
 @ComponentScan({"com.capgemini.serviceimpl","com.capgemini.config","com.capgemini.login.social.providers"})
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages={"com.capgemini.config.WebRequestController"})
 public class OnlineShopingApplication extends SpringBootServletInitializer {
 	private static final Logger logger = LoggerFactory.getLogger(OnlineShopingApplication.class);
 	public static void main(String[] args) {
@@ -33,6 +33,9 @@ public class OnlineShopingApplication extends SpringBootServletInitializer {
 	@Bean
 	@LoadBalanced
 	public RestTemplate restTemplate() {
-		return new RestTemplate();
+		   RestTemplate rt = new RestTemplate();
+			
+	        rt.setRequestFactory( new HttpComponentsClientHttpRequestFactory() );
+	        return rt;
 	}
 }

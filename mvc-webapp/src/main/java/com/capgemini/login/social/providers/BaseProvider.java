@@ -16,6 +16,12 @@ import org.springframework.social.linkedin.api.LinkedIn;
 public class BaseProvider {
 
 
+	public BaseProvider(LinkedIn linkedIn, ConnectionRepository connectionRepository) {
+		super();
+		this.linkedIn = linkedIn;
+		this.connectionRepository = connectionRepository;
+	}
+
 	private LinkedIn linkedIn;
 	private ConnectionRepository connectionRepository;
 

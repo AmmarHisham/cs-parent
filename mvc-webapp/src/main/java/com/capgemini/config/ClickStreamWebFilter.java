@@ -32,8 +32,10 @@ public class ClickStreamWebFilter implements Filter {
 	  @Autowired
 	  LinkedInProvider linkedInProvider1;
 	  long count=0;
-	  @Autowired
-	  RestTemplate restTemplate;
+	  /*@Autowired
+		RestTemplate restTemplate;
+	*/
+		RestTemplate restTemplate=new RestTemplate();
 	  
 	  @Override
 	    public void init(FilterConfig filterConfig) throws ServletException {

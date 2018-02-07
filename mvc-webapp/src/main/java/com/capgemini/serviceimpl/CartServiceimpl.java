@@ -30,7 +30,9 @@ public class CartServiceimpl implements CartService {
 	
 	@Autowired
 	RestTemplate restTemplate;
-
+	
+	//RestTemplate restTemplate=new RestTemplate();
+	
 	@Autowired
 	CatalogService catalogService;
 

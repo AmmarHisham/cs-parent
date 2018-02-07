@@ -514,29 +514,15 @@ public class WebRequestControllerTest {
 	 * @throws Exception
 	 *
 	 * @generatedBy CodePro at 2/2/18 9:32 AM
-	 *//*
-	public void testPayment_1()
-		throws Exception {
-		WebRequestController fixture = new WebRequestController();
-		fixture.linkedInProvider = new LinkedInProvider();
-		fixture.catalogService = new CatalogServiceImpl();
-		fixture.userBean = new UserBean();
-		fixture.adminService = new AdminServiceimpl();
-		fixture.cartServiceimpl = new CartServiceimpl();
-		fixture.admin1 = new AdminLogin();
-		fixture.web = new WebRequestController();
-		String userId = (String) null;
-		String pId = (String) null;
-		ExtendedModelMap model = new ExtendedModelMap();
-		String result = fixture.payment(userId, pId, model);
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.capgemini.serviceimpl.CartServiceimpl.deleteFromCart(CartServiceimpl.java:67)
-		//       at com.capgemini.config.WebRequestController.payment(WebRequestController.java:214)
-		assertNotNull(result);
-	}
-	*/
+	 */
+	 
+	/*@Test
+	public void testPayment_1() throws Exception {
+		UserBean bean = new UserBean();
+		bean.setFirstName("XYZ");
+		Mockito.when(cartServiceimpl.deleteFromCart(pId, userId))
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+	}*/
 
 	@Test
 	public void testShowAddPage() throws Exception {
