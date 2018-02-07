@@ -1,4 +1,4 @@
-package com.capgemini.order.service;
+package com.capgemini.service;
 
 import java.util.List;
 

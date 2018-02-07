@@ -1,4 +1,4 @@
-package com.capgemini.order.controller;
+package com.capgemini.controller;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.capgemini.entity.OrderEntity;
 import com.capgemini.entity.OrderStatus;
-import com.capgemini.order.service.OrderService;
+import com.capgemini.service.OrderService;
 
 @RestController
 @RequestMapping("orders")
@@ -59,8 +59,8 @@ public class OrderManagementController {
 	}
 
 	@GetMapping(value = "getOpenOrdersByUserId/{userId}")
-	public List<OrderEntity> getOrdersByProgStatus(@PathVariable Long userId) {
-		return orderService.getOrdersByStatus(userId, OrderStatus.inprogress);
+	public List<OrderEntity> getOrdersByProgStatus(@PathVariable String userId) {
+		return orderService.getOrdersByStatus(Long.parseLong(userId), OrderStatus.inprogress);
 	}
 	
 	

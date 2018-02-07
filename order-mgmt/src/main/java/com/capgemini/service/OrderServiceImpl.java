@@ -1,4 +1,4 @@
-package com.capgemini.order.service;
+package com.capgemini.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import com.capgemini.constant.URLConstant;
 import com.capgemini.entity.OrderDetailsEntity;
 import com.capgemini.entity.OrderEntity;
 import com.capgemini.entity.OrderStatus;
-import com.capgemini.order.repo.OrderRepo;
+import com.capgemini.repo.OrderRepo;
 import com.cg.notification.Notification;
 import com.cg.notification.NotificationType;
 import com.cg.notification.RecipientType;
