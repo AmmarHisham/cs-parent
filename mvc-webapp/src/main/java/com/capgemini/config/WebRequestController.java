@@ -240,6 +240,27 @@ public class WebRequestController {
 		model.addAttribute("userId", user.getUserId());
 		List<ProductCatalog> cat = catalogService.getProduct();
 		model.addAttribute("catalog", cat);
+		model.addAttribute("productId", pId);
+		return "Feedback";
+	}
+	
+	@RequestMapping(value="/feedbackresponse", method=RequestMethod.POST)
+	public String feedbackResponse(@RequestParam("userId") Long userId, @RequestParam("productId") String productId, 
+            @RequestParam("ratings") String ratings, @RequestParam("feedback") String feedback, Model model)
+	{
+		CustomerFeedback customer=new CustomerFeedback();
+		customer.setFeedback(feedback);
+		customer.setProductId(productId);
+		customer.setUserId(userId);
+		customer.setRating(ratings);
+		
+		//cartServiceimpl.feedbackStoring(customer);
+		
+		User user=cartServiceimpl.getUserInfo(userId);
+		model.addAttribute("name", user.getFirstName());
+		model.addAttribute("userId", user.getUserId());
+		List<ProductCatalog> cat = catalogService.getProduct();
+		model.addAttribute("catalog", cat);
 		return "index";
 	}
 

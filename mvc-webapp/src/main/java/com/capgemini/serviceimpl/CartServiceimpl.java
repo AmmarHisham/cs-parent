@@ -182,4 +182,11 @@ public class CartServiceimpl implements CartService {
 		}
 		return list;
 	}
+
+	public void feedbackStoring(CustomerFeedback customer) {
+		/*restTemplate.postForObject(url, null, responseType, customer)
+		
+		("http://feedback-rating/feedback/create", request, responseType)
+		*/
+	}
 }

@@ -69,17 +69,16 @@ public class UserProfileControllerTest {
 	//	UserProfileController fixture = new UserProfileController();
 		String userName = "";
 		String amount = "";
-		List<User> users = new ArrayList<User>();
+		Long userId=10L;
+
 		User user = new User();
 		user.setFirstName("abc");
 		user.setLastName("xyz");
 		user.setBalance(1000);
-		users.add(user);
 		
-		Mockito.when(userMockRepo.findByUserName(Mockito.isA(String.class))).thenReturn(users);
 		Mockito.when(userMockRepo.save(Mockito.isA(User.class))).thenReturn(user);
 		
-		/*when(userMockRepo.findByUserName(userName)).thenReturn(users);*/
+		when(userMockRepo.findOne(userId)).thenReturn(user);
 		
 		User result = userMockController.credit(10L,"510");
 		assertNotNull(result);
@@ -91,18 +90,15 @@ public class UserProfileControllerTest {
 		//UserProfileController fixture = new UserProfileController();
 		String userName = "";
 		String amount = "";
-		List<User> users = new ArrayList<User>();
 		User user = new User();
 		user.setFirstName("bcd");
 		user.setLastName("uvw");
 		user.setBalance(300);
-		users.add(user);
 		
-		Mockito.when(userMockRepo.findByUserName(Mockito.isA(String.class))).thenReturn(users);
 		Mockito.when(userMockRepo.save(Mockito.isA(User.class))).thenReturn(user);
 		
 		
-		//when(userMockRepo.findByUserName(userName)).thenReturn(users);
+		when(userMockRepo.findOne(10L)).thenReturn(user);
 		
 		User result = userMockController.debit(10L, "100");
 		

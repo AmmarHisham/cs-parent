@@ -12,7 +12,7 @@
 		<groupId>org.capgemini</groupId>
 		<artifactId>cs-parent</artifactId>
 		<version>0.1.0</version>
-	</parent> 
+	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -71,12 +71,20 @@
 			<artifactId>gson</artifactId>
 		</dependency>
 
-		<dependency>
+		 <dependency>
 			<groupId>com.cg</groupId>
 			<artifactId>pojos</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<type>jar</type>
-		</dependency>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>
+						spring-boot-starter-data-mongodb
+					</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency> 
 	</dependencies>
 
 	<build>
