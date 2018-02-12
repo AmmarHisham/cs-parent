@@ -51,8 +51,4 @@ public class EmptyProductCartServiceTest {
 	
 		assertEquals("Failed", emptyCart);
 	}
-	
-	
-	
-	
 }
