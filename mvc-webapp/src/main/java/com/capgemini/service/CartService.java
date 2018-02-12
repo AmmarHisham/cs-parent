@@ -1,24 +1,21 @@
 package com.capgemini.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.capgemini.bean.GiftCard;
-import com.capgemini.bean.Order;
 import com.capgemini.bean.OrderEntity;
 import com.capgemini.serviceimpl.UserCartModel;
+import com.cg.catalog.GiftCardCatalog;
+import com.cg.feedback.CustomerFeedback;
+import com.cg.userprofile.User;
 
-/**
- * @author dimehta
- *
- */
 public interface CartService {
 
 	
-	public String addToCart(String productId, String userId);
-	public void deleteFromCart(String productId, String userId);
-	public UserCartModel getCardDetails(String userId);
-	public void emptyCart(String userId);
+	public String addToCart(String productName, Long long1);
+	public void deleteFromCart(String productId, Long userId);
+	public UserCartModel getCardDetails(Long userId);
+	public void emptyCart(Long userId);
 
 	public List<OrderEntity> getAllOrder(String userId);
 	/*public ProductList searchProduct(String key);*/
@@ -26,8 +23,13 @@ public interface CartService {
 	UserCartModel setProductPrice(UserCartModel user);
 	//public void debitGiftCard(User user);
 	//void creditGiftCard(String firstName, int balance);
-	public GiftCard addUserGiftCard(GiftCard giftCard);
-	public GiftCard getUserGiftCard(String name);
+	public void addUserGiftCard(GiftCardCatalog giftCard);
+	public GiftCard getUserGiftCard(Long long1);
+	public List<GiftCardCatalog> getAllGiftCards();
+	public void creditGiftCard(Long id, String value);
+	public User getUserInfo(Long userId);
+	public void debitGiftCard(Long id, String value);
+	List<CustomerFeedback> productFeedback(String productId);
 	
 	
 	

@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/main.css}" />
 </head>
 <body>
-	<th:block th:include="/UserHeader"></th:block>
+	<th:block th:include="UserHeader"></th:block>
 	<br/><br/><br/>
 	<section>
 		<div class="container">
@@ -55,7 +55,7 @@
 					</div>
 				</div>
 				<div class="logo pull-right">
-					<a th:href="@{/clearcart}+'?name='+ ${name}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Clear the Cart</a>
+					<a th:href="@{/clearcart}+'?name='+ ${userId}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Clear the Cart</a>
 				</div>
 				<table width="600" align="center" border="4">
 					<tr>
@@ -81,6 +81,6 @@
 		</div>
 	</section>
 	<br/><br/><br/>
-	<th:block th:include="/_footer"></th:block>
+	<th:block th:include="_footer"></th:block>
 </body>
 </html>

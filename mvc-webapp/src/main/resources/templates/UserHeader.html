@@ -22,13 +22,11 @@
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								<li><a href="/home1"><i class="fa fa-home"></i> Home</a></li>
-								<li><a href="/userinfo"><i class="fa fa-user"></i>
+								<li><a th:href="@{/userinfo} + '?userId='+ ${userId}"><i class="fa fa-user"></i>
 										Account</a></li>
-								<li><a href="/giftCard"><i class="fa fa-star"></i>
-										GiftCard</a></li>
 								<li><a href="/userOrder"><i class="fa fa-crosshairs"></i>
 										Order History</a></li>
-								<li><a th:href="@{/getcart} + '?id='+ ${name}"><i class="fa fa-shopping-cart"></i>
+								<li><a th:href="@{/getcart} + '?id='+ ${userId}"><i class="fa fa-shopping-cart"></i>
 										Cart</a></li>
 								<li><i class="fa fa-user"></i>
 										<div class="dropdown">

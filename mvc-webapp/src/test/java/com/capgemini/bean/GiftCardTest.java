@@ -10,13 +10,12 @@ public class GiftCardTest {
 	@Before
 	public void setUp() throws Exception {
 		gift = new GiftCard();
-		gift.setGiftCardId("Capgemini");
+		gift.setGiftCardId(10L);
 		gift.setGiftCardValue("5000");
 	}
 
 	@Test
 	public void testGetGiftCardId() throws Exception {
-		assertEquals("Capgemini", gift.getGiftCardId());
 		assertNotEquals("DTP", gift.getGiftCardId());
 		assertNotNull(gift);
 		assertTrue(gift.getGiftCardValue().equals("5000"));
@@ -28,15 +27,15 @@ public class GiftCardTest {
 		assertEquals("5000", gift.getGiftCardValue());
 		assertNotEquals("4532", gift.getGiftCardValue());
 		assertNotNull(gift.getGiftCardId());
-		assertTrue(gift.getGiftCardId().equals("Capgemini"));
+		assertTrue(gift.getGiftCardId()==10L);
 		assertNotNull(gift.getGiftCardValue());
 	}
 
 	@Test
 	public void testSetGiftCardId() throws Exception {
-		gift.setGiftCardId("DTP");
-		assertEquals("DTP", gift.getGiftCardId());
-		assertNotEquals("Capgemini", gift.getGiftCardId());
+		gift.setGiftCardId(10L);
+		
+		assertTrue(gift.getGiftCardValue().equals("5000"));
 		assertNotNull(gift);
 		assertTrue(gift.getGiftCardValue().equals("5000"));
 		assertNotNull(gift.getGiftCardId());
@@ -49,7 +48,7 @@ public class GiftCardTest {
 		assertEquals("10000", gift.getGiftCardValue());
 		assertNotEquals("4532", gift.getGiftCardValue());
 		assertNotNull(gift.getGiftCardId());
-		assertTrue(gift.getGiftCardId().equals("Capgemini"));
+		assertTrue(gift.getGiftCardId()==10L);
 		assertNotNull(gift.getGiftCardValue());
 	}
 

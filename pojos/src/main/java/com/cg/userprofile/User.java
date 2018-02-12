@@ -1,27 +1,30 @@
 package com.cg.userprofile;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
 	@Id
-	private long userId;
+	@GeneratedValue
+	private Long userId;
 	private String firstName;
 	private String lastName;
+	@Column(unique = true)
 	private String userName;
 	private String mobileNo;
 	private long balance;
 	private String role;
 
-	public long getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
@@ -93,5 +96,4 @@ public class User {
 		builder.append("]");
 		return builder.toString();
 	}
-
 }

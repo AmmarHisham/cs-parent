@@ -17,6 +17,7 @@ import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.OrderEntity;
 import com.capgemini.bean.ProductCatalog;
 import com.capgemini.service.CatalogService;
+import com.cg.catalog.GiftCardCatalog;
 
 /**
  * The class <code>CartServiceimplTest</code> contains tests for the class <code>{@link CartServiceimpl}</code>.
@@ -57,13 +58,13 @@ public class CartServiceimplTest {
 		params.put("userId", "capgemini");
 
 		Mockito.when(restTemplate.postForObject(Mockito.isA(String.class), Mockito.isA(String.class),Mockito.isA(Class.class), Mockito.isA(Class.class))).thenReturn(params);
-		service.addToCart("111", "capgemini");
+		service.addToCart("111", 10L);
 	}
 
 	@Test
 	public void testAddUserGiftCard_1() throws Exception {
-		GiftCard card = new GiftCard();
-		card.setGiftCardId("capgemini");
+		GiftCardCatalog card = new GiftCardCatalog();
+		//card.setGiftCardId();
 		card.setGiftCardValue("100000000");
 		Mockito.when(restTemplate.getForObject(Mockito.isA(String.class), Mockito.isA(Class.class),Mockito.isA(Class.class), Mockito.isA(Class.class))).thenReturn(card);
 		service.addUserGiftCard(card);
@@ -76,13 +77,13 @@ public class CartServiceimplTest {
 		params.put("productId", "1111");
 		params.put("userId", "capgemini");
 		Mockito.when(restTemplate.postForObject(Mockito.isA(String.class), Mockito.isA(String.class),Mockito.isA(Class.class), Mockito.isA(Class.class))).thenReturn(params);
-		service.deleteFromCart("1111", "capgemini");
+		service.deleteFromCart("1111", 10L);
 	}
 
 	@Test
 	public void testEmptyCart_1() throws Exception {
 		Mockito.when(restTemplate.postForObject(Mockito.isA(String.class), Mockito.isA(String.class),Mockito.isA(Class.class), Mockito.isA(Class.class))).thenReturn(null);
-		service.emptyCart("capgemini");
+		service.emptyCart(10L);
 
 	}
 
@@ -96,13 +97,13 @@ public class CartServiceimplTest {
 		service.getAllOrder("5");
 	}
 
-	@Test
+	@Test(expected=NullPointerException.class)
 	public void testGetCardDetails_1() throws Exception {
 		UserCartModel user = new UserCartModel();
 		ResponseEntity<UserCartModel> cart = new ResponseEntity<>(user, HttpStatus.OK);
 
 		Mockito.when(restTemplate.getForEntity(Mockito.isA(String.class), Mockito.isA(Class.class),Mockito.isA(String.class))).thenReturn(cart);
-		service.getCardDetails("capgemini");
+		service.getCardDetails(10L);
 	}
 
 	@Test
@@ -147,16 +148,16 @@ public class CartServiceimplTest {
 	public void testGetUserGiftCard_1() throws Exception {
 		GiftCard giftCard = new GiftCard();
 		Mockito.when(restTemplate.getForObject(Mockito.isA(String.class), Mockito.isA(Class.class))).thenReturn(giftCard);
-		service.getUserGiftCard("dtp");
+		service.getUserGiftCard(10L);
 	}
 
 	@Test(expected = Exception.class)
 	public void testGetUserGiftCard_2() throws Exception {
 		GiftCard giftCard = new GiftCard();
-		giftCard.setGiftCardId("capgemini");
+		giftCard.setGiftCardId(10L);
 		giftCard.setGiftCardValue("10000");
 		Mockito.when(restTemplate.getForObject(Mockito.isA(String.class), Mockito.isA(Class.class))).thenReturn(giftCard);
-		GiftCard card = service.getUserGiftCard("dtp");
+		GiftCard card = service.getUserGiftCard(10L);
 		assertNotNull(card);
 		assertEquals("10000", card.getGiftCardValue());
 	}

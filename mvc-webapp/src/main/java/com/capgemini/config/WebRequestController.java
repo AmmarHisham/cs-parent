@@ -2,17 +2,18 @@ package com.capgemini.config;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.capgemini.bean.AdminLogin;
 import com.capgemini.bean.ClickStream;
 import com.capgemini.bean.GiftCard;
@@ -21,17 +22,15 @@ import com.capgemini.bean.OrderEntity;
 import com.capgemini.bean.OrderStatus;
 import com.capgemini.bean.ProductCatalog;
 import com.capgemini.bean.ShippingBean;
-import com.capgemini.bean.UserBean;
 import com.capgemini.login.social.providers.LinkedInProvider;
 import com.capgemini.service.AdminService;
 import com.capgemini.serviceimpl.CartServiceimpl;
 import com.capgemini.serviceimpl.CatalogServiceImpl;
 import com.capgemini.serviceimpl.UserCartModel;
+import com.cg.catalog.GiftCardCatalog;
+import com.cg.feedback.CustomerFeedback;
+import com.cg.userprofile.User;
 
-/**
- * @author dimehta
- *
- */
 
 @Controller
 public class WebRequestController {
@@ -51,25 +50,23 @@ public class WebRequestController {
 
 	AdminLogin admin1 = new AdminLogin();
 
-	UserBean userBean = new UserBean();
-
-	@RequestMapping({"/","/home" })
+	@RequestMapping({ "/", "/home" })
 	public String homeBeforeLogin(ModelMap model) {
-		logger.info("Inside home 11  111 ");
+		
 		List<ProductCatalog> list = catalogService.getProduct();
 		model.addAttribute("catalog", list);
 		return "Home";
 	}
-	
+
 	@RequestMapping("/sar")
 	public String sar(ModelMap model) {
 		model.addAttribute("name", admin1.getUsername());
 		return "SAR";
 	}
-	
+
 	@RequestMapping("/sar1")
 	public String sarResponse(@RequestParam("userId") String userId, ModelMap model) {
-		ClickStream click=adminService.sar(userId);
+		ClickStream click = adminService.sar(userId);
 		model.addAttribute("sar", click);
 		model.addAttribute("name", admin1.getUsername());
 		return "SAR1";
@@ -79,62 +76,76 @@ public class WebRequestController {
 	public String homeAfterLogin(ModelMap model) {
 		List<ProductCatalog> list = catalogService.getProduct();
 		model.addAttribute("catalog", list);
-		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
+		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn().getFirstName());
+		model.addAttribute("userId", linkedInProvider.populateUserDetailsFromLinkedIn().getUserId());
 		return "index";
 	}
 
 	@RequestMapping(value = "/userinfo", method = RequestMethod.GET)
-	public String showOrderInfo(ModelMap model) {
-		UserBean bean = linkedInProvider.populateUserDetailsFromLinkedIn(userBean);
-		model.addAttribute("userinfo", bean);
+	public String showUserInfo(@RequestParam("userId") Long userId, ModelMap model) {
+		
+		User user=cartServiceimpl.getUserInfo(userId);
+		//User bean = linkedInProvider.populateUserDetailsFromLinkedIn();
+		model.addAttribute("userinfo", user);
+		User bean = linkedInProvider.populateUserDetailsFromLinkedIn();
 		model.addAttribute("name", bean.getFirstName());
+		model.addAttribute("userId", bean.getUserId());
 		return "UserInfo";
 	}
 
 	@RequestMapping(value = "/error", method = RequestMethod.GET)
 	public String error(ModelMap model) {
-		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
+		User bean = linkedInProvider.populateUserDetailsFromLinkedIn();
+		model.addAttribute("name", bean.getFirstName());
+		model.addAttribute("userId", bean.getUserId());
 		return "error";
 	}
-
 
 	@RequestMapping(value = "/userOrder", method = RequestMethod.GET)
 	public String userOrder(ModelMap model) {
 		List<OrderEntity> orderlist = cartServiceimpl.getAllOrder("5");
 		model.addAttribute("orderInfo", orderlist);
-		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
+		User bean = linkedInProvider.populateUserDetailsFromLinkedIn();
+		model.addAttribute("name", bean.getFirstName());
+		model.addAttribute("userId", bean.getUserId());
+		// model.addAttribute("name",
+		// linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "UserOrder";
 	}
 
 	@RequestMapping(value = "/giftCard", method = RequestMethod.GET)
 	public String showgiftCardInfo(ModelMap model) {
-		String name=linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName();
-		GiftCard gift=cartServiceimpl.getUserGiftCard(name);
-		model.addAttribute("name", name);
+
+		User bean = linkedInProvider.populateUserDetailsFromLinkedIn();
+		model.addAttribute("name", bean.getFirstName());
+		model.addAttribute("userId", bean.getUserId());
+		GiftCard gift = cartServiceimpl.getUserGiftCard(bean.getUserId());
 		model.addAttribute("giftcard", gift);
 		return "GiftCard";
 	}
 
 	@RequestMapping(value = "/addGiftCard", method = RequestMethod.GET)
 	public String addGiftCard(ModelMap model) {
-		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
+		List<GiftCardCatalog> giftCards=cartServiceimpl.getAllGiftCards();
+		model.addAttribute("giftcards",giftCards);
+		User bean = linkedInProvider.populateUserDetailsFromLinkedIn();
+		model.addAttribute("name", bean.getFirstName());
+		model.addAttribute("userId", bean.getUserId());
 		return "AddGiftCart";
 	}
-	
-	
+
 	@RequestMapping(value = "/addgiftcardresponse", method = RequestMethod.GET)
-	public String addGiftCardResponse(@RequestParam("id") String id, @RequestParam("value") String value, ModelMap model) {
-		GiftCard giftcard=new GiftCard();
-		giftcard.setGiftCardId(id);
-		giftcard.setGiftCardValue(value);
+	public String addGiftCardResponse(@RequestParam("userId") Long id, @RequestParam("price") String value,
+			ModelMap model) {
 		
-		cartServiceimpl.addUserGiftCard(giftcard);
+		cartServiceimpl.creditGiftCard(id,value);
 		
-		String name=linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName();
-		GiftCard gift=cartServiceimpl.getUserGiftCard(name);
-		model.addAttribute("name", name);
-		model.addAttribute("giftcard", gift);
-		return "GiftCard";
+		List<GiftCardCatalog> giftCards=cartServiceimpl.getAllGiftCards();
+		model.addAttribute("giftcards",giftCards);
+		User bean = linkedInProvider.populateUserDetailsFromLinkedIn();
+		model.addAttribute("name", bean.getFirstName());
+		model.addAttribute("userId", bean.getUserId());
+		return "AddGiftCart";
 	}
 
 	@RequestMapping(value = "/addProduct", method = RequestMethod.GET)
@@ -143,7 +154,6 @@ public class WebRequestController {
 		return "addProduct";
 	}
 
-
 	@RequestMapping(value = "/orderList", method = RequestMethod.GET)
 	public String showAdminOrderPage(ModelMap model) {
 		List<OrderEntity> productlist = adminService.getAllOrder();
@@ -151,20 +161,20 @@ public class WebRequestController {
 		model.addAttribute("name", admin1.getUsername());
 		return "AdminOrderList";
 	}
-	
+
 	@RequestMapping(value = "/updateorderList", method = RequestMethod.GET)
 	public String updateOrder(@RequestParam("orderId") String orderId, @RequestParam("userId") String user,
 			@RequestParam("productId") String productId, @RequestParam("productName") String productName,
 			@RequestParam("price") String price, @RequestParam("quantity") String quantity, ModelMap model) {
-		OrderDetailsEntity orddetails=new OrderDetailsEntity();
+		OrderDetailsEntity orddetails = new OrderDetailsEntity();
 		orddetails.setPrice(Integer.parseInt(price));
 		orddetails.setProductId(Long.parseLong(productId));
 		orddetails.setQuantity(Integer.parseInt(quantity));
 		orddetails.setProductName(productName);
 		orddetails.setId(Long.parseLong("5"));
-		List<OrderDetailsEntity> orddetailslist=new ArrayList<OrderDetailsEntity>();
+		List<OrderDetailsEntity> orddetailslist = new ArrayList<OrderDetailsEntity>();
 		orddetailslist.add(orddetails);
-		OrderEntity ord=new OrderEntity();
+		OrderEntity ord = new OrderEntity();
 		ord.setOrderDetails(orddetailslist);
 		ord.setOrderId(Long.parseLong(orderId));
 		ord.setUserId(Long.parseLong(user));
@@ -194,55 +204,48 @@ public class WebRequestController {
 		model.addAttribute("pid", productid);
 		model.addAttribute("qua", quantity);
 		model.addAttribute("price", price);
-		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
+		
+		User bean = linkedInProvider.populateUserDetailsFromLinkedIn();
+		model.addAttribute("name", bean.getFirstName());
+		model.addAttribute("userId", bean.getUserId());
+		
 		return "checkout";
 	}
 
 	@RequestMapping(value = "/checkoutcomplete", method = RequestMethod.GET)
 	public String showCheckoutCompletePage(@ModelAttribute ShippingBean address, ModelMap model) {
 		address.setPrice(address.getPrice() * address.getQua());
+		User bean = linkedInProvider.populateUserDetailsFromLinkedIn();
+		model.addAttribute("name", bean.getFirstName());
+		model.addAttribute("userId", bean.getUserId());
 		model.addAttribute("checkout", address);
-		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "CheckoutConfirm";
 	}
 
 	@RequestMapping(value = "/payment", method = RequestMethod.GET)
-	public String payment(@RequestParam("uid") String userId, @RequestParam("pid") String pId, Model model) {
-		// cartServiceimpl.debitGiftCard(user);
-		cartServiceimpl.deleteFromCart(pId, userId);
+	public String payment(@RequestParam("uid") Long userId, @RequestParam("pid") String pId, 
+			              @RequestParam("qua") Long quantity, @RequestParam("price") String price, Model model) {
+		User user=cartServiceimpl.getUserInfo(userId);
+		if(Long.valueOf(price) <= user.getBalance())
+		{
+			cartServiceimpl.deleteFromCart(pId, userId);
+			cartServiceimpl.debitGiftCard(userId, price);
+			model.addAttribute("message", "Successfully added to the cart");
+		}
+		else
+		{
+			model.addAttribute("message", "Low Balance!! Add some GiftCards.. Thank You");
+		}
+		model.addAttribute("name", user.getFirstName());
+		model.addAttribute("userId", user.getUserId());
 		List<ProductCatalog> cat = catalogService.getProduct();
-		/*
-		 * OrderDetailsEntity orddetails=new OrderDetailsEntity();
-		orddetails.setPrice(Integer.parseInt(price));
-		orddetails.setProductId(Long.parseLong(productId));
-		orddetails.setQuantity(Integer.parseInt(quantity));
-		orddetails.setProductName(productName);
-		orddetails.setId(Long.parseLong("5"));
-		List<OrderDetailsEntity> orddetailslist=new ArrayList<OrderDetailsEntity>();
-		orddetailslist.add(orddetails);
-		OrderEntity ord=new OrderEntity();
-		ord.setOrderDetails(orddetailslist);
-		ord.setOrderId(Long.parseLong(orderId));
-		ord.setUserId(Long.parseLong(user));
-		OrderStatus ok = OrderStatus.valueOf("delivered");
-		ord.setStatus(ok);
-		adminService.updateOrder(ord);
-		 */
 		model.addAttribute("catalog", cat);
-		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
 		return "index";
 	}
 
-	/*
-	 * @RequestMapping(value = "/creditGiftcard", method = RequestMethod.GET) public
-	 * String creditGiftcard(@ModelAttribute ShippingBean proDetail, Model model) {
-	 * cartServiceimpl.creditGiftCard(proDetail.getUid(), proDetail.getPrice());
-	 * deleteFromCart(proDetail.getPid(), model); return null; }
-	 */
-
 	@RequestMapping(value = "/linkedin", method = RequestMethod.GET)
 	public String linkedInUserInfo(Model model) {
-		return linkedInProvider.getLinkedInUserData(model, new UserBean());
+		return linkedInProvider.getLinkedInUserData(model);
 	}
 
 	@RequestMapping(value = "/loginauth", method = RequestMethod.GET)
@@ -252,17 +255,20 @@ public class WebRequestController {
 
 	@RequestMapping(value = "/addtocart", method = RequestMethod.GET)
 	public String addToCart(@RequestParam("id") String productId, Model model) {
-		String userId = linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName();
-		cartServiceimpl.addToCart(productId, userId);
-		model.addAttribute("name", userId);
+		User bean = linkedInProvider.populateUserDetailsFromLinkedIn();
+		model.addAttribute("name", bean.getFirstName());
+		model.addAttribute("userId", bean.getUserId());
+		cartServiceimpl.addToCart(productId, bean.getUserId());
 		List<ProductCatalog> list = catalogService.getProduct();
 		model.addAttribute("catalog", list);
 		return "index";
 	}
 
 	@RequestMapping(value = "/getcart", method = RequestMethod.GET)
-	public String getCardDetails(@RequestParam("id") String userId, Model model) {
-		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
+	public String getCardDetails(@RequestParam("id") Long userId, Model model) {
+		User bean = linkedInProvider.populateUserDetailsFromLinkedIn();
+		model.addAttribute("name", bean.getFirstName());
+		model.addAttribute("userId", bean.getUserId());
 		UserCartModel UserCartModel = cartServiceimpl.setProductPrice(cartServiceimpl.getCardDetails(userId));
 		model.addAttribute("UserCartModel", UserCartModel);
 		return "UserCart";
@@ -270,18 +276,21 @@ public class WebRequestController {
 
 	@RequestMapping(value = "/deletefromcart", method = RequestMethod.GET)
 	public String deleteFromCart(@RequestParam("id") String productId, Model model) {
-		String userId = linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName();
-		cartServiceimpl.deleteFromCart(productId, userId);
-		model.addAttribute("name", userId);
-		UserCartModel UserCartModel = cartServiceimpl.setProductPrice(cartServiceimpl.getCardDetails(userId));
+		User bean = linkedInProvider.populateUserDetailsFromLinkedIn();
+		model.addAttribute("name", bean.getFirstName());
+		model.addAttribute("userId", bean.getUserId());
+		cartServiceimpl.deleteFromCart(productId, bean.getUserId());
+		UserCartModel UserCartModel = cartServiceimpl.setProductPrice(cartServiceimpl.getCardDetails(bean.getUserId()));
 		model.addAttribute("UserCartModel", UserCartModel);
 		return "UserCart";
 	}
 
 	@RequestMapping(value = "/clearcart", method = RequestMethod.GET)
-	public String clearCart(@RequestParam("name") String userId, Model model) {
+	public String clearCart(@RequestParam("name") Long userId, Model model) {
 		cartServiceimpl.emptyCart(userId);
-		model.addAttribute("name", userId);
+		User bean = linkedInProvider.populateUserDetailsFromLinkedIn();
+		model.addAttribute("name", bean.getFirstName());
+		model.addAttribute("userId", bean.getUserId());
 		UserCartModel UserCartModel = cartServiceimpl.getCardDetails(userId);
 		model.addAttribute("UserCartModel", UserCartModel);
 		return "UserCart";
@@ -324,12 +333,13 @@ public class WebRequestController {
 		return validate;
 	}
 
-	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String searchAfterLogin(@RequestParam("key") String key, ModelMap model) {
 		List<ProductCatalog> list = catalogService.searchProduct(key);
 		model.addAttribute("catalog", list);
-		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
+		User bean = linkedInProvider.populateUserDetailsFromLinkedIn();
+		model.addAttribute("name", bean.getFirstName());
+		model.addAttribute("userId", bean.getUserId());
 		return "index";
 	}
 
@@ -351,13 +361,20 @@ public class WebRequestController {
 	public String categoryAfterLogin(@RequestParam("type") String key, ModelMap model) {
 		List<ProductCatalog> list = catalogService.categorySearch(key);
 		model.addAttribute("catalog", list);
-		model.addAttribute("name", linkedInProvider.populateUserDetailsFromLinkedIn(userBean).getFirstName());
+		User bean = linkedInProvider.populateUserDetailsFromLinkedIn();
+		model.addAttribute("name", bean.getFirstName());
+		model.addAttribute("userId", bean.getUserId());
 		return "index";
 	}
-
-	@GetMapping("/test")
-	public String test()
+	
+	@RequestMapping(value="/product", method=RequestMethod.GET)
+	public String productDetails(@RequestParam("productId") String productId, @RequestParam("price") String price,
+			                     @RequestParam("productName") String productName, ModelMap model)
 	{
-		return "Hi";
+		System.err.println("*******"+productId);
+		List<CustomerFeedback> list=cartServiceimpl.productFeedback(productId);
+		model.addAttribute("productFeedbacks",list);
+		return "ProductDetails";
 	}
+
 }

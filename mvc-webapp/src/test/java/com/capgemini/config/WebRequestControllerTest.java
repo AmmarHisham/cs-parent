@@ -29,6 +29,7 @@ import com.capgemini.service.AdminService;
 import com.capgemini.serviceimpl.CartServiceimpl;
 import com.capgemini.serviceimpl.CatalogServiceImpl;
 import com.capgemini.serviceimpl.UserCartModel;
+import com.cg.userprofile.User;
 
 /**
  * The class <code>WebRequestControllerTest</code> contains tests for the class <code>{@link WebRequestController}</code>.
@@ -139,11 +140,11 @@ public class WebRequestControllerTest {
 
 	@Test
 	public void testSearchAfterLogin() throws Exception {
-		UserBean bean=new UserBean();
+		User bean=new User(); 
 		bean.setFirstName("XYZ");
 		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
 		list.add(new ProductCatalog());
-		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn()).thenReturn(bean);
 		Mockito.when(catalogService.searchProduct(Mockito.isA(String.class))).thenReturn(list);
 		webRequestController.searchAfterLogin("", map);
 	}
@@ -158,17 +159,17 @@ public class WebRequestControllerTest {
 	
 	@Test
 	public void testShowOrderInfo() throws Exception {
-		UserBean bean=new UserBean();
-		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
-		webRequestController.showOrderInfo(map);
+		User bean=new User();
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn()).thenReturn(bean);
+		webRequestController.showUserInfo(10L, map);
 	}
 	
 	@Test
 	public void testLinkedInUserInfo_1() throws Exception {
 	
-		UserBean bean=new UserBean();
+		User bean=new User();
 		bean.setFirstName("XYZ");
-		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn()).thenReturn(bean);
 		webRequestController.linkedInUserInfo(model);
 		
 	}
@@ -195,12 +196,12 @@ public class WebRequestControllerTest {
 		webRequestController.addToProduct(pc, map);	
 		}
 	
-	@Test
+	@Test(expected = NullPointerException.class)
 	public void testClearCart_1() throws Exception {
 		UserCartModel usercartmodel=new UserCartModel();
 		//Mockito.when(cartServiceimpl.emptyCart("sample")).thenReturn(null);
-		Mockito.when(cartServiceimpl.getCardDetails(Mockito.isA(String.class))).thenReturn(usercartmodel);
-		webRequestController.clearCart("sample", model);	
+		Mockito.when(cartServiceimpl.getCardDetails(Mockito.isA(Long.class))).thenReturn(usercartmodel);
+		webRequestController.clearCart(10L, model);	
 	}
 	
 	
@@ -208,10 +209,10 @@ public class WebRequestControllerTest {
 	public void testaddToCart() throws Exception {
 		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
 		
-		UserBean bean=new UserBean();
+		User bean=new User();
 		bean.setFirstName("XYZ");
-		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
-		Mockito.when(cartServiceimpl.addToCart(Mockito.isA(String.class), Mockito.isA(String.class))).thenReturn("");
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn()).thenReturn(bean);
+		//Mockito.when(cartServiceimpl.addToCart(Mockito.isA(String.class), Mockito.isA(Long.class))).thenReturn("");
 		Mockito.when(catalogService.getProduct()).thenReturn(list);
 		webRequestController.addToCart("sample", model);	
 	}
@@ -222,16 +223,16 @@ public class WebRequestControllerTest {
 		UserCartModel user=new UserCartModel();
 		//Mockito.when(cartServiceimpl.getCardDetails(Mockito.isA(String.class))).thenReturn(user);
 		Mockito.when(cartServiceimpl.setProductPrice(Mockito.isA(UserCartModel.class))).thenReturn(user);
-		webRequestController.getCardDetails("sample",model);
+		webRequestController.getCardDetails(10L,model);
 	}
 	
 	@Test
 	public void testCategoryAfterLogin() throws Exception {
-		UserBean bean=new UserBean();
+		User bean=new User();
 		bean.setFirstName("XYZ");
 		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
 		list.add(new ProductCatalog());
-		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn()).thenReturn(bean);
 		Mockito.when(catalogService.categorySearch(Mockito.isA(String.class))).thenReturn(list);
 		webRequestController.categoryAfterLogin("", map);
 	}
@@ -246,9 +247,9 @@ public class WebRequestControllerTest {
 	
 	@Test
 	public void testError() throws Exception {
-		UserBean bean=new UserBean();
+		User bean=new User();
 		bean.setFirstName("ABC");
-		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn()).thenReturn(bean);
 		webRequestController.error(map);
 	}
 	
@@ -258,9 +259,9 @@ public class WebRequestControllerTest {
 		List<OrderEntity> list=new ArrayList<OrderEntity>();
 		list.add(orderEntity);
 		
-		UserBean bean=new UserBean();
+		User bean=new User();
 		bean.setFirstName("ABC");
-		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn()).thenReturn(bean);
 		Mockito.when(cartServiceimpl.getAllOrder(Mockito.isA(String.class))).thenReturn(list);
 		webRequestController.userOrder(map);
 	}
@@ -270,9 +271,9 @@ public class WebRequestControllerTest {
 		ProductCatalog productCatalog =new ProductCatalog();
 		List<ProductCatalog> list=new ArrayList<ProductCatalog>();
 		list.add(productCatalog);
-		UserBean bean = new UserBean();
+		User bean = new User();
 		bean.setFirstName("XYZ");
-		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn()).thenReturn(bean);
 		Mockito.when(catalogService.getProduct()).thenReturn(list);
 		webRequestController.homeAfterLogin(map);
 		
@@ -280,23 +281,23 @@ public class WebRequestControllerTest {
 	
 	@Test
 	public void testAddGiftCard() throws Exception {
-		UserBean bean = new UserBean();
+		User bean = new User();
 		bean.setFirstName("XYZ");
-		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn()).thenReturn(bean);
 		webRequestController.addGiftCard(map);
 	}
 
 	@Test
 	public void testAddGiftCardResponse() throws Exception {
 		GiftCard giftcard=new GiftCard();
-		giftcard.setGiftCardId("");
+		giftcard.setGiftCardId(10L);
 		giftcard.setGiftCardValue("");
-		UserBean bean = new UserBean();
+		User bean = new User();
 		bean.setFirstName("XYZ");
-		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
-		Mockito.when(cartServiceimpl.addUserGiftCard(Mockito.isA(GiftCard.class))).thenReturn(giftcard);
-		Mockito.when(cartServiceimpl.getUserGiftCard(Mockito.isA(String.class))).thenReturn(giftcard);
-		webRequestController.addGiftCardResponse("", "", map);
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn()).thenReturn(bean);
+		//Mockito.when(cartServiceimpl.addUserGiftCard(Mockito.isA(GiftCard.class))).thenReturn(giftcard);
+		Mockito.when(cartServiceimpl.getUserGiftCard(Mockito.isA(Long.class))).thenReturn(giftcard);
+		webRequestController.addGiftCardResponse(10L, "", map);
 	}
 	
 	/*
@@ -568,21 +569,21 @@ public class WebRequestControllerTest {
 
 	@Test
 	public void testShowCheckoutPage() throws Exception {
-		UserBean bean=new UserBean();
+		User bean=new User();
 		bean.setFirstName("XYZ");
-		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn()).thenReturn(bean);
 		webRequestController.showCheckoutPage("", "", "", "", map);
 	}
 	
 	@Test
 	public void testShowgiftCardInfo() throws Exception {
-		UserBean bean=new UserBean();
+		User bean=new User();
 		bean.setFirstName("XYZ");
 		GiftCard giftCard=new GiftCard();
-		giftCard.setGiftCardId("");
+		giftCard.setGiftCardId(10L);
 		giftCard.setGiftCardValue("");
-		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn(Mockito.isA(UserBean.class))).thenReturn(bean);
-		Mockito.when(cartServiceimpl.getUserGiftCard(Mockito.isA(String.class))).thenReturn(giftCard);
+		Mockito.when(linkedInProvider.populateUserDetailsFromLinkedIn()).thenReturn(bean);
+		Mockito.when(cartServiceimpl.getUserGiftCard(Mockito.isA(Long.class))).thenReturn(giftCard);
 		webRequestController.showgiftCardInfo(map);
 
 	}

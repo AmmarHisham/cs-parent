@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/main.css}" />
 </head>
 <body>
-	<th:block th:include="/AdminHeader"></th:block>
+	<th:block th:include="AdminHeader"></th:block>
 	<form action="/addtoproduct" method="post">
 		<table align="center" width="600" height="150">
 			<tr>
@@ -38,6 +38,6 @@
 		</table>
 	</form>
 	<br/><br/><br/><br/><br/><br/><br/><br/>
-	<th:block th:include="/_footer"></th:block>
+	<th:block th:include="_footer"></th:block>
 </body>
 </html>

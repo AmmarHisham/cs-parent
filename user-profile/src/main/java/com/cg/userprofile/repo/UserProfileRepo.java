@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.cg.userprofile.User;
 
+
 public interface UserProfileRepo extends JpaRepository<User, Long> {
 
 	/*

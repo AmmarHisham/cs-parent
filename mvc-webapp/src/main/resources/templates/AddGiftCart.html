@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/main.css}" />
 </head>
 <body>
-	<th:block th:include="/UserHeader"></th:block>
+	<th:block th:include="UserHeader"></th:block>
 	<br/><br/><br/><br/><br/><br/><br/>
 	<section>
 		<div class="container">
@@ -55,17 +55,21 @@
 					</div>
 				</div>
 				<br/><br/>
-				<form action="/addgiftcardresponse">
-				<table width="600" height="120" align="center">
-					<tr><th>GiftCard ID</th><th><input type="text" name="id" readonly="readonly" th:value="${name}"/></th></tr>
-					<tr><th>GiftCard Value</th><th><input type="text" name="value" placeholder="Enter the Value"/></th></tr>
-					<tr><th></th><th><input type="reset" value="Refresh"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Save"/></th></tr>
+				
+				<table width="400" >
+				<tr><th>Gift Card ID</th><th>Gift Card Value</th></tr>
+				<tr th:each="giftcard : ${giftcards}">
+						<td align="left"><span th:utext="${giftcard.giftCardId}"></span></td>
+						<td align="left"><span th:utext="${giftcard.giftCardValue}"></span></td>
+						<td align="center"><a class="cart_quantity_delete" th:href="@{addgiftcardresponse(userId=${userId},price=${giftcard.giftCardValue})}"><img th:src="@{images/tick.png}" width="10" height="10" alt="tick"></img></a></td>
+					</tr>
 				</table>
-				</form>
+				
+				
 			</div>
 		</div>
 	</section>
 	<br/><br/><br/><br/><br/>
-	<th:block th:include="/_footer"></th:block>
+	<th:block th:include="_footer"></th:block>
 </body>
 </html>

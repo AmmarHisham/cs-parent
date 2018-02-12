@@ -1,20 +1,23 @@
 package com.capgemini.login.social.providers;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.linkedin.api.LinkedIn;
 import org.springframework.social.linkedin.api.LinkedInProfileFull;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.client.RestTemplate;
 
-
+import com.capgemini.bean.GiftCard;
 import com.capgemini.bean.ProductCatalog;
-import com.capgemini.bean.UserBean;
+import com.capgemini.constant.URLConstants;
 import com.capgemini.serviceimpl.CartServiceimpl;
 import com.capgemini.serviceimpl.CatalogServiceImpl;
+import com.cg.userprofile.User;
 
 /**
  * @author dimehta
@@ -32,36 +35,50 @@ public class LinkedInProvider {
 	@Autowired
 	public CartServiceimpl cartServiceimpl;
 	@Autowired
-    public CatalogServiceImpl catalogService;
-	
-	
-	UserBean userBean=new UserBean();
-	
+	public CatalogServiceImpl catalogService;
 
-	
-	public String getLinkedInUserData(Model model, UserBean userForm) {
+	@Autowired
+	RestTemplate restTemplate;
+
+	public String getLinkedInUserData(Model model) {
 
 		ConnectionRepository connectionRepository = socialLoginBean.getConnectionRepository();
 		if (connectionRepository.findPrimaryConnection(LinkedIn.class) == null) {
 			return REDIRECT_LOGIN;
 		}
-		populateUserDetailsFromLinkedIn(userForm);
-		List<ProductCatalog> list=catalogService.getProduct();
+		User user = populateUserDetailsFromLinkedIn();
+		List<ProductCatalog> list = catalogService.getProduct();
 		model.addAttribute("catalog", list);
-		model.addAttribute("name", userForm.getFirstName());
+		model.addAttribute("name", user.getFirstName());
+		model.addAttribute("userId", user.getUserId());
 		return "index";
 	}
 
-	public UserBean populateUserDetailsFromLinkedIn(UserBean userForm) {
+	public User populateUserDetailsFromLinkedIn() {
 		LinkedIn linkedIn = socialLoginBean.getLinkedIn();
 		LinkedInProfileFull linkedInUser = linkedIn.profileOperations().getUserProfileFull();
-		userForm.setEmail(linkedInUser.getEmailAddress());
-		userForm.setFirstName(linkedInUser.getFirstName());
-		userForm.setLastName(linkedInUser.getLastName());
-		userForm.setProvider(LINKED_IN);
-		return userForm;
-	} 
-
+		User user = new User();
+		user.setUserName(linkedInUser.getEmailAddress());
+		user.setFirstName(linkedInUser.getFirstName());
+		user.setLastName(linkedInUser.getLastName());
 		
+		List<User> list = restTemplate
+				.exchange("http://user-profile/users/findbyusername?userName=" + user.getUserName(), HttpMethod.GET,
+						null, new ParameterizedTypeReference<List<User>>() {
+						})
+				.getBody();
+		if (list.isEmpty()) {
+			GiftCard gift=new GiftCard();
+			gift.setGiftCardId(user.getUserId());
+			gift.setGiftCardValue("10000");
+			user.setBalance(10000L);
+			user = restTemplate.postForObject("http://user-profile/users/add", user, User.class);
+		} else {
+			user.setUserId(list.get(0).getUserId());
+			System.err.println("*******"+user.getBalance());
+			
+		}
+		return user;
+	}
 
 }

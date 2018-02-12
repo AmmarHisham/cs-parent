@@ -1,16 +1,18 @@
 package com.capgemini.bean;
 
-public class GiftCard {
+import java.io.Serializable;
+
+public class GiftCard implements Serializable{
 	
-	private String giftCardId;
+	private Long giftCardId;
 	private String giftCardValue;
 	
 
-	public String getGiftCardId() {
+	public Long getGiftCardId() {
 		return giftCardId;
 	}
 
-	public void setGiftCardId(String giftCardId) {
+	public void setGiftCardId(Long giftCardId) {
 		this.giftCardId = giftCardId;
 	}
 

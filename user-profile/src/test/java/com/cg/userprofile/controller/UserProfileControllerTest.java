@@ -81,7 +81,7 @@ public class UserProfileControllerTest {
 		
 		/*when(userMockRepo.findByUserName(userName)).thenReturn(users);*/
 		
-		User result = userMockController.credit("abcd","510");
+		User result = userMockController.credit(10L,"510");
 		assertNotNull(result);
 	}
 
@@ -104,7 +104,7 @@ public class UserProfileControllerTest {
 		
 		//when(userMockRepo.findByUserName(userName)).thenReturn(users);
 		
-		User result = userMockController.debit("efgh", "100");
+		User result = userMockController.debit(10L, "100");
 		
 		assertNotNull(result);
 	}

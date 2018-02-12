@@ -8,13 +8,6 @@ import java.net.URI;
  */
 public class URLConstants {
 
-	
-
-	
-	
-	
-
-	
 	/*public static final String GET_CART = "http://10.246.17.174:1003/cart/detail?userId={userId}";
 	public static final String ADD_TO_CART = "http://10.246.17.174:1003/cart/add?userId={userId}&productId={productId}&quantity=1";
 	public static final String DELETE_FROM_CART = "http://10.246.17.174:1003/cart/deleteProduct?userId={userId}&productId={productId}";
@@ -29,7 +22,6 @@ public class URLConstants {
 	public static final String CREDIT_GIFTCARD = "http://10.77.116.23:9090/add?productId= {productId}&productName={productName}&productPrice{productPrice}";*/
 
 	public static final String DEBIT_GIFTCARD = "http://user-profile/users/debit?userId={userId}Vamshi&amount={price}";
-	public static final String CREDIT_GIFTCARD = "http://catalog-mgmt/add?productId= {productId}&productName={productName}&productPrice{productPrice}";
 
 /*	public static final String ADD_TO_PRODUCT = "http://10.77.116.23:9090/add";
 	public static final String UPDATE_PRODUCT = "http://10.77.116.23:9090/update";*/

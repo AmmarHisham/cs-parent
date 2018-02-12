@@ -58,6 +58,10 @@
 				<table height="210" width="500" align="center">
 				<tr></tr><tr></tr><tr></tr>
 					<tr>
+						<th>User Id</th><th>:</th>
+						<th th:utext="${userinfo.userId}"></th>
+					</tr>
+					<tr>
 						<th>First Name</th><th>:</th>
 						<th th:utext="${userinfo.firstName}"></th>
 					</tr>
@@ -66,12 +70,16 @@
 						<th th:utext="${userinfo.lastName}"></th>
 					</tr>
 					<tr>
-						<th>Email Id</th><th>:</th>
-						<th th:utext="${userinfo.email}"></th>
+						<th>Email</th><th>:</th>
+						<th th:utext="${userinfo.userName}"></th>
 					</tr>
 					<tr>
-						<th>Provider</th><th>:</th>
-						<th th:utext="${userinfo.provider}"></th>
+						<th>Balance</th><th>:</th>
+						<th th:utext="${userinfo.balance}"></th>
+						<th>
+						<div class="logo pull-right">
+						<a href="/addGiftCard" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add Gift Card</a>
+						</div></th>
 					</tr>
 				</table>
 			</div>
