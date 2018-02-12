@@ -30,11 +30,7 @@
 		</dependency>
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-security</artifactId> 
 			</dependency> -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional>
-		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -48,8 +44,29 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- <dependency> <groupId>com.capgemini</groupId> <artifactId>pojos</artifactId> 
-			<version>${project.version}</version> </dependency> -->
+		<dependency>
+			<groupId>com.cg</groupId>
+			<artifactId>pojos</artifactId>
+			<version>${project.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-web</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-data-mongodb</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-data-jpa</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.datastax.cassandra</groupId>
+					<artifactId>cassandra-driver-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<!-- Auth dependency -->
 		<dependency>
 			<groupId>org.springframework.social</groupId>
@@ -62,26 +79,22 @@
 		<dependency>
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-core</artifactId>
-		</dependency>
-	</dependencies>
+		</dependency>	</dependencies>
 
-	 <build>
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-				<archive>
-					<mainfest>
-						<mainClass>com.capgemini.config.OnlineShopingApplication</mainClass>
-					</mainfest>
-				</archive>
-			</configuration>
+					<archive>
+						<mainfest>
+							<mainClass>com.capgemini.config.OnlineShopingApplication</mainClass>
+						</mainfest>
+					</archive>
+				</configuration>
 			</plugin>
 		</plugins>
-	</build> 
-	
-	
-
+	</build>
 
 </project>

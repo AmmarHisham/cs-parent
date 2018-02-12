@@ -2,19 +2,14 @@ package com.cg.feedback;
 
 import java.util.UUID;
 
-import org.springframework.data.cassandra.mapping.PrimaryKey;
-import org.springframework.data.cassandra.mapping.Table;
-
-@Table("feedback")
 public class CustomerFeedback {
 
-	@PrimaryKey
 	private UUID id;
 
 	private String userId;
-	
+
 	private String productId;
-	
+
 	private String feedback;
 
 	private String rating;
@@ -26,6 +21,7 @@ public class CustomerFeedback {
 	public void setId(UUID id) {
 		this.id = id;
 	}
+
 	public String getUserId() {
 		return userId;
 	}
