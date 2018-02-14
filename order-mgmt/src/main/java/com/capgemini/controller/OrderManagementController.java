@@ -50,17 +50,17 @@ public class OrderManagementController {
 
 	@GetMapping(value = "byuserid", params = { "userid" })
 	public List<OrderEntity> getOrdersByUserId(@RequestParam(value = "userid", required = true) String userId) {
-		return orderService.getOrdersByUserId(Long.parseLong(userId));
+		return orderService.getOrdersByUserId(userId);
 	}
 
 	@GetMapping(value = "getCompletedOrdersByUserId/{userId}")
 	public List<OrderEntity> getOrdersByOkStatus(@PathVariable String userId) {
-		return orderService.getOrdersByStatus(Long.parseLong(userId), OrderStatus.cancelled);
+		return orderService.getOrdersByStatus(userId, OrderStatus.cancelled);
 	}
 
 	@GetMapping(value = "getOpenOrdersByUserId/{userId}")
 	public List<OrderEntity> getOrdersByProgStatus(@PathVariable String userId) {
-		return orderService.getOrdersByStatus(Long.parseLong(userId), OrderStatus.inprogress);
+		return orderService.getOrdersByStatus(userId, OrderStatus.inprogress);
 	}
 	
 	

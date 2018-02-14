@@ -13,9 +13,9 @@ public interface OrderService {
 
 	public OrderEntity getOrdersByOrderId(Long orderId);
 
-	public List<OrderEntity> getOrdersByUserId(Long userId);
+	public List<OrderEntity> getOrdersByUserId(String userId);
 	
-	public List<OrderEntity> getOrdersByStatus(Long userId, OrderStatus status);
+	public List<OrderEntity> getOrdersByStatus(String userId, OrderStatus status);
 
 	public OrderEntity updateOrders(OrderEntity entity);
 
