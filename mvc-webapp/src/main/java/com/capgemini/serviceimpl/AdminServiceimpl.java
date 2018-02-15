@@ -42,13 +42,14 @@ public class AdminServiceimpl implements AdminService {
 	}
 
 	@Override
-	public String adminLogin(AdminLogin adminValidate) {
-
+	public boolean adminLogin(AdminLogin adminValidate) {
 		if (adminValidate.getUsername().equalsIgnoreCase("capgemini")
-				&& adminValidate.getPassword().equalsIgnoreCase("capgemini")) {
-			return "adminHome";
+				&& adminValidate.getPassword().equalsIgnoreCase("123456789")) {
+			return true;
+			//return "adminHome";
 		} else {
-			return "error";
+			return false;
+			//return "error";
 		}
 	}
 
@@ -65,7 +66,7 @@ public class AdminServiceimpl implements AdminService {
 
 	@Override
 	public String updateOrder(OrderEntity ord) {
-		restTemplate.postForObject(URLConstants.UPDATE_ORDER, ord, String.class);
+		restTemplate.put(URLConstants.UPDATE_ORDER, ord, String.class);
 		return "sucessfully update";
 	}
 
@@ -76,5 +77,16 @@ public class AdminServiceimpl implements AdminService {
 			return null;
 		else
 		    return click.getBody();
+	}
+
+	@Override
+	public void addOrder(OrderEntity order) {
+		restTemplate.postForObject("http://order-mgmt/orders", order, String.class);
+	}
+
+	@Override
+	public void deleteProduct(String productId) {
+		System.err.println("http://catalog-mgmt/delete/"+productId+"?id="+productId);
+		restTemplate.postForObject("http://catalog-mgmt/delete/"+productId+"?id="+productId, String.class, null);
 	}
 }

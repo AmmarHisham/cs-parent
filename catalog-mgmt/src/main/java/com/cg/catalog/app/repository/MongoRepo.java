@@ -21,4 +21,7 @@ public interface MongoRepo extends MongoRepository<ProductCatalog, String>{
 	@Query("{'productName': {$regex: ?0, $options: 'i'}})")
 	public List<ProductCatalog> findPartialProdByName(String name);
 
+	@Query(value="{giftCardId : ?0}", delete = true)
+	public Long deleteByGiftCardId(String id);
+
 }

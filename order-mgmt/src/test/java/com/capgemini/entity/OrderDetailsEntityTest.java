@@ -44,7 +44,7 @@ public class OrderDetailsEntityTest {
 	public void testOrderDetailsEntity_2()
 		throws Exception {
 		Long id = new Long(1L);
-		Long productId = new Long(1L);
+		String productId = "";
 		String productName = "";
 		int price = 1;
 		int quantity = 1;
@@ -70,7 +70,7 @@ public class OrderDetailsEntityTest {
 	@Test
 	public void testGetId_1()
 		throws Exception {
-		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), new Long(1L), "", 1, 1);
+		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), "", "", 1, 1);
 
 		Long result = fixture.getId();
 
@@ -95,7 +95,7 @@ public class OrderDetailsEntityTest {
 	@Test
 	public void testGetPrice_1()
 		throws Exception {
-		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), new Long(1L), "", 1, 1);
+		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), "", "", 1, 1);
 
 		int result = fixture.getPrice();
 
@@ -113,19 +113,19 @@ public class OrderDetailsEntityTest {
 	@Test
 	public void testGetProductId_1()
 		throws Exception {
-		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), new Long(1L), "", 1, 1);
+		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), "", "", 1, 1);
 
-		Long result = fixture.getProductId();
+		String result = fixture.getProductId();
 
 		// add additional test code here
 		assertNotNull(result);
 		assertEquals("1", result.toString());
-		assertEquals((byte) 1, result.byteValue());
-		assertEquals((short) 1, result.shortValue());
-		assertEquals(1, result.intValue());
-		assertEquals(1L, result.longValue());
-		assertEquals(1.0f, result.floatValue(), 1.0f);
-		assertEquals(1.0, result.doubleValue(), 1.0);
+		//assertEquals((byte) 1, result.byteValue());
+		//assertEquals((short) 1, result.shortValue());
+		//assertEquals(1, result.intValue());
+		//assertEquals(1L, result.longValue());
+		//assertEquals(1.0f, result.floatValue(), 1.0f);
+		//assertEquals(1.0, result.doubleValue(), 1.0);
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class OrderDetailsEntityTest {
 	@Test
 	public void testGetProductName_1()
 		throws Exception {
-		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), new Long(1L), "", 1, 1);
+		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), "", "", 1, 1);
 
 		String result = fixture.getProductName();
 
@@ -156,7 +156,7 @@ public class OrderDetailsEntityTest {
 	@Test
 	public void testGetQuantity_1()
 		throws Exception {
-		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), new Long(1L), "", 1, 1);
+		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), "", "", 1, 1);
 
 		int result = fixture.getQuantity();
 
@@ -174,7 +174,7 @@ public class OrderDetailsEntityTest {
 	@Test
 	public void testSetId_1()
 		throws Exception {
-		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), new Long(1L), "", 1, 1);
+		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), "", "", 1, 1);
 		Long id = new Long(1L);
 
 		fixture.setId(id);
@@ -192,7 +192,7 @@ public class OrderDetailsEntityTest {
 	@Test
 	public void testSetPrice_1()
 		throws Exception {
-		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), new Long(1L), "", 1, 1);
+		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), "", "", 1, 1);
 		int price = 1;
 
 		fixture.setPrice(price);
@@ -210,8 +210,8 @@ public class OrderDetailsEntityTest {
 	@Test
 	public void testSetProductId_1()
 		throws Exception {
-		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), new Long(1L), "", 1, 1);
-		Long productId = new Long(1L);
+		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), "", "", 1, 1);
+		String productId="";
 
 		fixture.setProductId(productId);
 
@@ -228,7 +228,7 @@ public class OrderDetailsEntityTest {
 	@Test
 	public void testSetProductName_1()
 		throws Exception {
-		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), new Long(1L), "", 1, 1);
+		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), "", "", 1, 1);
 		String productName = "";
 
 		fixture.setProductName(productName);
@@ -246,7 +246,7 @@ public class OrderDetailsEntityTest {
 	@Test
 	public void testSetQuantity_1()
 		throws Exception {
-		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), new Long(1L), "", 1, 1);
+		OrderDetailsEntity fixture = new OrderDetailsEntity(new Long(1L), "", "", 1, 1);
 		int quantity = 1;
 
 		fixture.setQuantity(quantity);

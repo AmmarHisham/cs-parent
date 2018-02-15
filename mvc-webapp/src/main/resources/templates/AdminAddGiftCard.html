@@ -55,15 +55,13 @@
 					</div>
 				</div>
 				<br/><br/>
-				<table width="400" align="center">
-				<tr><th>Gift Card ID</th><th>Gift Card Value</th></tr>
-				<tr th:each="giftcard : ${giftcards}">
-						<td align="left"><span th:utext="${giftcard.giftCardId}"></span></td>
-						<td align="left"><span th:utext="${giftcard.giftCardValue}"></span></td>
-						<td align="center"><a class="cart_quantity_delete" th:href="@{addgiftcardresponse(userId=${userId},price=${giftcard.giftCardValue})}"><img th:src="@{images\tick.png}" width="10" height="10" alt="Delete"></img></a></td>
-				</tr>
-				<tr></tr>
+				<form action="/adminaddGiftCardresponse" method="post">
+				<table width="400" >
+				<tr><th>Gift Card Id</th><th>:</th><th><input type="text" name="giftCardId" required="required"/></th></tr>
+				<tr><th>Gift Card Value</th><th>:</th><th><input type="number" name="giftCardValue" required="required"/></th></tr>
+				<tr><th></th><th></th><th><input type="submit" value="Add"/></th></tr>
 				</table>
+				</form>
 				
 			</div>
 		</div>

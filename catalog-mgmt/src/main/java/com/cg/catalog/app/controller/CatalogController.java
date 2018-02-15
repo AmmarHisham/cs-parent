@@ -88,13 +88,9 @@ public class CatalogController {
 		}
 	}
 	
-	@RequestMapping(value="addAllGifts",method=RequestMethod.POST)
-	public List<GiftCardCatalog> addAllGifts(@RequestBody List<GiftCardCatalog> pc){
-		for (GiftCardCatalog productCatalog : pc) {
-			 mongoRepoGifts.save(productCatalog);
-			
-		}
-		 return pc;
+	@RequestMapping(value="addGift",method=RequestMethod.POST)
+	public GiftCardCatalog addGift(@RequestBody GiftCardCatalog pc){
+		return mongoRepoGifts.save(pc);
 	}
 
 }

@@ -62,8 +62,8 @@ public class AdminServiceimplTest {
 		AdminLogin adminValidate = new AdminLogin();
 		adminValidate.setUsername("capgemini");
 		adminValidate.setPassword("capgemini");
-		String result = admin.adminLogin(adminValidate);
-		assertEquals("adminHome", result);
+		boolean result = admin.adminLogin(adminValidate);
+		assertEquals(true, result);
 	}
 
 	@Test
@@ -73,8 +73,8 @@ public class AdminServiceimplTest {
 		AdminLogin adminValidate = new AdminLogin();
 		adminValidate.setUsername("capgemini");
 		adminValidate.setPassword("dtp");
-		String result = fixture.adminLogin(adminValidate);
-		assertEquals("error", result);
+		boolean result = fixture.adminLogin(adminValidate);
+		assertEquals(false, result);
 	}
 
 	@Test
@@ -84,8 +84,8 @@ public class AdminServiceimplTest {
 		AdminLogin adminValidate = new AdminLogin();
 		adminValidate.setUsername("dtp");
 		adminValidate.setPassword("capgemini");
-		String result = fixture.adminLogin(adminValidate);
-		assertEquals("error", result);
+		boolean result = fixture.adminLogin(adminValidate);
+		assertEquals(false, result);
 	}
 
 	@Test
@@ -174,7 +174,7 @@ public class AdminServiceimplTest {
 		OrderDetailsEntity orderDetails=new OrderDetailsEntity();
 		orderDetails.setId(3L);
 		orderDetails.setPrice(800);
-		orderDetails.setProductId(4L);
+		orderDetails.setProductId("4L");
 		orderDetails.setProductName("Puma Shoes");
 		orderDetails.setQuantity(1);
 

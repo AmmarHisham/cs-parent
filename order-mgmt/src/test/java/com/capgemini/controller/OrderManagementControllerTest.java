@@ -81,7 +81,7 @@ public class OrderManagementControllerTest {
 	 */
 	@Test
 	public void testGetOrdersByOkStatus_1() throws Exception {
-		Mockito.when(orderService.getOrdersByStatus(Mockito.isA(Long.class), Mockito.isA(OrderStatus.class)))
+		Mockito.when(orderService.getOrdersByStatus(Mockito.isA(String.class), Mockito.isA(OrderStatus.class)))
 				.thenReturn(new ArrayList<>());
 
 		List<OrderEntity> result = orderManagementController.getOrdersByOkStatus("5465656");
@@ -114,7 +114,7 @@ public class OrderManagementControllerTest {
 	@Test
 	public void testGetOrdersByProgStatus_1() throws Exception {
 
-		Mockito.when(orderService.getOrdersByStatus(Mockito.isA(Long.class), Mockito.isA(OrderStatus.class)))
+		Mockito.when(orderService.getOrdersByStatus(Mockito.isA(String.class), Mockito.isA(OrderStatus.class)))
 				.thenReturn(new ArrayList<>());
 
 		List<OrderEntity> result = orderManagementController.getOrdersByProgStatus("465656");
@@ -131,9 +131,9 @@ public class OrderManagementControllerTest {
 	 */
 	@Test
 	public void testGetOrdersByUserId_1() throws Exception {
-		Mockito.when(orderService.getOrdersByUserId(Mockito.isA(Long.class))).thenReturn(new ArrayList<>());
+		Mockito.when(orderService.getOrdersByUserId(Mockito.isA(long.class))).thenReturn(new ArrayList<>());
 
-		List<OrderEntity> result = orderManagementController.getOrdersByUserId("586454");
+		List<OrderEntity> result = orderManagementController.getOrdersByUserId(586454L);
 
 		assertNotNull(result);
 	}

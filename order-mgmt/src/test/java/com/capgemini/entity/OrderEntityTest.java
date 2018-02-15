@@ -44,7 +44,7 @@ public class OrderEntityTest {
 	public void testOrderEntity_2()
 		throws Exception {
 		Long orderId = new Long(1L);
-		String userId = "";
+		Long userId = new Long(1L);
 		OrderStatus status = OrderStatus.cancelled;
 		List<OrderDetailsEntity> orderDetails = new LinkedList();
 
@@ -66,7 +66,7 @@ public class OrderEntityTest {
 	@Test
 	public void testGetOrderDetails_1()
 		throws Exception {
-		OrderEntity fixture = new OrderEntity(new Long(1L), "", OrderStatus.cancelled, new LinkedList());
+		OrderEntity fixture = new OrderEntity(new Long(1L), new Long(1L), OrderStatus.cancelled, new LinkedList());
 
 		List<OrderDetailsEntity> result = fixture.getOrderDetails();
 
@@ -85,7 +85,7 @@ public class OrderEntityTest {
 	@Test
 	public void testGetOrderId_1()
 		throws Exception {
-		OrderEntity fixture = new OrderEntity(new Long(1L), "", OrderStatus.cancelled, new LinkedList());
+		OrderEntity fixture = new OrderEntity(new Long(1L),new Long(1L), OrderStatus.cancelled, new LinkedList());
 
 		Long result = fixture.getOrderId();
 
@@ -110,7 +110,7 @@ public class OrderEntityTest {
 	@Test
 	public void testGetStatus_1()
 		throws Exception {
-		OrderEntity fixture = new OrderEntity(new Long(1L), "", OrderStatus.cancelled, new LinkedList());
+		OrderEntity fixture = new OrderEntity(new Long(1L),new Long(1L), OrderStatus.cancelled, new LinkedList());
 
 		OrderStatus result = fixture.getStatus();
 
@@ -131,9 +131,9 @@ public class OrderEntityTest {
 	@Test
 	public void testGetUserId_1()
 		throws Exception {
-		OrderEntity fixture = new OrderEntity(new Long(1L), "", OrderStatus.cancelled, new LinkedList());
+		OrderEntity fixture = new OrderEntity(new Long(1L), new Long(1L), OrderStatus.cancelled, new LinkedList());
 
-		String result = fixture.getUserId();
+		Long result = fixture.getUserId();
 
 		// add additional test code here
 		assertEquals("", result);
@@ -149,7 +149,7 @@ public class OrderEntityTest {
 	@Test
 	public void testSetOrderDetails_1()
 		throws Exception {
-		OrderEntity fixture = new OrderEntity(new Long(1L), "", OrderStatus.cancelled, new LinkedList());
+		OrderEntity fixture = new OrderEntity(new Long(1L), new Long(1L), OrderStatus.cancelled, new LinkedList());
 		List<OrderDetailsEntity> orderDetails = new LinkedList();
 
 		fixture.setOrderDetails(orderDetails);
@@ -167,7 +167,7 @@ public class OrderEntityTest {
 	@Test
 	public void testSetOrderId_1()
 		throws Exception {
-		OrderEntity fixture = new OrderEntity(new Long(1L), "", OrderStatus.cancelled, new LinkedList());
+		OrderEntity fixture = new OrderEntity(new Long(1L), new Long(1L), OrderStatus.cancelled, new LinkedList());
 		Long orderId = new Long(1L);
 
 		fixture.setOrderId(orderId);
@@ -185,7 +185,7 @@ public class OrderEntityTest {
 	@Test
 	public void testSetStatus_1()
 		throws Exception {
-		OrderEntity fixture = new OrderEntity(new Long(1L), "", OrderStatus.cancelled, new LinkedList());
+		OrderEntity fixture = new OrderEntity(new Long(1L), new Long(1L), OrderStatus.cancelled, new LinkedList());
 		OrderStatus status = OrderStatus.cancelled;
 
 		fixture.setStatus(status);
@@ -203,8 +203,8 @@ public class OrderEntityTest {
 	@Test
 	public void testSetUserId_1()
 		throws Exception {
-		OrderEntity fixture = new OrderEntity(new Long(1L), "", OrderStatus.cancelled, new LinkedList());
-		String userId = "";
+		OrderEntity fixture = new OrderEntity(new Long(1L), new Long(1L), OrderStatus.cancelled, new LinkedList());
+		Long userId = new Long(1L);
 
 		fixture.setUserId(userId);
 

@@ -78,12 +78,12 @@ public class OrderServiceImplTest {
 	 */
 	@Test
 	public void testGetOrdersByStatus_1() throws Exception {
-		Mockito.when(orderRepo.findByUserIdAndStatus(Mockito.isA(Long.class), Mockito.isA(OrderStatus.class)))
+		Mockito.when(orderRepo.findByUserIdAndStatus(Mockito.isA(String.class), Mockito.isA(OrderStatus.class)))
 				.thenReturn(new ArrayList<>());
 
 		OrderStatus status = OrderStatus.cancelled;
 
-		List<OrderEntity> result = orderServiceImpl.getOrdersByStatus(Long.parseLong("86846"), status);
+		List<OrderEntity> result = orderServiceImpl.getOrdersByStatus("86846", status);
 
 		assertNotNull(result);
 	}
@@ -99,7 +99,7 @@ public class OrderServiceImplTest {
 	public void testGetOrdersByUserId_1() throws Exception {
 		Mockito.when(orderRepo.findByUserId(Mockito.isA(Long.class))).thenReturn(new ArrayList<>());
 
-		List<OrderEntity> result = orderServiceImpl.getOrdersByUserId(Long.parseLong("755246"));
+		List<OrderEntity> result = orderServiceImpl.getOrdersByUserId(755246L);
 
 		assertNotNull(result);
 	}

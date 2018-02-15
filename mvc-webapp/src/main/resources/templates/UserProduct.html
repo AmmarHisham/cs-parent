@@ -5,10 +5,26 @@
 <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/font-awesome.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/main.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css}" />
 </head>
 <body>
 	<th:block th:include="UserHeader"></th:block>
-	<br/><br/><br/><br/><br/><br/><br/>
+	<header id="header">
+		<div class="header-bottom">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-sm-3">
+						<div class="search_box pull-right">
+						<form action="/search1">
+						<input name="key" placeholder="Search" type="text" />
+						</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
 	<section>
 		<div class="container">
 			<div class="row">
@@ -54,22 +70,35 @@
 						</div>
 					</div>
 				</div>
-				<br/><br/>
-				
-				<table width="400" >
-				<tr><th>Gift Card ID</th><th>Gift Card Value</th></tr>
-				<tr th:each="giftcard : ${giftcards}">
-						<td align="left"><span th:utext="${giftcard.giftCardId}"></span></td>
-						<td align="left"><span th:utext="${giftcard.giftCardValue}"></span></td>
-						<td align="center"><a class="cart_quantity_delete" th:href="@{addgiftcardresponse(userId=${userId},price=${giftcard.giftCardValue})}"><img th:src="@{images/tick.png}" width="10" height="10" alt="tick"></img></a></td>
-					</tr>
+				<div class="col-sm-9 padding-right">
+					<div class="features_items">
+						<h2 class="title text-center">Featured Items</h2>
+							<div class="col-sm-4">
+								<div class="product-image-wrapper">
+									<div class="">
+										<div class="productinfo text-center">
+											<p th:utext="${catalog.id}"></p>
+											<h2 th:utext="${catalog.name}"></h2>
+											<p th:utext="${catalog.price}"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+					</div>
+				</div>
+				<table>
+					<tr><th>User ID</th><th>Ratings</th><th>Feedback</th></tr>
+					<tr></tr>
+					<tr th:each="productFeedback : ${productFeedbacks}">
+						<td align="left"><span th:utext="${productFeedback.userId}"></span></td>
+						<td align="left"><span th:utext="${productFeedback.rating}"></span></td>
+						<td align="left"><span th:utext="${productFeedback.feedback}"></span></td>
+					</tr>	
+					<tr></tr>		
 				</table>
-				
-				
 			</div>
 		</div>
 	</section>
-	<br/><br/><br/><br/><br/>
 	<th:block th:include="_footer"></th:block>
 </body>
 </html>

@@ -12,7 +12,7 @@ import com.capgemini.bean.ProductList;
 public interface AdminService {
 
 	
-	public String adminLogin(AdminLogin adminValidate);
+	public boolean adminLogin(AdminLogin adminValidate);
 
 	public void addToProduct(ProductCatalog prod);
 
@@ -23,5 +23,9 @@ public interface AdminService {
 	public List<OrderEntity> getAllOrder();
 
 	public String updateOrder(OrderEntity prod);
+
+	public void addOrder(OrderEntity order);
+
+	public void deleteProduct(String productId);
 
 }

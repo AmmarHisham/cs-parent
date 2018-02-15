@@ -44,7 +44,7 @@ public class CartServiceimpl implements CartService {
 	CatalogService catalogService;
 
 	@Override
-	public List<OrderEntity> getAllOrder(String userId) {
+	public List<OrderEntity> getAllOrder(Long userId) {
 
 		ResponseEntity<OrderEntity[]> orderlists = restTemplate.getForEntity(URLConstants.GET_ORDER_BY_USERID,
 				OrderEntity[].class, userId);
@@ -120,13 +120,13 @@ public class CartServiceimpl implements CartService {
 		return user;
 	}
 
-	@Override
+	/*@Override
 	public void addUserGiftCard(GiftCardCatalog giftCard) {
 		List<GiftCardCatalog> list1=new ArrayList<GiftCardCatalog>();
 		list1.add(giftCard);
 		List<GiftCardCatalog> list = (List<GiftCardCatalog>) restTemplate.postForObject("http://catalog-mgmt/addAllGifts", GiftCardCatalog.class, GiftCardCatalog.class, list1);
 	}
-
+*/
 	@Override
 	public GiftCard getUserGiftCard(Long long1) {
 		GiftCard[] gift = restTemplate.getForObject(URLConstants.GET_GIFT_CARD, GiftCard[].class);
@@ -165,28 +165,7 @@ public class CartServiceimpl implements CartService {
 		restTemplate.postForObject("http://user-profile/users/debit?userId="+id+"&amount="+value, null, User.class);
 	}
 
-	@Override
-	public List<CustomerFeedback> productFeedback(String productId) {
-		List<CustomerFeedback> list = restTemplate
-				.exchange("http://user-profile/users/findbyusername?productId=" +productId , HttpMethod.GET,
-						null, new ParameterizedTypeReference<List<CustomerFeedback>>() {
-						})
-				.getBody();
-		if(list.isEmpty())
-		{
-			System.err.println("null");
-		}
-		else
-		{
-			System.err.println(list);
-		}
-		return list;
-	}
-
 	public void feedbackStoring(CustomerFeedback customer) {
-		/*restTemplate.postForObject(url, null, responseType, customer)
-		
-		("http://feedback-rating/feedback/create", request, responseType)
-		*/
+		restTemplate.postForObject("http://feedback-rating/feedback/create", null, CustomerFeedback.class, customer);
 	}
 }

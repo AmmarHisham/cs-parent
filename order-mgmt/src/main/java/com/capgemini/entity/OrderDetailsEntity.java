@@ -13,7 +13,7 @@ public class OrderDetailsEntity implements Serializable {
 	@Id
 	@GeneratedValue
 	private Long id;
-	private Long productId;
+	private String productId;
 	private String productName;
 	private int price;
 	private int quantity;
@@ -21,7 +21,7 @@ public class OrderDetailsEntity implements Serializable {
 	public OrderDetailsEntity() {
 	}
 
-	public OrderDetailsEntity(Long id, Long productId, String productName, int price, int quantity) {
+	public OrderDetailsEntity(Long id, String productId, String productName, int price, int quantity) {
 		this.id = id;
 		this.productId = productId;
 		this.productName = productName;
@@ -37,11 +37,11 @@ public class OrderDetailsEntity implements Serializable {
 		this.id = id;
 	}
 
-	public Long getProductId() {
+	public String getProductId() {
 		return productId;
 	}
 
-	public void setProductId(Long productId) {
+	public void setProductId(String productId) {
 		this.productId = productId;
 	}
 

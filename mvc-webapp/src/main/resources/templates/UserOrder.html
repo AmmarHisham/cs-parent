@@ -54,7 +54,7 @@
 					</div>
 				</div>
 				<br/><br/><br/><br/><br/>
-				<table width="800" height="200" align="center">
+				<table width="800" align="center">
 					<tr>
 						<th>Order Number</th>
 						<th>Status</th>
@@ -63,7 +63,7 @@
 						<th>Price</th>
 						<th>Quantity</th>
 					</tr>
-					
+					<tr><th></th></tr>
 					<tr th:each="ord : ${orderInfo}">
 					<tr th:each="orddetails : ${ord.orderDetails}">
 						<td align="left"><span th:utext="${ord.orderId}"></span></td>

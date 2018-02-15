@@ -18,7 +18,7 @@ public class OrderEntity implements Serializable {
 	@GeneratedValue
 	private Long orderId;
 
-	private String userId;
+	private Long userId;
 
 	private OrderStatus status;
 
@@ -29,7 +29,7 @@ public class OrderEntity implements Serializable {
 	public OrderEntity() {
 	}
 
-	public OrderEntity(Long orderId, String userId, OrderStatus status, List<OrderDetailsEntity> orderDetails) {
+	public OrderEntity(Long orderId, Long userId, OrderStatus status, List<OrderDetailsEntity> orderDetails) {
 		this.orderId = orderId;
 		this.userId = userId;
 		this.status = status;
@@ -44,11 +44,11 @@ public class OrderEntity implements Serializable {
 		this.orderId = orderId;
 	}
 
-	public String getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 

@@ -17,20 +17,13 @@ public interface CartService {
 	public UserCartModel getCardDetails(Long userId);
 	public void emptyCart(Long userId);
 
-	public List<OrderEntity> getAllOrder(String userId);
-	/*public ProductList searchProduct(String key);*/
+	public List<OrderEntity> getAllOrder(Long userId);
 	String getProductPrice(String productId);
 	UserCartModel setProductPrice(UserCartModel user);
-	//public void debitGiftCard(User user);
-	//void creditGiftCard(String firstName, int balance);
-	public void addUserGiftCard(GiftCardCatalog giftCard);
+	//public void addUserGiftCard(GiftCardCatalog giftCard);
 	public GiftCard getUserGiftCard(Long long1);
 	public List<GiftCardCatalog> getAllGiftCards();
 	public void creditGiftCard(Long id, String value);
 	public User getUserInfo(Long userId);
 	public void debitGiftCard(Long id, String value);
-	List<CustomerFeedback> productFeedback(String productId);
-	
-	
-	
 }

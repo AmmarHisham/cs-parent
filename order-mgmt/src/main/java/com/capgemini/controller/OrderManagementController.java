@@ -49,7 +49,7 @@ public class OrderManagementController {
 	}
 
 	@GetMapping(value = "byuserid", params = { "userid" })
-	public List<OrderEntity> getOrdersByUserId(@RequestParam(value = "userid", required = true) String userId) {
+	public List<OrderEntity> getOrdersByUserId(@RequestParam(value = "userid", required = true) Long userId) {
 		return orderService.getOrdersByUserId(userId);
 	}
 

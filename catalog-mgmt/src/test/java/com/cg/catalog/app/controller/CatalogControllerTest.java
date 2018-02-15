@@ -42,9 +42,9 @@ public class CatalogControllerTest {
 		CatalogController fixture = new CatalogController();
 		fixture.mongoRepoGifts = EasyMock.createNiceMock(MongoRepoGifts.class);
 		fixture.mongoRepo = EasyMock.createNiceMock(MongoRepo.class);
-		List<GiftCardCatalog> pc = new ArrayList<GiftCardCatalog>();
+		GiftCardCatalog pc = new GiftCardCatalog();
 
-		fixture.addAllGifts(pc);
+		fixture.addGift(pc);
 
 		// add additional test code here
 	}
@@ -73,9 +73,9 @@ public class CatalogControllerTest {
 		CatalogController fixture = new CatalogController();
 		fixture.mongoRepoGifts = EasyMock.createNiceMock(MongoRepoGifts.class);
 		fixture.mongoRepo = EasyMock.createNiceMock(MongoRepo.class);
-		List<GiftCardCatalog> pc = new ArrayList<GiftCardCatalog>();
+		GiftCardCatalog pc = new GiftCardCatalog();
 
-		fixture.addAllGifts(pc);
+		fixture.addGift(pc);
 
 		// add additional test code here
 	}
