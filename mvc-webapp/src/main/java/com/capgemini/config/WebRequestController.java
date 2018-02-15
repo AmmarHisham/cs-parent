@@ -28,7 +28,7 @@ import com.capgemini.serviceimpl.CartServiceimpl;
 import com.capgemini.serviceimpl.CatalogServiceImpl;
 import com.capgemini.serviceimpl.UserCartModel;
 import com.cg.catalog.GiftCardCatalog;
-import com.cg.feedback.CustomerFeedback;
+import com.cg.feedback.CustomerFeedback
 import com.cg.userprofile.User;
 
 @Controller
@@ -252,7 +252,7 @@ public class WebRequestController {
 			cartServiceimpl.deleteFromCart(pId, userId);
 			cartServiceimpl.debitGiftCard(userId, price);
 			OrderDetailsEntity orderDetailsEntity = new OrderDetailsEntity();
-			orderDetailsEntity.setId(userId);
+			
 			orderDetailsEntity.setQuantity(1);
 			orderDetailsEntity.setProductId(pId);
 			orderDetailsEntity.setPrice(Integer.parseInt(price));
