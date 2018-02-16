@@ -71,6 +71,14 @@ public class CatalogController {
 		}
 		return ret;
 	}
+	@RequestMapping(value="deleteGiftCard/{id}",method=RequestMethod.POST)
+	public String deleteGiftCard(@PathVariable("id") String id){
+		String ret = "Gift Card deleted successfully";
+		if(deleteCard(id) == 0) {
+			ret = "GiftCard not found";
+		}
+		return ret;
+	}
 	
 	@GetMapping("getGiftCards")
 	public List<GiftCardCatalog> getAllGifts() {
@@ -79,6 +87,10 @@ public class CatalogController {
 	
 	public Long deleteRecord(String id) {
 		return mongoRepo.deleteById(id);
+	}
+	
+	public Long deleteCard(String id) {
+		return mongoRepoGifts.deleteById(id);
 	}
 
 	@RequestMapping(value="addAll",method=RequestMethod.POST)
