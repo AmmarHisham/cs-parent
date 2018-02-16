@@ -9,7 +9,7 @@ import com.capgemini.entity.OrderStatus;
 
 public interface OrderRepo extends JpaRepository<OrderEntity, Long> {
 
-	public List<OrderEntity> findByUserIdAndStatus(String userId, OrderStatus status);
+	public List<OrderEntity> findByUserIdAndStatus(Long userId, OrderStatus status);
 	
 	public OrderEntity findByOrderId(Long orderId);
 	

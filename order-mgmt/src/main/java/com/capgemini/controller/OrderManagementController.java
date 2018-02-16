@@ -54,12 +54,12 @@ public class OrderManagementController {
 	}
 
 	@GetMapping(value = "getCompletedOrdersByUserId/{userId}")
-	public List<OrderEntity> getOrdersByOkStatus(@PathVariable String userId) {
+	public List<OrderEntity> getOrdersByOkStatus(@PathVariable Long userId) {
 		return orderService.getOrdersByStatus(userId, OrderStatus.cancelled);
 	}
 
 	@GetMapping(value = "getOpenOrdersByUserId/{userId}")
-	public List<OrderEntity> getOrdersByProgStatus(@PathVariable String userId) {
+	public List<OrderEntity> getOrdersByProgStatus(@PathVariable Long userId) {
 		return orderService.getOrdersByStatus(userId, OrderStatus.inprogress);
 	}
 	

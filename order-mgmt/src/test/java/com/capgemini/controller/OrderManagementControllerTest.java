@@ -81,10 +81,10 @@ public class OrderManagementControllerTest {
 	 */
 	@Test
 	public void testGetOrdersByOkStatus_1() throws Exception {
-		Mockito.when(orderService.getOrdersByStatus(Mockito.isA(String.class), Mockito.isA(OrderStatus.class)))
+		Mockito.when(orderService.getOrdersByStatus(Mockito.isA(Long.class), Mockito.isA(OrderStatus.class)))
 				.thenReturn(new ArrayList<>());
 
-		List<OrderEntity> result = orderManagementController.getOrdersByOkStatus("5465656");
+		List<OrderEntity> result = orderManagementController.getOrdersByOkStatus(Long.parseLong("5465656"));
 
 		assertNotNull(result);
 	}
@@ -114,10 +114,10 @@ public class OrderManagementControllerTest {
 	@Test
 	public void testGetOrdersByProgStatus_1() throws Exception {
 
-		Mockito.when(orderService.getOrdersByStatus(Mockito.isA(String.class), Mockito.isA(OrderStatus.class)))
+		Mockito.when(orderService.getOrdersByStatus(Mockito.isA(Long.class), Mockito.isA(OrderStatus.class)))
 				.thenReturn(new ArrayList<>());
 
-		List<OrderEntity> result = orderManagementController.getOrdersByProgStatus("465656");
+		List<OrderEntity> result = orderManagementController.getOrdersByProgStatus(Long.parseLong("465656"));
 
 		assertNotNull(result);
 	}
